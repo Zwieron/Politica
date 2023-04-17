@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     public int supportModifier;
     public float worldview;
     public float economicView;
+    CharacterBuff characterBuff;
 
     // Start is called before the first frame update
     void Start()

@@ -6,7 +6,8 @@ public class Party : MonoBehaviour
 {
     public List<Character> partyMembers = new List<Character>();
     public int supportPercentage;
-    public int funds;
+    Player owner;
+    int funds;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,15 @@ public class Party : MonoBehaviour
             tempSupport += character.supportModifier;
         }
         supportPercentage = tempSupport;
+    }
+
+    public void ChangeFunds(int amount)
+    {
+        funds =+ amount;
+    }
+    public void setOwner(Player player)
+    {
+        this.owner = player;
     }
 
 }
