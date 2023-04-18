@@ -36,9 +36,4 @@ public class PrefabInstantiator : MonoBehaviour
             Instantiate(prefab);
         }
     }
-    void randomizePrefabFromList()
-    {
-        int i = Random.Range(0, prefabList.Count);
-        Instantiate(prefabList[i]);
-    }
 }

@@ -76,11 +76,6 @@ public class Game : MonoBehaviour
         hands.Add(player.GetComponent<Hand>());
         playersObjs.Add(player);
     }
-    void createPlayer()
-    {
-        GetComponent<PrefabInstantiator>().instantiatePrefab(); //TODO: coś wykminić
-    }
-
     // Update is called once per frame
     void Update()
     {
