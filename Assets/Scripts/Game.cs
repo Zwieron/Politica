@@ -12,10 +12,12 @@ public class Game : MonoBehaviour
     List<Party>  parties = new List<Party>();
     public Sprite cardSprite;
     List<Hand> hands = new List<Hand>();
+    InterfaceElements interfaceManager;
     
     // Start is called before the first frame update
     void Start()
     {
+        interfaceManager = GetComponent<InterfaceElements>();
         for(int i = 0; i < playerNumber; i++)
         {
             createPlayer("Player "+(i+1).ToString());
@@ -23,6 +25,7 @@ public class Game : MonoBehaviour
             {
                 createCard(playersObjs[i].GetComponent<Hand>());
             }
+            playersObjs[i].GetComponent<Player>().getHandVisual().Refresh();
             playersObjs[i].GetComponent<Player>().getHandVisual().SetSortHand();
         }
     }
@@ -62,6 +65,8 @@ public class Game : MonoBehaviour
         player.AddComponent<Hand>();
         player.AddComponent<HandVisual>();
         player.GetComponent<HandVisual>().SetHand(player.GetComponent<Hand>());
+        player.GetComponent<Hand>().SetHandVisual(player.GetComponent<HandVisual>());
+        player.GetComponent<HandVisual>().SetInterfaceElements(interfaceManager);
         player.GetComponent<Player>().setHandVisual(player.GetComponent<HandVisual>());
         player.AddComponent<Party>();
         player.GetComponent<Party>().setOwner(player.GetComponent<Player>());

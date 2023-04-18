@@ -8,6 +8,7 @@ public class CardInteraction : Button
     public float hoverScale = 50;
     public float clickScale = 80;
     public float defaultRotation = 0;
+    HandVisual handVisual;
     public Vector3 defaultPosition;
     public UIGraphics UIGraphics;
     float deltaTime;
@@ -81,7 +82,7 @@ public class CardInteraction : Button
             UIGraphics.ResizeInTime(defaultScale, 0.2f);
             GetComponent<Card>().Sort();
             toDefaultLocationRotationInTime();
-            GetComponent<Card>().GetHand().SetBlockade(false, GetComponent<Card>());
+            handVisual.SetBlockade(false, this);
         }
     }
     public override void onHover()
@@ -107,7 +108,7 @@ public class CardInteraction : Button
         isDragging=false;
         Debug.Log("Card Odklikd");
         GetComponent<Card>().GetSprite().sortingOrder=30;
-        GetComponent<Card>().GetHand().SetBlockade(true, GetComponent<Card>());
+        handVisual.SetBlockade(true, this);
        UIGraphics.TransformInTime(new Vector3(Screen.width/2,Screen.height/2,0),0.1f);
         UIGraphics.RotateInTime(0,.1f);
         UIGraphics.ResizeInTime(clickScale,.3f);
@@ -159,6 +160,10 @@ public class CardInteraction : Button
     public void setDragging(bool boole)
     {
         isDragging = boole;
+    }
+    public void setHandVisual(HandVisual handVisual)
+    {
+        this.handVisual = handVisual;
     }
 
 

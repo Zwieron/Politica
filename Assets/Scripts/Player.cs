@@ -13,16 +13,11 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(user==false)
-        {
-            hand.SetBlockade(true);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void setParty(Party party)
