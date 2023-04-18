@@ -7,6 +7,7 @@ public abstract class UIElement : MonoBehaviour
 {
     public bool active = false;
     protected bool isMouseOver = false;
+    protected bool blocked = false;
     protected SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,10 @@ public abstract class UIElement : MonoBehaviour
         {
             return false;
         }
+    }
+        public void setBlockade(bool blockade)
+    {
+        blocked=blockade;
     }
         public abstract void checkState();
      public abstract void onClick();
@@ -61,15 +66,6 @@ public override void checkState()
             onHover();
             isMouseOver = true;
         }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            onClick();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            onMouseUp();
-        }
     }
     else
     {
@@ -77,11 +73,6 @@ public override void checkState()
         {
             onMouseExit();
             isMouseOver = false;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            onUnclick();
         }
     }
 }

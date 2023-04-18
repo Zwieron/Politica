@@ -89,13 +89,9 @@ public class UIGraphics : MonoBehaviour
             yield return null;
         }
     }
-    void KeepSizeWhile(bool condition)
+    public void setSpriteRenderer(SpriteRenderer spriteRenderer)
     {
-        while(condition)
-        {
-            //Keep the size the same
-            spriteRenderer.transform.localScale = new Vector3(1, 1, 1);
-        }
+        this.spriteRenderer = spriteRenderer;
     }
 }
 

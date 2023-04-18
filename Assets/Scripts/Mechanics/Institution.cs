@@ -59,7 +59,7 @@ public class Ministry : Institution
     {
         
     }
-        override public void BlockadeAction()
+    override public void BlockadeAction()
     {}
     override public void AttackAction()
     {}
