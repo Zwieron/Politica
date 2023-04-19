@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     public int playerNumber = 2;
     public Vector2 player1Pos;
     public Vector2 player2Pos;
+    PrefabInstantiator startingInstantiator;
     List<GameObject> playersObjs = new List<GameObject>();
     List<Player> players = new List<Player>();
     List<Party>  parties = new List<Party>();
@@ -25,8 +26,8 @@ public class Game : MonoBehaviour
             {
                 createCard(playersObjs[i].GetComponent<Hand>());
             }
-            playersObjs[i].GetComponent<Player>().getHandVisual().Refresh();
-            playersObjs[i].GetComponent<Player>().getHandVisual().SetSortHand();
+            playersObjs[i].GetComponent<Player>().getHandVisual().refresh();
+            playersObjs[i].GetComponent<Player>().getHandVisual().setSortHand();
         }
     }
 
@@ -35,22 +36,22 @@ public class Game : MonoBehaviour
         GameObject card = new GameObject("Card");
             card.AddComponent<Card>();
             card.GetComponent<Card>().SetCardState(CardState.InHand);
-            hand.AddCard(card.GetComponent<Card>());
-            card.GetComponent<Card>().SetSprite(cardSprite);
-            card.GetComponent<Card>().GetSprite().sortingOrder = hand.GetSize() + 1;
-            Debug.Log(hand.GetCards().Count);
+            hand.addCard(card.GetComponent<Card>());
+            card.GetComponent<CardInteraction>().SetSprite(cardSprite);
+            card.GetComponent<CardInteraction>().GetSprite().sortingOrder = hand.getSize() + 1;
+            Debug.Log(hand.getCards().Count);
             
-            if(players.IndexOf(hand.GetOwner())==1){
+            if(players.IndexOf(hand.getOwner())==1){
 
-                hand.GetOwner().getHandVisual().setHandPosition(player2Pos);
-                                hand.GetOwner().getHandVisual().RenderHand(false);
+                hand.getOwner().getHandVisual().setHandPosition(player2Pos);
+                                hand.getOwner().getHandVisual().renderHand(false);
             }
             else{
 
-                hand.GetOwner().getHandVisual().setHandPosition(player1Pos);
-                                hand.GetOwner().getHandVisual().RenderHand(false);
+                hand.getOwner().getHandVisual().setHandPosition(player1Pos);
+                                hand.getOwner().getHandVisual().renderHand(false);
             }
-             card.GetComponent<Card>().GetCardInteraction().toDefaultLocationRotationScale();
+             card.GetComponent<Card>().GetCardInteraction().toDefaultLocRotScale();
             Debug.Log("gruba akcja ");
     }
 
@@ -64,14 +65,14 @@ public class Game : MonoBehaviour
         player.AddComponent<Player>();
         player.AddComponent<Hand>();
         player.AddComponent<HandVisual>();
-        player.GetComponent<HandVisual>().SetHand(player.GetComponent<Hand>());
-        player.GetComponent<Hand>().SetHandVisual(player.GetComponent<HandVisual>());
-        player.GetComponent<HandVisual>().SetInterfaceElements(interfaceManager);
+        player.GetComponent<HandVisual>().setHand(player.GetComponent<Hand>());
+        player.GetComponent<Hand>().setHandVisual(player.GetComponent<HandVisual>());
+        player.GetComponent<HandVisual>().setInterfaceElements(interfaceManager);
         player.GetComponent<Player>().setHandVisual(player.GetComponent<HandVisual>());
         player.AddComponent<Party>();
         player.GetComponent<Party>().setOwner(player.GetComponent<Player>());
         addParty(player.GetComponent<Party>());
-        player.GetComponent<Hand>().SetOwner(player.GetComponent<Player>());
+        player.GetComponent<Hand>().setOwner(player.GetComponent<Player>());
         players.Add(player.GetComponent<Player>());
         hands.Add(player.GetComponent<Hand>());
         playersObjs.Add(player);
@@ -92,5 +93,9 @@ public class Game : MonoBehaviour
     public List<Player> GetPlayers()
     {
         return players;
+    }
+    public void setPrefabInstantiator(PrefabInstantiator instantiator)
+    {
+        this.startingInstantiator = instantiator;
     }
 }

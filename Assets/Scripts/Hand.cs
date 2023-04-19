@@ -19,35 +19,35 @@ public class Hand : MonoBehaviour
     void Update()
     {
     }
-    public void AddCard(Card card)
+    public void addCard(Card card)
     {
         cards.Add(card);
         card.SetHand(this);
     }
-    public void RemoveCard(Card card)
+    public void removeCard(Card card)
     {
         cards.Remove(card);
         card.SetHand(null);
     }
-    public List<Card> GetCards()
+    public List<Card> getCards()
     {
         return cards;
     }
-    public int GetSize()
+    public int getSize()
     {
         return cards.Count;
     }
-    public  void SetOwner(Player owner)
+    public  void setOwner(Player owner)
     {
         this.owner = owner;
     
     }
     
-    public Player GetOwner()
+    public Player getOwner()
     {
         return owner;
     }
-    public void SetHandVisual(HandVisual handVisual)
+    public void setHandVisual(HandVisual handVisual)
     {
         this.handVisual = handVisual;
     }

@@ -21,20 +21,20 @@ public class HandVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BlockHand(blockade);
+        blockHand(blockade);
     }
-    public void Refresh()
+    public void refresh()
     {
         cardInteractions.Clear();
-        foreach(Card c in hand.GetCards())
+        foreach(Card c in hand.getCards())
         {
             cardInteractions.Add(c.GetCardInteraction());
             c.GetCardInteraction().setHandVisual(this);
         }
     }
-    public void SetSortHand()
+    public void setSortHand()
     {
-        foreach(Card card in hand.GetCards())
+        foreach(CardInteraction card in cardInteractions)
         {
             card.SetDefaultOrder(card.GetSprite().sortingOrder);
         }
@@ -44,31 +44,31 @@ public class HandVisual : MonoBehaviour
     {
         this.rotationOffset = rotationOffset;
     }
-    public void SetHand(Hand hand)
+    public void setHand(Hand hand)
     {
         this.hand = hand;
     }
-    public Hand GetHand()
+    public Hand getHand()
     {
         return hand;
     }
-    public void RenderHand(bool y)
+    public void renderHand(bool y)
     {int i = 0;
         if(!y)
         {
-        foreach(Card c in hand.GetCards())
+        foreach(Card c in hand.getCards())
         {
-            c.GetCardInteraction().SetDefaultPosition(new Vector3(handPosition.x + i * Offset,handPosition.y,0));
-            c.GetCardInteraction().SetDefaultRotation(-rotationOffset);
+            c.GetCardInteraction().setDefaultPosition(new Vector3(handPosition.x + i * Offset,handPosition.y,0));
+            c.GetCardInteraction().setDefaultRotation(-rotationOffset);
             i++;
         }
         }
         else
         {
-        foreach(Card c in hand.GetCards())
+        foreach(Card c in hand.getCards())
         {
-            c.GetCardInteraction().SetDefaultPosition(new Vector3(handPosition.x ,handPosition.y + i * Offset,0));
-            c.GetCardInteraction().SetDefaultRotation(-rotationOffset);
+            c.GetCardInteraction().setDefaultPosition(new Vector3(handPosition.x ,handPosition.y + i * Offset,0));
+            c.GetCardInteraction().setDefaultRotation(-rotationOffset);
             i++;
         }
         }
@@ -77,7 +77,7 @@ public class HandVisual : MonoBehaviour
     {
         this.handPosition = handPosition;
     }
-     public void BlockHand(bool block)
+     public void blockHand(bool block)
     {
         foreach (CardInteraction card in cardInteractions)
         {
@@ -91,20 +91,20 @@ public class HandVisual : MonoBehaviour
             }
         }
     }
-        public void SetBlockade(bool blockade, CardInteraction selectedCard)
+        public void setBlockade(bool blockade, CardInteraction selectedCard)
     {
         this.blockade = blockade;
         this.selectedCard = selectedCard;
-        this.interfaceElements.SetBlockade(blockade, this);
+        this.interfaceElements.setBlockade(blockade, this);
     }
-        public void SetBlockade(bool blockade)
+        public void setBlockade(bool blockade)
     {
         this.blockade = blockade;
         this.selectedCard = null;
     }
-    public void SetInterfaceElements(InterfaceElements interfaceElements)
+    public void setInterfaceElements(InterfaceElements interfaceElements)
     {
         this.interfaceElements = interfaceElements;
-        interfaceElements.AddHand(this);
+        interfaceElements.addHand(this);
     }
 }

@@ -17,33 +17,33 @@ public class InterfaceElements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BlockHands(blockade);
+        blockHands(blockade);
     }
 
-    public void BlockHands(bool block)
+    public void blockHands(bool block)
     {
         foreach (HandVisual hand in hands)
         {
             if(block==false)
             {
-                hand.SetBlockade(block);
+                hand.setBlockade(block);
             }
             else if(hand != selectedHand)
             {
-                hand.SetBlockade(block);
+                hand.setBlockade(block);
             }
         }
     }
-        public void SetBlockade(bool blockade, HandVisual selectedHand)
+        public void setBlockade(bool blockade, HandVisual selectedHand)
     {
         this.blockade = blockade;
         this.selectedHand = selectedHand;
     }
-        public void SetBlockade(bool blockade)
+        public void setBlockade(bool blockade)
     {
         this.blockade = blockade;
     }
-    public void AddHand(HandVisual hand)
+    public void addHand(HandVisual hand)
     {
         hands.Add(hand);
     }

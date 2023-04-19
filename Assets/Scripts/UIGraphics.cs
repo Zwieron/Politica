@@ -19,24 +19,16 @@ public class UIGraphics : MonoBehaviour
     void Update()
     {   
     }
-    public UIGraphics(SpriteRenderer spriteRenderer)
-    {
-        this.spriteRenderer = spriteRenderer;
-    }
-    public void Resize(float ratio)
-    {
-        spriteRenderer.transform.localScale = new Vector3(ratio, ratio, ratio);
-    }
-    public void ResizeInTime(float ratio,  float seconds)
+    public void resizeInTime(float ratio,  float seconds)
     {
         StartCoroutine(ResizeInTimeCoroutine(ratio, seconds));
     }
-    public void TransformInTime(Vector3 position, float seconds)
+    public void transformInTime(Vector3 position, float seconds)
     {
         StartCoroutine(TransformInTimeCoroutine(position, seconds));
     }
 
-    public void RotateInTime(float degrees, float seconds)
+    public void rotateInTime(float degrees, float seconds)
     {
         StartCoroutine(RotateInTimeCoroutine(degrees, seconds));
     }

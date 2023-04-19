@@ -29,7 +29,7 @@ public class PrefabInstantiator : MonoBehaviour
     {
         Instantiate(prefab, position, Quaternion.identity);
     }
-    void instantiatePrefabMultipleTimes(int i)
+    void instantiateManyPrefabs(int i)
     {
         for(int j = 0; j < i; j++)
         {
