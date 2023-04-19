@@ -24,7 +24,7 @@ public class Party : MonoBehaviour
         int tempSupport = 0;
         foreach(Character character in partyMembers)
         {
-            tempSupport += character.supportModifier;
+            tempSupport += character.getSupportModifier();
         }
         supportPercentage = tempSupport;
     }

@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 6093439608478736569}
   - component: {fileID: 8768077601576565206}
   - component: {fileID: 4628200766942900933}
-  - component: {fileID: 916074056218271177}
+  - component: {fileID: 8057263654830335681}
   - component: {fileID: 3573667276291387352}
   m_Layer: 0
-  m_Name: CharacterCard
+  m_Name: JeremiDuckson
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4282c1926410a4a8b985abf207c19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderSize: {x: 3.6, y: 5}
 --- !u!212 &6093439608478736569
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -140,7 +139,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.6, y: 5}
   m_EdgeRadius: 0
---- !u!114 &916074056218271177
+--- !u!114 &8057263654830335681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,12 +148,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6837682787087441068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6aeb2b3052179a40a9baf31de09e8a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 33aeeb00a036ea447a0f760d1142bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: 
-  cardDescription: 
-  cardCost: 0
+  characterName: Jeremi Duckson
+  worldview: 1
+  economicView: 3
+  characterBuff: {fileID: 0}
 --- !u!114 &3573667276291387352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,9 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  UIGraphics: {fileID: 8768077601576565206}
+  colliderSize: {x: 0, y: 0}
   defaultScale: 30
   hoverScale: 50
   clickScale: 80
   defaultRotation: -0
   defaultPosition: {x: 420, y: 75, z: 0}
-  UIGraphics: {fileID: 8768077601576565206}

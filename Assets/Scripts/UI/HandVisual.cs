@@ -32,6 +32,10 @@ public class HandVisual : MonoBehaviour
             c.GetCardInteraction().setHandVisual(this);
         }
         calculatePositionInCenter();
+        foreach(CardInteraction card in cardInteractions)
+        {
+            card.toDefaultLocRotScale();
+        }
     }
     public void setSortHand()
     {

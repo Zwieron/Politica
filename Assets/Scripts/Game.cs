@@ -8,13 +8,14 @@ public class Game : MonoBehaviour
     GameInfo gameInfo;
     InterfaceElements interfaceManager;
     PrefabModifier prefabModifier;
-    GamePhase currentPhase;
-
+    GamePhases gamePhases;
+    Table table;
     
     
     // Start is called before the first frame update
     void Start()
     {
+        table = GetComponent<Table>();
         prefabModifier = GetComponent<PrefabModifier>();
         gameInfo = GetComponent<GameInfo>();
         instantiator = GetComponent<PrefabInstantiator>();
@@ -54,5 +55,17 @@ public class Game : MonoBehaviour
     public InterfaceElements getInterfaceManager()
     {
         return interfaceManager;
+    }
+    public void setGamePhase(GamePhases phase)
+    {
+        gamePhases = phase;
+    }
+    public GamePhases getGamePhase()
+    {
+        return gamePhases;
+    }
+    public Table getTable()
+    {
+        return table;
     }
 }

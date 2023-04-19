@@ -6,9 +6,9 @@ public class Player : MonoBehaviour
 {
     int playerNumber;
     Party party;
-    GameObject ggameObject;
-    Hand hand;
-    HandVisual handVisual;
+    protected GameObject ggameObject;
+    protected Hand hand;
+    protected HandVisual handVisual;
     public bool user;
 
     // Start is called before the first frame update

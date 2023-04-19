@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BiddingPhase : GamePhase
 {
-
+    public int cardsDrawn;
     List<Card> cards = new List<Card>();
     List<Party> parties = new List<Party>();
     List<Party> winners = new List<Party>();
@@ -12,10 +12,7 @@ public class BiddingPhase : GamePhase
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
-        {
-            cards.Add(deck.drawCard());
-        }
+        showCards();
         for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
         {
             biddings.Add(new Bidding(game.getGameInfo().getParties()[i], cards));
@@ -47,7 +44,17 @@ public class BiddingPhase : GamePhase
             winners.Add(CheckWhichPartyWinsBiddingOnACard(card));
         }
     }
+        void showCards()
+    {
+        game.getTable().drawCards(deck,cardsDrawn);
+        foreach(Card card in game.getTable().getHand().getCards())
+        {
+            cards.Add(card);
+        }
+        game.getTable().getHandVisual().refresh();
+    }
 }
+
 public class Bidding
 {
     Party party;
@@ -74,7 +81,7 @@ public class Bidding
     public int GetCardsBid(Card card)
     {
         return cardBids[card];
-    
     }
+
 
 }

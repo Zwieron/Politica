@@ -5,13 +5,13 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public string characterName;
-    public Party characterParty;
-    public List<Institution> characterInstitutions;
-    public int characterLevel;
-    public int supportModifier;
-    public float worldview;
-    public float economicView;
-    CharacterBuff characterBuff;
+    Party characterParty;
+    Institution characterInstitution;
+    int characterLevel;
+    int supportModifier;
+    public Worldviews worldview;
+    public EconomicViews economicView;
+    public CharacterBuff characterBuff;
 
     // Start is called before the first frame update
     void Start()
@@ -24,4 +24,25 @@ public class Character : MonoBehaviour
     {
         
     }
+
+    public int getSupportModifier()
+    {
+        return supportModifier;
+    }
+     public void setParty(Party party)
+     {
+        characterParty = party;
+     }
+     public void setInstitution(Institution institution)
+     {
+        characterInstitution = institution;
+     }
+     public void setLevel(int level)
+     {
+        characterLevel = level;
+     }
+     public void changeLevel(int change)
+     {
+        characterLevel += change;
+     }
 }
