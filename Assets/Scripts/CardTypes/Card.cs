@@ -17,6 +17,9 @@ public class Card : MonoBehaviour
         else
         cardObject = gameObject;
         cardObject.tag = "Card";
+        if(cardInteraction==null)
+        cardInteraction = cardObject.GetComponent<CardInteraction>();
+        if(cardInteraction==null)
         cardInteraction = cardObject.AddComponent<CardInteraction>();
         Debug.Log(cardObject.GetInstanceID());
     }

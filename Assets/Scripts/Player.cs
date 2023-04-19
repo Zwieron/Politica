@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    int playerNumber;
     Party party;
     GameObject ggameObject;
     Hand hand;
@@ -51,5 +52,9 @@ public class Player : MonoBehaviour
     public GameObject getGameObject()
     {
         return this.ggameObject;
+    }
+    public void setPlayerNumber(int playerNumber)
+    {
+        this.playerNumber=playerNumber;
     }
 }

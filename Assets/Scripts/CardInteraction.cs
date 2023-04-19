@@ -101,7 +101,7 @@ public class CardInteraction : Button
         Debug.Log("Card Odklikd");
         GetSprite().sortingOrder=30;
         handVisual.setBlockade(true, this);
-       UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/2,0),0.1f);
+       UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/3,0),0.1f);
         UIGraphics.rotateInTime(0,.1f);
         UIGraphics.resizeInTime(clickScale,.3f);
         deltaTime=0;

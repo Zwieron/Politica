@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PrefabInstantiator : MonoBehaviour
 {
+    GameObject lastPrefab;
     public Transform prefab;
     public List<Transform> prefabList;
     // Start is called before the first frame update
@@ -19,15 +20,16 @@ public class PrefabInstantiator : MonoBehaviour
     }
     public void instantiatePrefab()
     {
-        Instantiate(prefab);
+        lastPrefab = Instantiate(prefab).gameObject;
+        //  Instantiate(prefab).gameObject;
     }
     public void instantiatePrefab(Transform prefab)
     {
-        Instantiate(prefab);
+        lastPrefab =Instantiate(prefab).gameObject;
     }
     public void instantiatePrefab(Transform prefab, Vector2 position)
     {
-        Instantiate(prefab, position, Quaternion.identity);
+        lastPrefab = Instantiate(prefab, position, Quaternion.identity).gameObject;
     }
     void instantiateManyPrefabs(int i)
     {
@@ -35,5 +37,9 @@ public class PrefabInstantiator : MonoBehaviour
         {
             Instantiate(prefab);
         }
+    }
+    public GameObject getLastPrefab()
+    {
+        return lastPrefab;
     }
 }

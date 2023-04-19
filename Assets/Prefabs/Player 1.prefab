@@ -60,12 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02fe5ddcde2d2346a4519108540b8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  cards: []
 --- !u!114 &6941119364315283555
 MonoBehaviour:
   m_ObjectHideFlags: 0

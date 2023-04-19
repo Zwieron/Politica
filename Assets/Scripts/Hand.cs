@@ -12,7 +12,7 @@ public class Hand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cards = new List<Card>();
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class Hand : MonoBehaviour
     {
     }
     public void addCard(Card card)
-    {
+    {   
         cards.Add(card);
         card.SetHand(this);
     }
@@ -40,7 +40,7 @@ public class Hand : MonoBehaviour
     public  void setOwner(Player owner)
     {
         this.owner = owner;
-    
+        Debug.Log("Hand owner: " + owner.name);
     }
     
     public Player getOwner()

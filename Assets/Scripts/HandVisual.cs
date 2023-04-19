@@ -6,7 +6,7 @@ public class HandVisual : MonoBehaviour
 {
     Hand hand {get; set;}
     List<CardInteraction> cardInteractions = new List<CardInteraction>();
-    public Vector2 handPosition;
+    public Vector2 handPosition = new Vector2(0,50);
     public float Offset = 120f;
     public float rotationOffset = 0;
     bool blockade = false;
@@ -31,6 +31,7 @@ public class HandVisual : MonoBehaviour
             cardInteractions.Add(c.GetCardInteraction());
             c.GetCardInteraction().setHandVisual(this);
         }
+        calculatePositionInCenter();
     }
     public void setSortHand()
     {
@@ -58,6 +59,8 @@ public class HandVisual : MonoBehaviour
         {
         foreach(Card c in hand.getCards())
         {
+            if (c==null)
+            Debug.Log("no Card");
             c.GetCardInteraction().setDefaultPosition(new Vector3(handPosition.x + i * Offset,handPosition.y,0));
             c.GetCardInteraction().setDefaultRotation(-rotationOffset);
             i++;
@@ -106,5 +109,20 @@ public class HandVisual : MonoBehaviour
     {
         this.interfaceElements = interfaceElements;
         interfaceElements.addHand(this);
+    }
+    void calculatePositionInCenter()
+    {
+        Debug.Log("Stara pozycja: "+handPosition.ToString());
+        float y = handPosition.y;
+        float x = 0;
+        x = (hand.getSize()*hand.getCards()[0].GetComponent<SpriteRenderer>().bounds.size.x/2)+(Offset*(hand.getSize()))/2;
+        handPosition = new Vector2((Screen.width/2)-x/2,y);
+        Debug.Log("Nowa pozycja: "+handPosition.ToString());
+    }
+    public void setYDimension(float y)
+    {
+        Debug.Log("Ustawianie Y na "+y.ToString());
+        handPosition = new Vector2(handPosition.x,y);
+        Debug.Log("Nowa pozycja: "+handPosition.ToString());
     }
 }

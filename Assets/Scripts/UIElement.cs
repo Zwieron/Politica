@@ -37,7 +37,12 @@ public abstract class UIElement : MonoBehaviour
     }
     protected virtual void create()
     {
+        if(spriteRenderer==null)
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        if(spriteRenderer==null)
         spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        if(UIGraphics==null)
+        UIGraphics = gameObject.GetComponent<UIGraphics>();
         if(UIGraphics==null)
         UIGraphics = gameObject.AddComponent<UIGraphics>();
         UIGraphics.setSpriteRenderer(gameObject.GetComponent<SpriteRenderer>());
@@ -82,6 +87,8 @@ public abstract class UIElement : MonoBehaviour
     protected override void create()
         {
         base.create();
+        if(boxCollider==null)
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
         if(boxCollider==null)
         boxCollider = gameObject.AddComponent<BoxCollider2D>();
         boxCollider.size = colliderSize;

@@ -13,13 +13,13 @@ public class BiddingPhase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i< game.GetPlayers().Count ; i++)
+        for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
         {
             cards.Add(deck.drawCard());
         }
-        for(int i = 0; i< game.GetPlayers().Count ; i++)
+        for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
         {
-            biddings.Add(new Bidding(game.GetParties()[i], cards));
+            biddings.Add(new Bidding(game.getGameInfo().getParties()[i], cards));
             parties.Add(biddings[i].GetParty());
         }
     }
