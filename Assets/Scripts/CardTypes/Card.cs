@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    CardAttributes cardAttributes;
     CardInteraction cardInteraction;
-    SpriteRenderer spriteRenderer;
-    int defaultOrder = 0;
-    public Vector2 colliderSize = new Vector2(3.6f,5);
-    UIGraphics uiGraphics;
     GameObject cardObject;
-    BoxCollider2D boxCollider;
     Hand hand;
     CardState cardState;
 
@@ -23,16 +17,11 @@ public class Card : MonoBehaviour
         else
         cardObject = gameObject;
         cardObject.tag = "Card";
-        Debug.Log(cardObject.GetInstanceID());
-        spriteRenderer = cardObject.AddComponent<SpriteRenderer>();
-        if(uiGraphics==null)
-        uiGraphics = cardObject.AddComponent<UIGraphics>();
-        uiGraphics.setSpriteRenderer(cardObject.GetComponent<SpriteRenderer>());
-        if(boxCollider==null)
-        boxCollider = cardObject.AddComponent<BoxCollider2D>();
-        boxCollider.size = colliderSize;
-        cardAttributes =cardObject.AddComponent<CardAttributes>();
+        if(cardInteraction==null)
+        cardInteraction = cardObject.GetComponent<CardInteraction>();
+        if(cardInteraction==null)
         cardInteraction = cardObject.AddComponent<CardInteraction>();
+        Debug.Log(cardObject.GetInstanceID());
     }
     
 
@@ -53,23 +42,7 @@ public class Card : MonoBehaviour
     {
         return hand;
     }
-    public void SetSprite(Sprite sprite)
-    {
-        if(cardObject==null)
-        Debug.Log("CardObject is null");
-        if(spriteRenderer==null)
-        spriteRenderer = cardObject.GetComponent<SpriteRenderer>();
-        if(spriteRenderer==null)
-        Debug.Log("SpriteRenderer is null");
-        if(sprite==null)
-        Debug.Log("Sprite is null");
-        if(spriteRenderer!=null && sprite!=null)
-        spriteRenderer.sprite = sprite;
-    }
-    public SpriteRenderer GetSprite()
-    {
-        return spriteRenderer;
-    }
+
     public GameObject  GetGameObject()
     {
         return cardObject;
@@ -79,18 +52,6 @@ public class Card : MonoBehaviour
     {
         this.cardState = cardState;
     
-    }
-    public void SetDefaultOrder(int order)
-    {
-        this.defaultOrder = order;
-    }
-    public int getDefaultOrder()
-    {
-        return defaultOrder;
-    }
-    public void Sort()
-    {
-        this.GetSprite().sortingOrder = defaultOrder;
     }
 
 }

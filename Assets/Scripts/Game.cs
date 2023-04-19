@@ -4,94 +4,92 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {   
-    public int playerNumber = 2;
-    public Vector2 player1Pos;
-    public Vector2 player2Pos;
-    List<GameObject> playersObjs = new List<GameObject>();
-    List<Player> players = new List<Player>();
-    List<Party>  parties = new List<Party>();
-    public Sprite cardSprite;
-    List<Hand> hands = new List<Hand>();
+    PrefabInstantiator instantiator;
+    GameInfo gameInfo;
     InterfaceElements interfaceManager;
+    PrefabModifier prefabModifier;
+    
     
     // Start is called before the first frame update
     void Start()
     {
+        prefabModifier = GetComponent<PrefabModifier>();
+        gameInfo = GetComponent<GameInfo>();
+        instantiator = GetComponent<PrefabInstantiator>();
         interfaceManager = GetComponent<InterfaceElements>();
-        for(int i = 0; i < playerNumber; i++)
+        for(int i = 0; i < gameInfo.getPlayerNumber(); i++)
         {
-            createPlayer("Player "+(i+1).ToString());
+            prefabModifier.createPlayer("Player "+(i+1).ToString(), i+1);
             for(int j = 0; j < 5; j++)
             {
-                createCard(playersObjs[i].GetComponent<Hand>());
+                prefabModifier.createCard(gameInfo.getPlayers()[i].getHand());
             }
-            playersObjs[i].GetComponent<Player>().getHandVisual().Refresh();
-            playersObjs[i].GetComponent<Player>().getHandVisual().SetSortHand();
+            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().refresh();
+            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().renderHand(false);
+            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setSortHand();
+            foreach(Card card in gameInfo.getPlayers()[i].getHand().getCards())
+            {
+                card.GetCardInteraction().toDefaultLocRotScale();
+            }
         }
     }
 
-    void createCard(Hand hand)
-    {
-        GameObject card = new GameObject("Card");
-            card.AddComponent<Card>();
-            card.GetComponent<Card>().SetCardState(CardState.InHand);
-            hand.AddCard(card.GetComponent<Card>());
-            card.GetComponent<Card>().SetSprite(cardSprite);
-            card.GetComponent<Card>().GetSprite().sortingOrder = hand.GetSize() + 1;
-            Debug.Log(hand.GetCards().Count);
+    // void createCard(Hand hand)
+    // {
+    //     GameObject card = new GameObject("Card");
+    //         card.AddComponent<Card>();
+    //         card.GetComponent<Card>().SetCardState(CardState.InHand);
+    //         hand.addCard(card.GetComponent<Card>());
+    //         card.GetComponent<CardInteraction>().SetSprite(cardSprite);
+    //         card.GetComponent<CardInteraction>().GetSprite().sortingOrder = hand.getSize() + 1;
+    //         Debug.Log(hand.getCards().Count);
             
-            if(players.IndexOf(hand.GetOwner())==1){
+    //         if(gameInfo.getPlayers().IndexOf(hand.getOwner())==1){
 
-                hand.GetOwner().getHandVisual().setHandPosition(player2Pos);
-                                hand.GetOwner().getHandVisual().RenderHand(false);
-            }
-            else{
+    //             hand.getOwner().getHandVisual().setHandPosition(player2Pos);
+    //                             hand.getOwner().getHandVisual().renderHand(false);
+    //         }
+    //         else{
 
-                hand.GetOwner().getHandVisual().setHandPosition(player1Pos);
-                                hand.GetOwner().getHandVisual().RenderHand(false);
-            }
-             card.GetComponent<Card>().GetCardInteraction().toDefaultLocationRotationScale();
-            Debug.Log("gruba akcja ");
-    }
+    //             hand.getOwner().getHandVisual().setHandPosition(player1Pos);
+    //                             hand.getOwner().getHandVisual().renderHand(false);
+    //         }
+    //          card.GetComponent<Card>().GetCardInteraction().toDefaultLocRotScale();
+    //         Debug.Log("gruba akcja ");
+    // }
+    // void createPlayer(string name)
+    // {
+    //     GameObject player = new GameObject(name);
+    //     player.AddComponent<Player>();
+    //     player.AddComponent<Hand>();
+    //     player.AddComponent<HandVisual>();
+    //     player.GetComponent<HandVisual>().setHand(player.GetComponent<Hand>());
+    //     player.GetComponent<Hand>().setHandVisual(player.GetComponent<HandVisual>());
+    //     player.GetComponent<HandVisual>().setInterfaceElements(interfaceManager);
+    //     player.GetComponent<Player>().setHandVisual(player.GetComponent<HandVisual>());
+    //     player.AddComponent<Party>();
+    //     player.GetComponent<Party>().setOwner(player.GetComponent<Player>());
+    //     gameInfo.addParty(player.GetComponent<Party>());
+    //     player.GetComponent<Hand>().setOwner(player.GetComponent<Player>());
 
-    void addParty(Party party)
-    {
-        parties.Add(party);
-    }
-    void createPlayer(string name)
-    {
-        GameObject player = new GameObject(name);
-        player.AddComponent<Player>();
-        player.AddComponent<Hand>();
-        player.AddComponent<HandVisual>();
-        player.GetComponent<HandVisual>().SetHand(player.GetComponent<Hand>());
-        player.GetComponent<Hand>().SetHandVisual(player.GetComponent<HandVisual>());
-        player.GetComponent<HandVisual>().SetInterfaceElements(interfaceManager);
-        player.GetComponent<Player>().setHandVisual(player.GetComponent<HandVisual>());
-        player.AddComponent<Party>();
-        player.GetComponent<Party>().setOwner(player.GetComponent<Player>());
-        addParty(player.GetComponent<Party>());
-        player.GetComponent<Hand>().SetOwner(player.GetComponent<Player>());
-        players.Add(player.GetComponent<Player>());
-        hands.Add(player.GetComponent<Hand>());
-        playersObjs.Add(player);
-    }
-
+    //     gameInfo.addHand(player.GetComponent<Hand>());
+    //     gameInfo.addPlayerObj(player);
+    // }
     // Update is called once per frame
     void Update()
     {
     
     }
-    public List<GameObject> getPlayersObjs()
+    public GameInfo getGameInfo()
     {
-        return playersObjs;
+        return gameInfo;
     }
-        public List<Party> GetParties()
+    public  PrefabInstantiator getInstantiator()
     {
-        return parties;
+        return instantiator;
     }
-    public List<Player> GetPlayers()
+    public InterfaceElements getInterfaceManager()
     {
-        return players;
+        return interfaceManager;
     }
 }

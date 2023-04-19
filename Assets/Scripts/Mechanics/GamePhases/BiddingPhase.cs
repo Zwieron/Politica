@@ -5,6 +5,7 @@ using UnityEngine;
 public class BiddingPhase : MonoBehaviour
 {
     public Game game;
+    Deck deck;
     List<Card> cards = new List<Card>();
     List<Party> parties = new List<Party>();
     List<Party> winners = new List<Party>();
@@ -12,9 +13,13 @@ public class BiddingPhase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i< game.GetPlayers().Count ; i++)
+        for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
         {
-            biddings.Add(new Bidding(game.GetParties()[i], cards));
+            cards.Add(deck.drawCard());
+        }
+        for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
+        {
+            biddings.Add(new Bidding(game.getGameInfo().getParties()[i], cards));
             parties.Add(biddings[i].GetParty());
         }
     }

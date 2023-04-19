@@ -10,22 +10,14 @@ public class CardInteraction : Button
     public float defaultRotation = 0;
     HandVisual handVisual;
     public Vector3 defaultPosition;
-    public UIGraphics UIGraphics;
     float deltaTime;
     bool isDragging = false;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-        if (spriteRenderer == null)
-        {
-            Debug.LogError("Card: SpriteRenderer not found.");
-        }
-        UIGraphics = GetComponent<UIGraphics>();
+        colliderSize = new Vector2(3.6f,5);
+        create();
     }
 
     // Update is called once per frame
@@ -46,7 +38,7 @@ public class CardInteraction : Button
 
     if (isDragging)
     {
-        DragCardWhileCardIsClicked();
+        dragWhileCardIsClicked();
         deltaTime += Time.deltaTime;
     }
 
@@ -79,17 +71,17 @@ public class CardInteraction : Button
         {
             active=false;
             Debug.Log("Card UnClicked");
-            UIGraphics.ResizeInTime(defaultScale, 0.2f);
-            GetComponent<Card>().Sort();
-            toDefaultLocationRotationInTime();
-            handVisual.SetBlockade(false, this);
+            UIGraphics.resizeInTime(defaultScale, 0.2f);
+            Sort();
+            toDefaultLocRotInTime();
+            handVisual.setBlockade(false, this);
         }
     }
     public override void onHover()
     {
         if(!active)
         {
-        UIGraphics.ResizeInTime(hoverScale,0.01f);
+        UIGraphics.resizeInTime(hoverScale,0.01f);
         Debug.Log("Card Hover");
         }
     }
@@ -98,7 +90,7 @@ public class CardInteraction : Button
         if(deltaTime>.2f)
         {
         Debug.Log("Card Released");
-        toDefaultLocationRotationInTime();
+        toDefaultLocRotInTime();
         isDragging=false;
         deltaTime=0;
         }
@@ -107,11 +99,11 @@ public class CardInteraction : Button
         active=true;
         isDragging=false;
         Debug.Log("Card Odklikd");
-        GetComponent<Card>().GetSprite().sortingOrder=30;
-        handVisual.SetBlockade(true, this);
-       UIGraphics.TransformInTime(new Vector3(Screen.width/2,Screen.height/2,0),0.1f);
-        UIGraphics.RotateInTime(0,.1f);
-        UIGraphics.ResizeInTime(clickScale,.3f);
+        GetSprite().sortingOrder=30;
+        handVisual.setBlockade(true, this);
+       UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/3,0),0.1f);
+        UIGraphics.rotateInTime(0,.1f);
+        UIGraphics.resizeInTime(clickScale,.3f);
         deltaTime=0;
         }
     }
@@ -119,34 +111,34 @@ public class CardInteraction : Button
     {
         if(!active)
         {
-        UIGraphics.ResizeInTime(defaultScale,.1f);
+        UIGraphics.resizeInTime(defaultScale,.1f);
         }
     }
     ///MYSZKA
-    void DragCardWhileCardIsClicked()
+    void dragWhileCardIsClicked()
 {
     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     mousePos.z = 0;
     transform.position = mousePos;
 }
-    public Vector3 GetDefaultPosition()
+    public Vector3 getDefaultPosition()
     {
         return defaultPosition;
     }
-    public void SetDefaultPosition(Vector3 newPosition)
+    public void setDefaultPosition(Vector3 newPosition)
     {
         defaultPosition=newPosition;
     }
-    public void SetDefaultRotation(float newRotation)
+    public void setDefaultRotation(float newRotation)
     {
         defaultRotation=newRotation;
     }
-    public void toDefaultLocationRotationInTime()
+    public void toDefaultLocRotInTime()
     {
-        UIGraphics.RotateInTime(defaultRotation,.2f);
-        UIGraphics.TransformInTime(defaultPosition,.2f);
+        UIGraphics.rotateInTime(defaultRotation,.2f);
+        UIGraphics.transformInTime(defaultPosition,.2f);
     }
-        public void toDefaultLocationRotationScale()
+        public void toDefaultLocRotScale()
     {
         Vector3 start = transform.position;
         spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, defaultRotation);
@@ -155,7 +147,7 @@ public class CardInteraction : Button
     }
     public void toDefaultScale()
     {
-        UIGraphics.ResizeInTime(defaultScale,.2f);
+        UIGraphics.resizeInTime(defaultScale,.2f);
     }
     public void setDragging(bool boole)
     {

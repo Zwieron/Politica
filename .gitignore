@@ -1,11 +1,12 @@
 Assembly-CSharp.csproj
 .vscode/
-Assets/
-!Assets/Scripts/
-Assets/Scripts.meta
+Assets/Scenes/
+Assets/Sprites/
+Assets/TextMesh Pro/
 Assets/Sprites.meta
 Library/
 Logs/
+Temp/
 obj/
 Packages/
 ProjectSettings/
