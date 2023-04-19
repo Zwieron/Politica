@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d3394e455b2ba40bf11bbe453636c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handPosition: {x: 300, y: 75}
+  handPosition: {x: 300, y: 250}
   Offset: 120
   rotationOffset: 0
 --- !u!114 &6780824056019610317
@@ -89,3 +89,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5dd6e42457f2449ac822d989a0fdb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  user: 0
+  game: {fileID: 0}

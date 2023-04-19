@@ -15,6 +15,6 @@ public abstract class ButtonAction : MonoBehaviour
     {
         
     }
-    public abstract void action();
+    public abstract void action(int value);
     public abstract void tooltip();
 }

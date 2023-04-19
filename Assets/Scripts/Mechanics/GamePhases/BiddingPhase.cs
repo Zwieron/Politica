@@ -12,6 +12,7 @@ public class BiddingPhase : GamePhase
     // Start is called before the first frame update
     void Start()
     {
+        getGame();
         showCards();
         for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
         {
@@ -46,12 +47,13 @@ public class BiddingPhase : GamePhase
     }
         void showCards()
     {
+        if(game.getTable()==null)
+        Debug.Log("No table");
         game.getTable().drawCards(deck,cardsDrawn);
         foreach(Card card in game.getTable().getHand().getCards())
         {
             cards.Add(card);
         }
-        game.getTable().getHandVisual().refresh();
     }
 }
 
@@ -71,7 +73,7 @@ public class Bidding
 
     public void PartyBidsFundsOnASelectedCard(Card card, int funds)
     {
-        party.ChangeFunds(-funds);
+        party.changeFunds(-funds);
         cardBids[card] += funds;
     }
 

@@ -8,19 +8,20 @@ public class Game : MonoBehaviour
     GameInfo gameInfo;
     InterfaceElements interfaceManager;
     PrefabModifier prefabModifier;
-    GamePhases gamePhases;
+    GamePhases gamePhases=GamePhases.BiddingPhase;
     Table table;
+    Converter converter;
     
     
     // Start is called before the first frame update
     void Start()
     {
-        table = GetComponent<Table>();
         prefabModifier = GetComponent<PrefabModifier>();
         gameInfo = GetComponent<GameInfo>();
         instantiator = GetComponent<PrefabInstantiator>();
         interfaceManager = GetComponent<InterfaceElements>();
-        startGame();
+        prefabModifier.createTable();
+        startGamePhase(gamePhases);
     }
     void Update()
     {
@@ -52,6 +53,10 @@ public class Game : MonoBehaviour
     {
         return instantiator;
     }
+    public PrefabModifier getPrefabModifier()
+    {
+        return prefabModifier;
+    }
     public InterfaceElements getInterfaceManager()
     {
         return interfaceManager;
@@ -68,4 +73,31 @@ public class Game : MonoBehaviour
     {
         return table;
     }
+    public void setTable(Table table)
+    {
+        this.table = table;
+    
+    }
+    void startGamePhase(GamePhases phase)
+    {
+        switch(phase)
+        {
+            case GamePhases.BiddingPhase:
+                GetComponent<BiddingPhase>().enabled=true;
+                GetComponent<ActionPhase>().enabled=false;
+                GetComponent<PollPhase>().enabled=false;
+                break;
+            case GamePhases.ActionPhase:
+                GetComponent<BiddingPhase>().enabled=false;
+                GetComponent<ActionPhase>().enabled=true;
+                GetComponent<PollPhase>().enabled=false;
+                break;
+            case GamePhases.PollPhase:
+                GetComponent<BiddingPhase>().enabled=false;
+                GetComponent<ActionPhase>().enabled=false;
+                GetComponent<PollPhase>().enabled=true;
+                break;
+        }
+    }
 }
+

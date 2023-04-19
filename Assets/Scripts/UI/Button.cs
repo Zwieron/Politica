@@ -7,7 +7,8 @@ public class Button : UIElement
         protected bool isHold = false;
         protected BoxCollider2D boxCollider;
         public Vector2 colliderSize;
-        ButtonAction buttonAction;
+        public ButtonAction buttonAction;
+        public int actionValue;
     void Awake()
         {
             create();
@@ -83,7 +84,7 @@ public override void checkState()
         } 
         public override void onMouseUp()
         {
-            buttonAction.action();
+            buttonAction.action(actionValue);
         }
         public override void onMouseExit()
         {

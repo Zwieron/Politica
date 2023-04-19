@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class GamePhase : MonoBehaviour
 {
     public Game game;
-    protected Deck deck;
+    public Deck deck;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +15,12 @@ public abstract class GamePhase : MonoBehaviour
     void Update()
     {
         
+    }
+    protected void getGame()
+    {
+        if(game==null)
+        {
+            GetComponent<Game>();
+        }
     }
 }
