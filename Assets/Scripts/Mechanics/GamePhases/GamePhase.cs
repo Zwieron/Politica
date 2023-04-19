@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionPhase : GamePhase
+public abstract class GamePhase : MonoBehaviour
 {
+    public Game game;
+    protected Deck deck;
     // Start is called before the first frame update
     void Start()
     {

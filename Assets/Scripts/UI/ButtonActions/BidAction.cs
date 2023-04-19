@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionPhase : GamePhase
+public class BidAction : ButtonAction
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,13 @@ public class ActionPhase : GamePhase
     void Update()
     {
         
+    }
+    public override void action()
+    {
+        Debug.Log("bid");
+    }
+    public override void tooltip()
+    {
+        Debug.Log("button hover");
     }
 }

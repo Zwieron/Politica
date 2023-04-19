@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BiddingPhase : MonoBehaviour
+public class BiddingPhase : GamePhase
 {
-    public Game game;
-    Deck deck;
+
     List<Card> cards = new List<Card>();
     List<Party> parties = new List<Party>();
     List<Party> winners = new List<Party>();
