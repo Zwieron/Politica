@@ -32,6 +32,10 @@ public class HandVisual : MonoBehaviour
             c.GetCardInteraction().setHandVisual(this);
         }
         calculatePositionInCenter();
+        foreach(CardInteraction card in cardInteractions)
+        {
+            card.toDefaultLocRotScale();
+        }
     }
     public void setSortHand()
     {
@@ -55,25 +59,13 @@ public class HandVisual : MonoBehaviour
     }
     public void renderHand(bool y)
     {int i = 0;
-        if(!y)
-        {
-        foreach(Card c in hand.getCards())
+        foreach(CardInteraction c in cardInteractions)
         {
             if (c==null)
             Debug.Log("no Card");
-            c.GetCardInteraction().setDefaultPosition(new Vector3(handPosition.x + i * Offset,handPosition.y,0));
-            c.GetCardInteraction().setDefaultRotation(-rotationOffset);
+            c.setDefaultPosition(new Vector3(handPosition.x + i * Offset,handPosition.y,0));
+            c.setDefaultRotation(-rotationOffset);
             i++;
-        }
-        }
-        else
-        {
-        foreach(Card c in hand.getCards())
-        {
-            c.GetCardInteraction().setDefaultPosition(new Vector3(handPosition.x ,handPosition.y + i * Offset,0));
-            c.GetCardInteraction().setDefaultRotation(-rotationOffset);
-            i++;
-        }
         }
     }
     public void setHandPosition(Vector2 handPosition)
@@ -82,6 +74,10 @@ public class HandVisual : MonoBehaviour
     }
      public void blockHand(bool block)
     {
+        if(cardInteractions.Count==0)
+        return;
+        else
+        {
         foreach (CardInteraction card in cardInteractions)
         {
             if(selectedCard==null || block==false)
@@ -92,6 +88,7 @@ public class HandVisual : MonoBehaviour
             {
                 card.setBlockade(block);
             }
+        }
         }
     }
         public void setBlockade(bool blockade, CardInteraction selectedCard)
@@ -115,6 +112,7 @@ public class HandVisual : MonoBehaviour
         Debug.Log("Stara pozycja: "+handPosition.ToString());
         float y = handPosition.y;
         float x = 0;
+        if(hand.getSize()>1)
         x = (hand.getSize()*hand.getCards()[0].GetComponent<SpriteRenderer>().bounds.size.x/2)+(Offset*(hand.getSize()))/2;
         handPosition = new Vector2((Screen.width/2)-x/2,y);
         Debug.Log("Nowa pozycja: "+handPosition.ToString());

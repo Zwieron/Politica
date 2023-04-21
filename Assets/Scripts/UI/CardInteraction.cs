@@ -11,7 +11,7 @@ public class CardInteraction : Button
     HandVisual handVisual;
     public Vector3 defaultPosition;
     float deltaTime;
-    bool isDragging = false;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -29,14 +29,14 @@ public class CardInteraction : Button
     if (isMouseOver && Input.GetMouseButtonDown(0))
     {
         onClick();
-        isDragging = true;
+        isHold = true;
     }
     if(!isMouseOver && Input.GetMouseButtonDown(0))
     {
         onUnclick();
     }
 
-    if (isDragging)
+    if (isHold)
     {
         dragWhileCardIsClicked();
         deltaTime += Time.deltaTime;
@@ -44,11 +44,11 @@ public class CardInteraction : Button
 
     if (Input.GetMouseButtonUp(0))
     {
-        if (isDragging)
+        if (isHold)
         {
             onMouseUp();
         }
-        isDragging = false;
+        isHold = false;
     }
     }
 }
@@ -60,7 +60,7 @@ public class CardInteraction : Button
         {
         
         Debug.Log("Card Clicked");
-        isDragging=true;
+        isHold=true;
 
 
         }
@@ -91,13 +91,13 @@ public class CardInteraction : Button
         {
         Debug.Log("Card Released");
         toDefaultLocRotInTime();
-        isDragging=false;
+        isHold=false;
         deltaTime=0;
         }
         else
         {
         active=true;
-        isDragging=false;
+        isHold=false;
         Debug.Log("Card Odklikd");
         GetSprite().sortingOrder=30;
         handVisual.setBlockade(true, this);
@@ -151,7 +151,7 @@ public class CardInteraction : Button
     }
     public void setDragging(bool boole)
     {
-        isDragging = boole;
+        isHold = boole;
     }
     public void setHandVisual(HandVisual handVisual)
     {

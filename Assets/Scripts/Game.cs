@@ -8,6 +8,9 @@ public class Game : MonoBehaviour
     GameInfo gameInfo;
     InterfaceElements interfaceManager;
     PrefabModifier prefabModifier;
+    GamePhases gamePhases=GamePhases.BiddingPhase;
+    Table table;
+    Converter converter;
     
     
     // Start is called before the first frame update
@@ -17,6 +20,15 @@ public class Game : MonoBehaviour
         gameInfo = GetComponent<GameInfo>();
         instantiator = GetComponent<PrefabInstantiator>();
         interfaceManager = GetComponent<InterfaceElements>();
+        prefabModifier.createTable();
+        startGamePhase(gamePhases);
+    }
+    void Update()
+    {
+    
+    }
+    void startGame()
+    {
         for(int i = 0; i < gameInfo.getPlayerNumber(); i++)
         {
             prefabModifier.createPlayer("Player "+(i+1).ToString(), i+1);
@@ -33,53 +45,6 @@ public class Game : MonoBehaviour
             }
         }
     }
-
-    // void createCard(Hand hand)
-    // {
-    //     GameObject card = new GameObject("Card");
-    //         card.AddComponent<Card>();
-    //         card.GetComponent<Card>().SetCardState(CardState.InHand);
-    //         hand.addCard(card.GetComponent<Card>());
-    //         card.GetComponent<CardInteraction>().SetSprite(cardSprite);
-    //         card.GetComponent<CardInteraction>().GetSprite().sortingOrder = hand.getSize() + 1;
-    //         Debug.Log(hand.getCards().Count);
-            
-    //         if(gameInfo.getPlayers().IndexOf(hand.getOwner())==1){
-
-    //             hand.getOwner().getHandVisual().setHandPosition(player2Pos);
-    //                             hand.getOwner().getHandVisual().renderHand(false);
-    //         }
-    //         else{
-
-    //             hand.getOwner().getHandVisual().setHandPosition(player1Pos);
-    //                             hand.getOwner().getHandVisual().renderHand(false);
-    //         }
-    //          card.GetComponent<Card>().GetCardInteraction().toDefaultLocRotScale();
-    //         Debug.Log("gruba akcja ");
-    // }
-    // void createPlayer(string name)
-    // {
-    //     GameObject player = new GameObject(name);
-    //     player.AddComponent<Player>();
-    //     player.AddComponent<Hand>();
-    //     player.AddComponent<HandVisual>();
-    //     player.GetComponent<HandVisual>().setHand(player.GetComponent<Hand>());
-    //     player.GetComponent<Hand>().setHandVisual(player.GetComponent<HandVisual>());
-    //     player.GetComponent<HandVisual>().setInterfaceElements(interfaceManager);
-    //     player.GetComponent<Player>().setHandVisual(player.GetComponent<HandVisual>());
-    //     player.AddComponent<Party>();
-    //     player.GetComponent<Party>().setOwner(player.GetComponent<Player>());
-    //     gameInfo.addParty(player.GetComponent<Party>());
-    //     player.GetComponent<Hand>().setOwner(player.GetComponent<Player>());
-
-    //     gameInfo.addHand(player.GetComponent<Hand>());
-    //     gameInfo.addPlayerObj(player);
-    // }
-    // Update is called once per frame
-    void Update()
-    {
-    
-    }
     public GameInfo getGameInfo()
     {
         return gameInfo;
@@ -88,8 +53,51 @@ public class Game : MonoBehaviour
     {
         return instantiator;
     }
+    public PrefabModifier getPrefabModifier()
+    {
+        return prefabModifier;
+    }
     public InterfaceElements getInterfaceManager()
     {
         return interfaceManager;
     }
+    public void setGamePhase(GamePhases phase)
+    {
+        gamePhases = phase;
+    }
+    public GamePhases getGamePhase()
+    {
+        return gamePhases;
+    }
+    public Table getTable()
+    {
+        return table;
+    }
+    public void setTable(Table table)
+    {
+        this.table = table;
+    
+    }
+    void startGamePhase(GamePhases phase)
+    {
+        switch(phase)
+        {
+            case GamePhases.BiddingPhase:
+                GetComponent<BiddingPhase>().enabled=true;
+                GetComponent<ActionPhase>().enabled=false;
+                GetComponent<PollPhase>().enabled=false;
+                break;
+            case GamePhases.ActionPhase:
+                GetComponent<BiddingPhase>().enabled=false;
+                GetComponent<ActionPhase>().enabled=true;
+                GetComponent<PollPhase>().enabled=false;
+                break;
+            case GamePhases.PollPhase:
+                GetComponent<BiddingPhase>().enabled=false;
+                GetComponent<ActionPhase>().enabled=false;
+                GetComponent<PollPhase>().enabled=true;
+                break;
+        }
+    }
 }
+

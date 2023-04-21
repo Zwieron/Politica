@@ -19,19 +19,23 @@ public class Party : MonoBehaviour
     {
         
     }
-    void SumSupportPercentage()
+    void sumSupportPercentage()
     {
         int tempSupport = 0;
         foreach(Character character in partyMembers)
         {
-            tempSupport += character.supportModifier;
+            tempSupport += character.getSupportModifier();
         }
         supportPercentage = tempSupport;
     }
 
-    public void ChangeFunds(int amount)
+    public void changeFunds(int amount)
     {
-        funds =+ amount;
+        funds += amount;
+    }
+    public int getFunds()
+    {
+        return funds;
     }
     public void setOwner(Player player)
     {
