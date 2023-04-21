@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {   
-    PrefabInstantiator instantiator;
     GameInfo gameInfo;
     InterfaceElements interfaceManager;
     PrefabModifier prefabModifier;
@@ -18,7 +17,6 @@ public class Game : MonoBehaviour
     {
         prefabModifier = GetComponent<PrefabModifier>();
         gameInfo = GetComponent<GameInfo>();
-        instantiator = GetComponent<PrefabInstantiator>();
         interfaceManager = GetComponent<InterfaceElements>();
         prefabModifier.createTable();
         startGamePhase(gamePhases);
@@ -48,10 +46,6 @@ public class Game : MonoBehaviour
     public GameInfo getGameInfo()
     {
         return gameInfo;
-    }
-    public  PrefabInstantiator getInstantiator()
-    {
-        return instantiator;
     }
     public PrefabModifier getPrefabModifier()
     {

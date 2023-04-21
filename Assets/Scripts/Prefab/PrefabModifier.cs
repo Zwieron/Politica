@@ -9,9 +9,11 @@ public class PrefabModifier : MonoBehaviour
     GameInfo gameInfo;
     Game game;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         prefabCollection = GetComponent<PrefabCollection>();
+        if(GetComponent<PrefabCollection>()==null)
+        Debug.Log("PrefabCollection not found");
         prefabInstantiator = GetComponent<PrefabInstantiator>();
         game = GetComponent<Game>();
         gameInfo = GetComponent<GameInfo>();
@@ -80,6 +82,8 @@ public class PrefabModifier : MonoBehaviour
     }
     public void createTable()
     {
+        if(prefabCollection==null)
+        Debug.Log("No prefabCollection!");
         prefabInstantiator.instantiatePrefab(prefabCollection.table);
         GameObject table = GetComponent<PrefabInstantiator>().getLastPrefab();
         table.GetComponent<Table>().setGame(game);
