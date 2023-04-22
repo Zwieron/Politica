@@ -30,7 +30,7 @@ public class Card : MonoBehaviour
     {
         
     }
-    public CardInteraction GetCardInteraction()
+    public CardInteraction getCardInteraction()
     {
         return cardInteraction;
     }

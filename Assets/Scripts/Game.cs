@@ -39,7 +39,7 @@ public class Game : MonoBehaviour
             gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setSortHand();
             foreach(Card card in gameInfo.getPlayers()[i].getHand().getCards())
             {
-                card.GetCardInteraction().toDefaultLocRotScale();
+                card.getCardInteraction().toDefaultLocRotScale();
             }
         }
     }

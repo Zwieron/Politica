@@ -10,9 +10,10 @@ public class BiddingPhase : GamePhase
     List<Party> winners = new List<Party>();
     List<Bidding> biddings = new List<Bidding>();
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        getGame();
+        game = GetComponent<Game>();
+
         showCards();
         for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
         {
@@ -53,8 +54,11 @@ public class BiddingPhase : GamePhase
         foreach(Card card in game.getTable().getHand().getCards())
         {
             cards.Add(card);
+            createButtonAroundCard(card, direction: Direction.DOWN);
         }
     }
+
+
 }
 
 public class Bidding

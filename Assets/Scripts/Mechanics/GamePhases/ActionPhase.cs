@@ -5,9 +5,10 @@ using UnityEngine;
 public class ActionPhase : GamePhase
 {
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        getGame();
+        game = GetComponent<Game>();
+
         
     }
 

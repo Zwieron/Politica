@@ -28,8 +28,8 @@ public class HandVisual : MonoBehaviour
         cardInteractions.Clear();
         foreach(Card c in hand.getCards())
         {
-            cardInteractions.Add(c.GetCardInteraction());
-            c.GetCardInteraction().setHandVisual(this);
+            cardInteractions.Add(c.getCardInteraction());
+            c.getCardInteraction().setHandVisual(this);
         }
         calculatePositionInCenter();
         foreach(CardInteraction card in cardInteractions)

@@ -59,6 +59,10 @@ public abstract class UIElement : MonoBehaviour
     {
     return defaultOrder;
     }
+    public Vector2 getPosition()
+    {
+        return spriteRenderer.transform.position;
+    }
     public void Sort()
     {
         this.GetSprite().sortingOrder = defaultOrder;
