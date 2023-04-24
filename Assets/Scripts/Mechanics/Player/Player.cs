@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    int playerNumber;
-    Party party;
+    public int playerNumber;
+    public Party party;
     protected GameObject ggameObject;
     protected Hand hand;
     protected HandVisual handVisual;
     public bool user;
     public Game game;
+    public Directions buttonDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -63,14 +64,32 @@ public class Player : MonoBehaviour
     {
         this.game = game;
     }
+        void setDirection(int playerNumber)
+    {
+        switch(playerNumber)
+        {
+            case 0: buttonDirection = Directions.DOWN;
+            break;
+            case 1: buttonDirection = Directions.UP;
+            break;
+            case 2: buttonDirection = Directions.LEFT;
+            break;
+            case 3: buttonDirection = Directions.RIGHT;
+            break;
+        }
+    }
     public virtual void setStartingPlayer()
     {
         setHand(GetComponent<Hand>());
         GetComponent<HandVisual>().setHand(GetComponent<Hand>());
         GetComponent<Hand>().setHandVisual(GetComponent<HandVisual>());
-        GetComponent<HandVisual>().setInterfaceElements(game.getInterfaceManager());
         setHandVisual(GetComponent<HandVisual>());
+        game.getInterfaceManager().addHandVisual(GetComponent<HandVisual>());
         GetComponent<Party>().setOwner(this);
+        setParty(GetComponent<Party>());
         GetComponent<Hand>().setOwner(this);
+        setHand(GetComponent<Hand>());
+        setDirection(playerNumber);
+        Debug.Log("Player " + playerNumber + " is starting");
     }
 }

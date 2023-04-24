@@ -12,7 +12,6 @@ public class BidAction : ButtonAction
     // Start is called before the first frame update
     void Start()
     {
-        party = gameObject.AddComponent<Party>();
     }
 
     // Update is called once per frame
@@ -46,6 +45,10 @@ public class BidAction : ButtonAction
     public void setParty(Party party)
     {
         this.party = party;
+    }
+    public Party getParty()
+    {
+        return party;
     }
     public void valueToText()
     {

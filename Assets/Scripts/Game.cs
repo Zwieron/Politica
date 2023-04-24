@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
         gameInfo = GetComponent<GameInfo>();
         interfaceManager = GetComponent<InterfaceElements>();
         prefabModifier.createTable();
+        startGame();
         startGamePhase(gamePhases);
     }
     void Update()
@@ -30,17 +31,17 @@ public class Game : MonoBehaviour
         for(int i = 0; i < gameInfo.getPlayerNumber(); i++)
         {
             prefabModifier.createPlayer("Player "+(i+1).ToString(), i+1);
-            for(int j = 0; j < 5; j++)
-            {
-                prefabModifier.createCard(gameInfo.getPlayers()[i].getHand());
-            }
-            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().refresh();
-            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setDefaultPositionOfCards(false);
-            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setSortHand();
-            foreach(Card card in gameInfo.getPlayers()[i].getHand().getCards())
-            {
-                card.getCardInteraction().toDefaultLocRotScale();
-            }
+            // for(int j = 0; j < 5; j++)
+            // {
+            //     prefabModifier.createCard(gameInfo.getPlayers()[i].getHand());
+            // }
+            // gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().refresh();
+            // gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setDefaultPositionOfCards(false);
+            // gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setSortHand();
+            // foreach(Card card in gameInfo.getPlayers()[i].getHand().getCards())
+            // {
+            //     card.getCardInteraction().toDefaultLocRotScale();
+            // }
         }
     }
     public GameInfo getGameInfo()

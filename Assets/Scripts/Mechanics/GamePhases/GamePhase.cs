@@ -6,6 +6,7 @@ public abstract class GamePhase : MonoBehaviour
 {
     public Game game;
     public Deck deck;
+    protected List<ButtonAction> buttons = new List<ButtonAction>();
     // Start is called before the first frame update
     protected void Start()
     {
@@ -17,25 +18,30 @@ public abstract class GamePhase : MonoBehaviour
     {
         
     }
-    protected enum Direction{UP, DOWN, LEFT, RIGHT}
-    protected void createButtonAroundCard(Card card, Direction direction )
+    
+    protected void createButtonAroundCard(Card card, Directions direction )
     {   Vector2 oldPosition= card.getCardInteraction().getPosition();
         Vector2 newPosition = new Vector2();
         switch (direction)
         {
-            case Direction.DOWN:
-            newPosition = new Vector2(oldPosition.x, oldPosition.y - 100);
+            case Directions.DOWN:
+            newPosition = new Vector2(oldPosition.x, oldPosition.y - 200);
             break;
-            case Direction.UP:
-            newPosition = new Vector2(oldPosition.x, oldPosition.y + 100);
+            case Directions.UP:
+            newPosition = new Vector2(oldPosition.x, oldPosition.y + 200);
             break;
-            case Direction.LEFT:
+            case Directions.LEFT:
             newPosition = new Vector2(oldPosition.x - 20, oldPosition.y);
             break;
-            case Direction.RIGHT:
+            case Directions.RIGHT:
             newPosition = new Vector2(oldPosition.x + 20, oldPosition.y);
             break;
         }
-    game.getPrefabModifier().createButton(newPosition);
+    game.getPrefabModifier().createBidButton(newPosition, this);
+    }
+    public void addButton(ButtonAction buttonAction)
+    {
+        buttons.Add(buttonAction);
+        Debug.Log("button added");
     }
 }

@@ -5,10 +5,9 @@ using UnityEngine;
 public class BiddingPhase : GamePhase
 {
     public int cardsDrawn;
-    List<Card> cards = new List<Card>();
-    List<Party> parties = new List<Party>();
     List<Party> winners = new List<Party>();
-    Dictionary<Card, Button> buttons = new Dictionary<Card, Button>();
+    Dictionary<Card, Party> winnersByCard = new Dictionary<Card, Party>();
+    
     // Start is called before the first frame update
     new void Start()
     {
@@ -22,29 +21,51 @@ public class BiddingPhase : GamePhase
     {
         
     }
-    Party CheckWhichPartyWinsBiddingOnACard(Card card)
-    {
-        return new Party();
-    }
-    void CheckWinnerForEveryCard()
-    {
-        foreach(Card card in cards)
-        {
-            winners.Add(CheckWhichPartyWinsBiddingOnACard(card));
-        }
-    }
-        void showCards()
+    void showCards()
     {
         if(game.getTable()==null)
         Debug.Log("No table");
         game.getTable().drawCards(deck,cardsDrawn);
-        foreach(Card card in game.getTable().getHand().getCards())
+        foreach(Player player in game.getGameInfo().getPlayers())
         {
-            cards.Add(card);
-            createButtonAroundCard(card, direction: Direction.DOWN);
+            foreach(Card card in game.getTable().getHand().getCards())
+            {
+                base.createButtonAroundCard(card, direction: player.buttonDirection);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setParty(player.getParty());
+            }
         }
     }
-
+    int compareBids(int bid1, int bid2)
+    {
+        return Mathf.Max(bid1, bid2);
+    }
+    Party findWinner(Card card)
+    {
+        List<BidAction> actions = createListOfButtonsOfCard(card);
+        int highestBid = 0;
+        Party winner = null;
+        foreach(BidAction action in actions)
+        {
+            if(action.getBidValue()>highestBid)
+            {
+                highestBid = action.getBidValue();
+                winner = action.getParty();
+            }
+        }
+        return winner;
+    }
+    List<BidAction> createListOfButtonsOfCard(Card card)
+    {
+        List<BidAction> actions = new List<BidAction>();
+        foreach(BidAction action in buttons)
+        {
+            if(action.getCard()==card)
+            {
+                actions.Add(action);
+            }
+        }
+        return actions;
+    }
 
 }
 

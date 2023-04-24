@@ -11,7 +11,7 @@ public class HandVisual : MonoBehaviour
     public float rotationOffset = 0;
     bool blockade = false;
     CardInteraction selectedCard;
-    InterfaceElements interfaceElements;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,17 +99,12 @@ public class HandVisual : MonoBehaviour
     {
         this.blockade = blockade;
         this.selectedCard = selectedCard;
-        this.interfaceElements.setBlockade(blockade, this);
+        // this.interfaceElements.setBlockade(blockade, this);
     }
         public void setBlockade(bool blockade)
     {
         this.blockade = blockade;
         this.selectedCard = null;
-    }
-    public void setInterfaceElements(InterfaceElements interfaceElements)
-    {
-        this.interfaceElements = interfaceElements;
-        interfaceElements.addHand(this);
     }
     void calculatePositionInCenter()
     {
@@ -132,7 +127,7 @@ public class HandVisual : MonoBehaviour
         bool activeCard = false;
         foreach(CardInteraction card in cardInteractions)
         {
-                if(card.getActive())//TODO: tu ogarnąć dobre blokowanko
+                if(card.getActive())
                 {
                     activeCard = true;
                     setSelectedCard(card);

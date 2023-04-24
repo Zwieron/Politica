@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603d03c782c06ac458732ec869893d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  party: {fileID: 0}
   user: 0
+  game: {fileID: 0}
+  buttonDirection: 1
 --- !u!114 &4180523108475611514
 MonoBehaviour:
   m_ObjectHideFlags: 0

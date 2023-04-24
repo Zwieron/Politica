@@ -60,6 +60,7 @@ public class PrefabModifier : MonoBehaviour
         prefabInstantiator.instantiatePrefab(prefabCollection.player);
         player = GetComponent<PrefabInstantiator>().getLastPrefab();
         player.name = name;
+        player.GetComponent<Player>().setPlayerNumber(playerNumber);
         gameInfo.addParty(player.GetComponent<Party>());
         gameInfo.addPlayer(player.GetComponent<Player>());
         gameInfo.addHand(player.GetComponent<Hand>());
@@ -78,10 +79,15 @@ public class PrefabModifier : MonoBehaviour
         table.GetComponent<Table>().setGame(game);
         game.setTable(table.GetComponent<Table>());
     }
-        public void createButton(Vector2 position)
+        public void createBidButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.bidButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
-        button.transform.parent = canvas.transform;
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.addButton(button.GetComponent<BidAction>());
     }
+        public PrefabInstantiator getPrefabInstantiator()
+        {
+            return prefabInstantiator;
+        }
 }
