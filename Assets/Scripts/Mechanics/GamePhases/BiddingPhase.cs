@@ -8,18 +8,13 @@ public class BiddingPhase : GamePhase
     List<Card> cards = new List<Card>();
     List<Party> parties = new List<Party>();
     List<Party> winners = new List<Party>();
-    List<Bidding> biddings = new List<Bidding>();
+    Dictionary<Card, Button> buttons = new Dictionary<Card, Button>();
     // Start is called before the first frame update
     new void Start()
     {
         game = GetComponent<Game>();
 
         showCards();
-        for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
-        {
-            biddings.Add(new Bidding(game.getGameInfo().getParties()[i], cards));
-            parties.Add(biddings[i].GetParty());
-        }
     }
 
     // Update is called once per frame
@@ -29,15 +24,7 @@ public class BiddingPhase : GamePhase
     }
     Party CheckWhichPartyWinsBiddingOnACard(Card card)
     {
-        Bidding biggestBid = new Bidding(new Party(), cards);
-        for(int i = 0; i< parties.Count ; i++)
-        {
-            if(biggestBid.GetCardsBid(card)<biddings[i].GetCardsBid(card))
-            {
-                biggestBid = biddings[i];
-            }
-        }
-        return biggestBid.GetParty();
+        return new Party();
     }
     void CheckWinnerForEveryCard()
     {
@@ -61,33 +48,3 @@ public class BiddingPhase : GamePhase
 
 }
 
-public class Bidding
-{
-    Party party;
-    Dictionary<Card,int> cardBids = new Dictionary<Card,int>();
-
-    public Bidding(Party party, List<Card> cards)
-    {
-        this.party = party;
-        foreach (Card card in cards)
-        {
-            cardBids.Add(card, 0);
-        }
-    }
-
-    public void PartyBidsFundsOnASelectedCard(Card card, int funds)
-    {
-        party.changeFunds(-funds);
-        cardBids[card] += funds;
-    }
-
-    public Party GetParty()
-    {return party;
-    }
-    public int GetCardsBid(Card card)
-    {
-        return cardBids[card];
-    }
-
-
-}

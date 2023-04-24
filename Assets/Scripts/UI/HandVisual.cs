@@ -21,6 +21,7 @@ public class HandVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkAllCardsActivity();
         blockHand(blockade);
     }
     public void refresh()
@@ -29,7 +30,6 @@ public class HandVisual : MonoBehaviour
         foreach(Card c in hand.getCards())
         {
             cardInteractions.Add(c.getCardInteraction());
-            c.getCardInteraction().setHandVisual(this);
         }
         calculatePositionInCenter();
         foreach(CardInteraction card in cardInteractions)
@@ -57,7 +57,7 @@ public class HandVisual : MonoBehaviour
     {
         return hand;
     }
-    public void renderHand(bool y)
+    public void setDefaultPositionOfCards(bool y)
     {int i = 0;
         foreach(CardInteraction c in cardInteractions)
         {
@@ -87,6 +87,10 @@ public class HandVisual : MonoBehaviour
             else if(card != selectedCard)
             {
                 card.setBlockade(block);
+            }
+            else if(card==selectedCard)
+            {
+                card.setBlockade(false);
             }
         }
         }
@@ -122,5 +126,23 @@ public class HandVisual : MonoBehaviour
         Debug.Log("Ustawianie Y na "+y.ToString());
         handPosition = new Vector2(handPosition.x,y);
         Debug.Log("Nowa pozycja: "+handPosition.ToString());
+    }
+    void checkAllCardsActivity()
+    {
+        bool activeCard = false;
+        foreach(CardInteraction card in cardInteractions)
+        {
+                if(card.getActive())//TODO: tu ogarnąć dobre blokowanko
+                {
+                    activeCard = true;
+                    setSelectedCard(card);
+                }
+        }
+        setBlockade(activeCard, selectedCard);
+    }
+    
+    void setSelectedCard(CardInteraction selectedCard)
+    {
+        this.selectedCard = selectedCard;
     }
 }

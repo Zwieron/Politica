@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
                 prefabModifier.createCard(gameInfo.getPlayers()[i].getHand());
             }
             gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().refresh();
-            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().renderHand(false);
+            gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setDefaultPositionOfCards(false);
             gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setSortHand();
             foreach(Card card in gameInfo.getPlayers()[i].getHand().getCards())
             {

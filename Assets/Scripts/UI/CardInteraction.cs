@@ -8,7 +8,7 @@ public class CardInteraction : Button
     public float hoverScale = 50;
     public float clickScale = 80;
     public float defaultRotation = 0;
-    HandVisual handVisual;
+    // HandVisual handVisual;
     public Vector3 defaultPosition;
     float deltaTime;
 
@@ -74,7 +74,7 @@ public class CardInteraction : Button
             UIGraphics.resizeInTime(defaultScale, 0.2f);
             Sort();
             toDefaultLocRotInTime();
-            handVisual.setBlockade(false, this);
+            setBlockade(false);
         }
     }
     public override void onHover()
@@ -100,7 +100,7 @@ public class CardInteraction : Button
         isHold=false;
         Debug.Log("Card Odklikd");
         GetSprite().sortingOrder=30;
-        handVisual.setBlockade(true, this);
+        setBlockade(true);
        UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/3,0),0.1f);
         UIGraphics.rotateInTime(0,.1f);
         UIGraphics.resizeInTime(clickScale,.3f);
@@ -152,10 +152,6 @@ public class CardInteraction : Button
     public void setDragging(bool boole)
     {
         isHold = boole;
-    }
-    public void setHandVisual(HandVisual handVisual)
-    {
-        this.handVisual = handVisual;
     }
 
 

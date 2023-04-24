@@ -35,9 +35,8 @@ public class PrefabModifier : MonoBehaviour
         card = prefabInstantiator.getLastPrefab();
 
         hand.addCard(card.GetComponent<Card>());
-        card.GetComponent<CardInteraction>().setHandVisual(hand.getOwner().getHandVisual());
         card.GetComponent<CardInteraction>().GetSprite().sortingOrder = hand.getSize() + 1;
-        hand.getOwner().getHandVisual().renderHand(false);
+        hand.getOwner().getHandVisual().setDefaultPositionOfCards(false);
         card.GetComponent<Card>().getCardInteraction().toDefaultLocRotScale();
     }
         public void createCard(Transform prefab, Hand hand)
@@ -50,10 +49,9 @@ public class PrefabModifier : MonoBehaviour
         card = prefabInstantiator.getLastPrefab();
 
         hand.addCard(card.GetComponent<Card>());
-        card.GetComponent<CardInteraction>().setHandVisual(hand.getOwner().getHandVisual());
         card.GetComponent<CardInteraction>().GetSprite().sortingOrder = hand.getSize() + 1;
         hand.getOwner().getHandVisual().refresh();
-        hand.getOwner().getHandVisual().renderHand(false);
+        hand.getOwner().getHandVisual().setDefaultPositionOfCards(false);
         card.GetComponent<Card>().getCardInteraction().toDefaultLocRotScale();
     }
     public void createPlayer(string name, int playerNumber)
