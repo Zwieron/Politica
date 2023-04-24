@@ -72,7 +72,11 @@ public class HandVisual : MonoBehaviour
     {
         this.handPosition = handPosition;
     }
-     public void blockHand(bool block)
+    public Vector2 getHandPosition()
+    {
+        return handPosition;
+    }
+    public void blockHand(bool block)
     {
         if(cardInteractions.Count==0)
         return;

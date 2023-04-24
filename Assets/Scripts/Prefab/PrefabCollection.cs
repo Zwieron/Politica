@@ -8,6 +8,7 @@ public class PrefabCollection : MonoBehaviour
     public Transform card;
     public Transform table;
     public Transform bidButton;
+    public Transform passButton;
     // Start is called before the first frame update
     void Start()
     {

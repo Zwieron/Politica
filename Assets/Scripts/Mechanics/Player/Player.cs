@@ -68,13 +68,13 @@ public class Player : MonoBehaviour
     {
         switch(playerNumber)
         {
-            case 0: buttonDirection = Directions.DOWN;
+            case 1: buttonDirection = Directions.DOWN;
             break;
-            case 1: buttonDirection = Directions.UP;
+            case 2: buttonDirection = Directions.UP;
             break;
-            case 2: buttonDirection = Directions.LEFT;
+            case 3: buttonDirection = Directions.LEFT;
             break;
-            case 3: buttonDirection = Directions.RIGHT;
+            case 4: buttonDirection = Directions.RIGHT;
             break;
         }
     }

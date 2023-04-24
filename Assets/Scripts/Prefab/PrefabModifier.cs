@@ -86,8 +86,15 @@ public class PrefabModifier : MonoBehaviour
         button.transform.SetParent(canvas.transform,true);
         gamePhase.addButton(button.GetComponent<BidAction>());
     }
-        public PrefabInstantiator getPrefabInstantiator()
-        {
-            return prefabInstantiator;
-        }
+        public void createPassButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.passButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.addButton(button.GetComponent<BidAction>());
+    }
+    public PrefabInstantiator getPrefabInstantiator()
+    {
+        return prefabInstantiator;
+    }
 }

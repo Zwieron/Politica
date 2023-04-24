@@ -28,6 +28,8 @@ public class BiddingPhase : GamePhase
         game.getTable().drawCards(deck,cardsDrawn);
         foreach(Player player in game.getGameInfo().getPlayers())
         {
+            game.getPrefabModifier().createPassButton(player.getHandVisual().getHandPosition(), this);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<PassAction>().setPlayer(player);
             foreach(Card card in game.getTable().getHand().getCards())
             {
                 base.createButtonAroundCard(card, direction: player.buttonDirection);

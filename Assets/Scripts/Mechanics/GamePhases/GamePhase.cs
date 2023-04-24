@@ -25,10 +25,10 @@ public abstract class GamePhase : MonoBehaviour
         switch (direction)
         {
             case Directions.DOWN:
-            newPosition = new Vector2(oldPosition.x, oldPosition.y - 200);
+            newPosition = new Vector2(oldPosition.x, oldPosition.y - 100);
             break;
             case Directions.UP:
-            newPosition = new Vector2(oldPosition.x, oldPosition.y + 200);
+            newPosition = new Vector2(oldPosition.x, oldPosition.y + 100);
             break;
             case Directions.LEFT:
             newPosition = new Vector2(oldPosition.x - 20, oldPosition.y);
@@ -38,6 +38,7 @@ public abstract class GamePhase : MonoBehaviour
             break;
         }
     game.getPrefabModifier().createBidButton(newPosition, this);
+    Debug.Log("old position: " + oldPosition + " new position: " + newPosition);
     }
     public void addButton(ButtonAction buttonAction)
     {
