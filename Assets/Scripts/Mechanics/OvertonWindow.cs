@@ -47,4 +47,48 @@ public class OvertonWindow : MonoBehaviour
         else
             presentPublicEconomicView = EconomicViews.Socialism;
     }
+    public string getWorldviewString()
+    {
+        switch(presentPublicWorldview)
+        {
+            case Worldviews.Fashizm:
+                return "Fashizm";
+            case Worldviews.Conservatism:
+                return "Conservatism";
+            case Worldviews.Centrism:
+                return "Centrism";
+            case Worldviews.Liberalism:
+                return "Liberalism";
+            case Worldviews.Anarchy:
+                return "Anarchy";
+            default:
+                return "NULL";
+        }
+    }
+    public string getEconomicViewString()
+    {
+        switch(presentPublicEconomicView)
+        {
+            case EconomicViews.Lasseizfaire:
+                return "Leseferyzm";
+            case EconomicViews.Liberalism:
+                return "Liberalism";
+            case EconomicViews.Centrism:
+                return "Centrism";
+            case EconomicViews.SocialDemocracy:
+                return "Socdem";
+            case EconomicViews.Socialism:
+                return "Socialism";
+            default:
+                return "NULL";
+        }
+    }
+    public EconomicViews getEconomicView()
+    {
+        return presentPublicEconomicView;
+    }
+    public Worldviews getWorldview()
+    {
+        return presentPublicWorldview;
+    }
 }
