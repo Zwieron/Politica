@@ -5,13 +5,15 @@ using UnityEngine;
 public class BidAction : ButtonAction
 {
     public Party party;
+    int newPartyFunds;
     Card card;
-    int bidValue;
-    bool isBlocked = false;
+    int newBidValue;
+    int oldBidValue;
     
     // Start is called before the first frame update
     void Start()
     {
+        newPartyFunds = party.getFunds();
     }
 
     // Update is called once per frame
@@ -21,18 +23,18 @@ public class BidAction : ButtonAction
     }
     public override void action(int actionValue)
     {
-        party.changeFunds(-actionValue);
-        Debug.Log(party.getFunds().ToString());
-        bidValue += actionValue;
-        Debug.Log(bidValue.ToString());
+        newPartyFunds -= actionValue;
+        Debug.Log(newPartyFunds.ToString());
+        newBidValue += actionValue;
+        Debug.Log(newBidValue.ToString());
     }
     public override void tooltip()
     {
         Debug.Log("button hover");
     }
-    public int getBidValue()
+    public int getNewBidValue()
     {
-        return bidValue;
+        return newBidValue;
     }
     public Card getCard()
     {
@@ -52,6 +54,16 @@ public class BidAction : ButtonAction
     }
     public void valueToText()
     {
-        text.text = bidValue.ToString();
+        text.text = newBidValue.ToString();
+    }
+    public override void update()
+    {
+        oldBidValue = newBidValue;
+        party.setFunds(newPartyFunds);
+    }
+    public override void reset()
+    {
+        newBidValue = oldBidValue;
+        newPartyFunds = party.getFunds();
     }
 }

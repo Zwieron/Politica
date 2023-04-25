@@ -19,6 +19,8 @@ public abstract class ButtonAction : MonoBehaviour
     }
     public abstract void action(int value);
     public abstract void tooltip();
+    public abstract void update();
+    public abstract void reset();
     public Player getPlayer()
     {
         return player;

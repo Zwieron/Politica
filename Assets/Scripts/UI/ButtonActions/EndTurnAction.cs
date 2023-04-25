@@ -5,6 +5,7 @@ using UnityEngine;
 public class EndTurnAction : ButtonAction
 {
     bool turnEnded = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,6 @@ public class EndTurnAction : ButtonAction
     // Update is called once per frame
     void Update()
     {
-        
     }
     public override void action(int value)
     {
@@ -25,13 +25,21 @@ public class EndTurnAction : ButtonAction
     {
         Debug.Log("End Turn");
     }
-    public void reset()
+    public void resetTurnEnded()
     {
         turnEnded = false;
+    }
+    public override void reset()
+    {
+        return;
     }
     public bool isTurnEnded()
     {
         return turnEnded;
+    }
+    public override void update()
+    {
+        return;
     }
     void greyOut()
     {
@@ -40,4 +48,5 @@ public class EndTurnAction : ButtonAction
             GetComponent<SpriteRenderer>().color = Color.grey;
         }
     }
+        
 }

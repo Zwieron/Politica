@@ -12,10 +12,13 @@ public class Player : MonoBehaviour
     public bool playerTurn = false;
     public Game game;
     public Directions buttonDirection;
+    public List<ButtonAction> playerActions;
 
     // Start is called before the first frame update
     void Start()
-    {   game = FindObjectOfType<Game>();
+    {   
+        playerActions = new List<ButtonAction>();
+        game = FindObjectOfType<Game>();
         setStartingPlayer();
     }
 
@@ -59,14 +62,6 @@ public class Player : MonoBehaviour
     {
         return this.handVisual;
     }
-    public void setGameObject(GameObject partyObj)
-    {
-        this.ggameObject = partyObj;
-    }
-    public GameObject getGameObject()
-    {
-        return this.ggameObject;
-    }
     public void setPlayerNumber(int playerNumber)
     {
         this.playerNumber=playerNumber;
@@ -102,5 +97,20 @@ public class Player : MonoBehaviour
         setHand(GetComponent<Hand>());
         setDirection(playerNumber);
         Debug.Log("Player " + playerNumber + " is starting");
+    }
+    public void gatherPlayerButtonActions(List<ButtonAction> actions)
+    {
+        playerActions.Clear();
+        foreach(ButtonAction action in actions)
+        {
+            if(action.getPlayer().Equals(this))
+            {
+                playerActions.Add(action);
+            }
+        }
+    }
+    public List<ButtonAction> getPlayerButtonActions()
+    {
+        return playerActions;
     }
 }

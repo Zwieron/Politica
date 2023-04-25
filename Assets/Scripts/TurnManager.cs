@@ -60,8 +60,12 @@ public class TurnManager : MonoBehaviour
         {
             if (button.isTurnEnded()&&button.getPlayer().Equals(gameInfo.getPlayers()[currentPlayerIndex]))
             {
+                foreach(ButtonAction buttonAction in gameInfo.getPlayers()[currentPlayerIndex].GetComponent<Player>().getPlayerButtonActions())
+                {
+                    buttonAction.update();
+                }
                 nextPlayer();
-                button.reset();
+                button.resetTurnEnded();
                 Debug.Log("Player " + (getCurrentPlayerIndex()+1) + " turn ended");
             }
         }

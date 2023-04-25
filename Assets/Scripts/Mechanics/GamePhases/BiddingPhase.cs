@@ -54,10 +54,6 @@ public class BiddingPhase : GamePhase
             //pass button
             game.getPrefabModifier().createPassButton(player.getHandVisual().getHandPosition(), this);
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<PassAction>().setPlayer(player);
-            //end turn button
-            Vector2  buttonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 40);
-            game.getPrefabModifier().createEndTurnButton(buttonPosition, this);
-            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<EndTurnAction>().setPlayer(player);
             foreach(Card card in game.getTable().getHand().getCards())
             {
                 base.createButtonAroundCard(card, direction: player.buttonDirection);
@@ -65,6 +61,15 @@ public class BiddingPhase : GamePhase
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setPlayer(player);
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setCard(card);
             }
+            //end turn button
+            Vector2  endButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 40);
+            game.getPrefabModifier().createEndTurnButton(endButtonPosition, this);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<EndTurnAction>().setPlayer(player);
+            //undo turn button
+            Vector2  undoButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 80);
+            game.getPrefabModifier().createUndoTurnButton(undoButtonPosition, this);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<UndoTurnAction>().setPlayer(player);
+            player.gatherPlayerButtonActions(buttons);
         }
     }
     bool checkIfAllPlayersHavePassed()
@@ -75,6 +80,7 @@ public class BiddingPhase : GamePhase
             if(pas.isPassed())
             passedPlayers++;
         }
+        
         if(passedPlayers==game.getGameInfo().getPlayers().Count)
         {
             Debug.Log("All players passed");
@@ -96,9 +102,9 @@ public class BiddingPhase : GamePhase
         }
         foreach(BidAction action in actions)
         {
-            if(action.getBidValue()>highestBid)
+            if(action.getNewBidValue()>highestBid)
             {
-                highestBid = action.getBidValue();
+                highestBid = action.getNewBidValue();
                 winner = action.getPlayer();
                 Debug.Log("Winner: " + winner);
             }

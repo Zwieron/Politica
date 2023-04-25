@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PassAction : ButtonAction
+public class UndoTurnAction : ButtonAction
 {
-    public bool newPass = false;
-    public bool oldPass = false;
+    bool turnUndone = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,30 +14,26 @@ public class PassAction : ButtonAction
     // Update is called once per frame
     void Update()
     {
-        
+        if(turnUndone)
+        {
+            foreach(ButtonAction ba in player.getPlayerButtonActions())
+            {
+                ba.reset();
+            }
+            turnUndone=false;
+        }
     }
     public override void action(int i)
     {
-        newPass=true;
-        Debug.Log("Pass clicked");
+        turnUndone = true;
+        Debug.Log("Turn undone");
     }
     public override void tooltip()
     {
-        Debug.Log("Pass");
-    }
-    public bool isPassed()
-    {
-        return oldPass;
+        Debug.Log("Undo Turn");
     }
     public override void update()
-    {
-        if(newPass)
-        oldPass = true;
-        Debug.Log("Pass updated");
-    }
+    {}
     public override void reset()
-    {
-        newPass = false;
-    }
+    {}
 }
-

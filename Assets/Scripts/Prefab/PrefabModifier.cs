@@ -95,10 +95,17 @@ public class PrefabModifier : MonoBehaviour
     }
         public void createEndTurnButton(Vector2 position, GamePhase gamePhase)
     {
-            prefabInstantiator.instantiatePrefab(prefabCollection.endTurnButton,position);
+        prefabInstantiator.instantiatePrefab(prefabCollection.endTurnButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
         gamePhase.addButton(button.GetComponent<EndTurnAction>());
+    }
+            public void createUndoTurnButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.undoTurnButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.addButton(button.GetComponent<UndoTurnAction>());
     }
     public PrefabInstantiator getPrefabInstantiator()
     {
