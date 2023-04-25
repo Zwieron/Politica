@@ -9,6 +9,8 @@ public class BiddingPhase : GamePhase
     public int cardsDrawn;
     List<Player> winners = new List<Player>();
     Dictionary<Card, Player> winnersByCard = new Dictionary<Card, Player>();
+    public AfterBiddingOvertonModifier econOvertonModifier;
+    public AfterBiddingOvertonModifier worldviewOvertonModifier;
     
     // Start is called before the first frame update
     new void Start()
@@ -34,6 +36,8 @@ public class BiddingPhase : GamePhase
             {
                 Destroy(button.gameObject);
             }
+            econOvertonModifier.updateEconOvertonWindow();
+            worldviewOvertonModifier.updateWorldviewOvertonWindow();
             game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
         }
     }
@@ -99,6 +103,11 @@ public class BiddingPhase : GamePhase
                 Debug.Log("Winner: " + winner);
             }
         }
+        //zmiana sumy na overtonie
+        Debug.Log(":FWF: econOvertonModifier: "+checkBiddingModifierToEconViews(highestBid, card.GetComponent<Character>()));
+        econOvertonModifier.changeOfSum(checkBiddingModifierToEconViews(highestBid, card.GetComponent<Character>()));
+        Debug.Log(":FWF: worldviewModifier: "+checkBiddingModifierToWorldviews(highestBid, card.GetComponent<Character>()));
+        worldviewOvertonModifier.changeOfSum(checkBiddingModifierToWorldviews(highestBid, card.GetComponent<Character>()));
         return winner;
     }
     void findWinnerForEveryCard()
@@ -147,5 +156,17 @@ public class BiddingPhase : GamePhase
             }
         }
     }
+    int checkBiddingModifierToEconViews(int bid, Character character)
+    {
+        
+        int temp = (int)character.getEconomicView();
+        return temp*bid;
+    }
+    int checkBiddingModifierToWorldviews(int bid, Character character)
+    {
+       int temp = (int)character.getWorldview()*bid;
+       return temp*bid;
+    }
 }
+
 

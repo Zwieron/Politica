@@ -23,6 +23,7 @@ public class Table : Player
             Transform card = deck.drawTransform();
             if(card != null)
             game.getPrefabModifier().createCard(card, this.hand);
+            deck.removeLastDrawnCard();
         }
         handVisual.refresh();
     }

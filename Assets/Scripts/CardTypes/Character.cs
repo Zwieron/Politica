@@ -16,7 +16,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log(characterName + " - pogląd świata: " + (int)worldview);
     }
 
     // Update is called once per frame
@@ -44,5 +44,15 @@ public class Character : MonoBehaviour
      public void changeLevel(int change)
      {
         characterLevel += change;
+     }
+     public EconomicViews getEconomicView()
+     {
+      Debug.Log(characterName + " - pogląd ekonomiczny: " + (int)economicView);
+      return economicView;
+     }
+     public Worldviews getWorldview()
+     {
+      Debug.Log(characterName + " - pogląd świata: " + (int)worldview);
+      return worldview;
      }
 }

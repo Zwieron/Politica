@@ -7,14 +7,11 @@ public class OvertonWindow : MonoBehaviour
 {
     Worldviews presentPublicWorldview;
     EconomicViews presentPublicEconomicView;
-    TextMesh textMesh;
     // Start is called before the first frame update
     void Start()
     {
         presentPublicEconomicView = EconomicViews.Centrism;
         presentPublicWorldview = Worldviews.Centrism;
-        textMesh = GetComponent<TextMesh>();
-        textMesh.text = presentPublicWorldview + "\n" + presentPublicEconomicView;
     }
 
     // Update is called once per frame

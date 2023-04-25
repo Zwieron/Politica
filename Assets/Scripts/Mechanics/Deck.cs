@@ -6,6 +6,7 @@ public class Deck : MonoBehaviour
 {   
     public List<Transform> prefabList = new List<Transform>();
     public List<int> prefabCountList = new List<int>();
+    Transform lastDrawCard;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,10 +43,16 @@ public class Deck : MonoBehaviour
     public Transform drawTransform()
     {
         int i = Random.Range(0, prefabList.Count);
+        lastDrawCard = prefabList[i];
         return prefabList[i];
     }
     public int getDeckCount()
     {
         return prefabList.Count;
+    }
+
+    public void removeLastDrawnCard()
+    {
+        prefabList.Remove(lastDrawCard);
     }
 }
