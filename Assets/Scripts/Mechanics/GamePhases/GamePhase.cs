@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public abstract class GamePhase : MonoBehaviour
 {
     public Game game;
     public Deck deck;
     protected List<ButtonAction> buttons = new List<ButtonAction>();
+    public Croupier croupier;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -18,7 +20,7 @@ public abstract class GamePhase : MonoBehaviour
     {
         
     }
-    
+    //TODO: Wszystko niżej gdzieś przenieść do klas
     protected void createButtonAroundCard(Card card, Directions direction )
     {   Vector2 oldPosition= card.getCardInteraction().getPosition();
         Vector2 newPosition = new Vector2();
@@ -44,5 +46,9 @@ public abstract class GamePhase : MonoBehaviour
     {
         buttons.Add(buttonAction);
         Debug.Log("button added");
+    }
+    public List<ButtonAction> getButtons()
+    {
+        return buttons;
     }
 }

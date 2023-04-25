@@ -32,6 +32,7 @@ public class HandVisual : MonoBehaviour
             cardInteractions.Add(c.getCardInteraction());
         }
         calculatePositionInCenter();
+        setDefaultPositionOfCards(false);
         foreach(CardInteraction card in cardInteractions)
         {
             card.toDefaultLocRotScale();

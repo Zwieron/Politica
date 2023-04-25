@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public abstract class ButtonAction : MonoBehaviour
+
+public class ShowActivePlayer : MonoBehaviour
 {
     public TMP_Text text;
-    protected Player player;
+    public TurnManager turnManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,16 +16,11 @@ public abstract class ButtonAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateText();
     }
-    public abstract void action(int value);
-    public abstract void tooltip();
-    public Player getPlayer()
+
+    public void UpdateText()
     {
-        return player;
-    }
-    public void setPlayer(Player p)
-    {
-        this.player = p;
+        text.text = "Player " + (turnManager.getCurrentPlayerIndex()+1) + " Turn";
     }
 }

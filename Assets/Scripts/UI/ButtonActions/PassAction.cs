@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PassAction : ButtonAction
 {
-    Player player;
     bool pass = false;
     // Start is called before the first frame update
     void Start()
@@ -25,9 +24,9 @@ public class PassAction : ButtonAction
     {
         Debug.Log("Pass");
     }
-    public void setPlayer(Player p)
+    public bool isPassed()
     {
-        player = p;
+        return pass;
     }
 }
 

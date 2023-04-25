@@ -44,4 +44,8 @@ public class Deck : MonoBehaviour
         int i = Random.Range(0, prefabList.Count);
         return prefabList[i];
     }
+    public int getDeckCount()
+    {
+        return prefabList.Count;
+    }
 }

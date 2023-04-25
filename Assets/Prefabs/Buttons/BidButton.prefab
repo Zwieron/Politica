@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1737848155759707007}
   - component: {fileID: 1737848155759707000}
   - component: {fileID: 1737848155759707004}
+  - component: {fileID: 410764650934725949}
   m_Layer: 5
   m_Name: BidButton
   m_TagString: Untagged
@@ -136,8 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46deefeae1b116e4796d454dc5461f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  party: {fileID: 0}
   text: {fileID: 1737848156372499671}
+  party: {fileID: 0}
 --- !u!114 &1737848155759707004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,9 +154,22 @@ MonoBehaviour:
   active: 0
   blocked: 0
   UIGraphics: {fileID: 0}
-  colliderSize: {x: 150, y: 70}
+  colliderSize: {x: 60, y: 30}
   buttonAction: {fileID: 0}
   actionValue: 2
+--- !u!114 &410764650934725949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737848155759707002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58bb7b737785f644dac77210315c481c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBlocked: 0
 --- !u!1 &1737848156372499665
 GameObject:
   m_ObjectHideFlags: 0

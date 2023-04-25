@@ -7,7 +7,6 @@ public class Game : MonoBehaviour
     GameInfo gameInfo;
     InterfaceElements interfaceManager;
     PrefabModifier prefabModifier;
-    GamePhases gamePhases=GamePhases.BiddingPhase;
     Table table;
     Converter converter;
     
@@ -20,29 +19,23 @@ public class Game : MonoBehaviour
         interfaceManager = GetComponent<InterfaceElements>();
         prefabModifier.createTable();
         startGame();
-        startGamePhase(gamePhases);
+        startGamePhase(gameInfo.getGamePhase());
     }
     void Update()
     {
-    
+        if(gameInfo.getGamePhaseChanged())
+        {
+            startGamePhase(gameInfo.getGamePhase());
+            gameInfo.setGamePhaseChanged(false);
+        }
     }
     void startGame()
     {
         for(int i = 0; i < gameInfo.getPlayerNumber(); i++)
         {
             prefabModifier.createPlayer("Player "+(i+1).ToString(), i+1);
-            // for(int j = 0; j < 5; j++)
-            // {
-            //     prefabModifier.createCard(gameInfo.getPlayers()[i].getHand());
-            // }
-            // gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().refresh();
-            // gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setDefaultPositionOfCards(false);
-            // gameInfo.getPlayersObjs()[i].GetComponent<Player>().getHandVisual().setSortHand();
-            // foreach(Card card in gameInfo.getPlayers()[i].getHand().getCards())
-            // {
-            //     card.getCardInteraction().toDefaultLocRotScale();
-            // }
         }
+        gameInfo.getPlayers()[0].startTurn();
     }
     public GameInfo getGameInfo()
     {
@@ -56,14 +49,7 @@ public class Game : MonoBehaviour
     {
         return interfaceManager;
     }
-    public void setGamePhase(GamePhases phase)
-    {
-        gamePhases = phase;
-    }
-    public GamePhases getGamePhase()
-    {
-        return gamePhases;
-    }
+
     public Table getTable()
     {
         return table;

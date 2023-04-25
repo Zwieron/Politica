@@ -16,29 +16,28 @@ public class Button : UIElement
         }
     void Update()
         { 
+            checkState();
             if(!blocked)
-    {
-    checkState();
+            {
+                if (isMouseOver && Input.GetMouseButtonDown(0))
+                {
+                    onClick();
+                    isHold = true;
+                }
+                if(!isMouseOver && Input.GetMouseButtonDown(0))
+                {
+                    onUnclick();
+                }
 
-    if (isMouseOver && Input.GetMouseButtonDown(0))
-    {
-        onClick();
-        isHold = true;
-    }
-    if(!isMouseOver && Input.GetMouseButtonDown(0))
-    {
-        onUnclick();
-    }
-
-    if (Input.GetMouseButtonUp(0))
-    {
-        if (isHold)
-        {
-            onMouseUp();
-        }
-        isHold = false;
-    }
-    }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (isHold)
+                    {
+                        onMouseUp();
+                    }
+                    isHold = false;
+                }
+            }
         }
     protected override void create()
         {

@@ -91,7 +91,14 @@ public class PrefabModifier : MonoBehaviour
         prefabInstantiator.instantiatePrefab(prefabCollection.passButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
-        gamePhase.addButton(button.GetComponent<BidAction>());
+        gamePhase.addButton(button.GetComponent<PassAction>());
+    }
+        public void createEndTurnButton(Vector2 position, GamePhase gamePhase)
+    {
+            prefabInstantiator.instantiatePrefab(prefabCollection.endTurnButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.addButton(button.GetComponent<EndTurnAction>());
     }
     public PrefabInstantiator getPrefabInstantiator()
     {

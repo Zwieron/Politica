@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     protected GameObject ggameObject;
     protected Hand hand;
     protected HandVisual handVisual;
-    public bool user;
+    public bool playerTurn = false;
     public Game game;
     public Directions buttonDirection;
 
@@ -23,7 +23,18 @@ public class Player : MonoBehaviour
     void Update()
     {
     }
-
+    public void startTurn()
+    {
+        playerTurn = true;
+    }
+    public void endTurn()
+    {
+        playerTurn = false;
+    }
+    public bool isPlayerTurn()
+    {
+        return playerTurn;
+    }
     public void setParty(Party party)
     {
         this.party = party;

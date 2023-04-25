@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabCollection : MonoBehaviour
+public class OvertonWindowDisplayer : MonoBehaviour
 {
-    public Transform player;
-    public Transform card;
-    public Transform table;
-    public Transform bidButton;
-    public Transform passButton;
-    public Transform endTurnButton;
+    OvertonWindow overtonWindow;
+    
     // Start is called before the first frame update
     void Start()
     {
