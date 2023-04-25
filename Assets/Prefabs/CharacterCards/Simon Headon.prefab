@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8057263654830335681}
   - component: {fileID: 3573667276291387352}
   m_Layer: 0
-  m_Name: CharacterCard 1
+  m_Name: Simon Headon
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aeeb00a036ea447a0f760d1142bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: cUJ
-  worldview: 2
-  economicView: 2
+  characterName: Simon Headon
+  worldview: 0
+  economicView: 0
   characterBuff: {fileID: 0}
 --- !u!114 &3573667276291387352
 MonoBehaviour:

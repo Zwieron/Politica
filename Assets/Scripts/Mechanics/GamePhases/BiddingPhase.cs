@@ -41,7 +41,7 @@ public class BiddingPhase : GamePhase
             game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
         }
     }
-    void showCards()
+    void showCards() //TODO: refactor this
     {
         if(game.getTable()==null)
         Debug.Log("No table");
