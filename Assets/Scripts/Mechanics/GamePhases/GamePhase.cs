@@ -21,26 +21,10 @@ public abstract class GamePhase : MonoBehaviour
         
     }
     //TODO: Wszystko niżej gdzieś przenieść do klas
-    protected void createButtonAroundCard(Card card, Directions direction )
-    {   Vector2 oldPosition= card.getCardInteraction().getPosition();
-        Vector2 newPosition = new Vector2();
-        switch (direction)
-        {
-            case Directions.DOWN:
-            newPosition = new Vector2(oldPosition.x, oldPosition.y - 100);
-            break;
-            case Directions.UP:
-            newPosition = new Vector2(oldPosition.x, oldPosition.y + 100);
-            break;
-            case Directions.LEFT:
-            newPosition = new Vector2(oldPosition.x - 20, oldPosition.y);
-            break;
-            case Directions.RIGHT:
-            newPosition = new Vector2(oldPosition.x + 20, oldPosition.y);
-            break;
-        }
-    game.getPrefabModifier().createBidButton(newPosition, this);
-    Debug.Log("old position: " + oldPosition + " new position: " + newPosition);
+    protected void createButtonAroundCard(Card card, ButtonTypes buttonTypes, Directions direction)
+    {
+    Vector2 newPosition = switchPositionByDirection(card.getCardInteraction().getPosition(),direction);   
+    switchCreateButtonType(buttonTypes, newPosition);
     }
     public void addButton(ButtonAction buttonAction)
     {
@@ -51,4 +35,42 @@ public abstract class GamePhase : MonoBehaviour
     {
         return buttons;
     }
+    Vector2 switchPositionByDirection(Vector2 oldPosition, Directions direction)
+    {
+        switch (direction)
+        {
+            case Directions.DOWN:
+            return new Vector2(oldPosition.x, oldPosition.y - 100);
+            case Directions.UP:
+            return new Vector2(oldPosition.x, oldPosition.y + 100);
+            case Directions.LEFT:
+            return new Vector2(oldPosition.x - 20, oldPosition.y);
+            case Directions.RIGHT:
+            return new Vector2(oldPosition.x + 20, oldPosition.y);
+            default:
+            return oldPosition;
+        }
+    }
+    void switchCreateButtonType(ButtonTypes buttonTypes, Vector2 position)
+    {
+        switch(buttonTypes)
+        {
+            case ButtonTypes.BidAction:
+            game.getPrefabModifier().createBidButton(position, this);
+            break;
+            case ButtonTypes.PassAction:
+            game.getPrefabModifier().createPassButton(position, this);
+            break;
+            case ButtonTypes.ActivateCardAction:
+            game.getPrefabModifier().createActivateCardButton(position, this);
+            break;
+            case ButtonTypes.EndTurnAction:
+            game.getPrefabModifier().createEndTurnButton(position, this);
+            break;
+            case ButtonTypes.UndoTurnAction:
+            game.getPrefabModifier().createUndoTurnButton(position, this);
+            break;
+        }
+    }
 }
+

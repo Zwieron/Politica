@@ -48,6 +48,7 @@ public class PrefabModifier : MonoBehaviour
         prefabInstantiator.instantiatePrefab(prefab);
         card = prefabInstantiator.getLastPrefab();
 
+        card.transform.SetParent(canvas.transform);
         hand.addCard(card.GetComponent<Card>());
         card.GetComponent<CardInteraction>().GetSprite().sortingOrder = hand.getSize() + 1;
         hand.getOwner().getHandVisual().refresh();
@@ -106,6 +107,13 @@ public class PrefabModifier : MonoBehaviour
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
         gamePhase.addButton(button.GetComponent<UndoTurnAction>());
+    }
+            public void createActivateCardButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.activateCardButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.addButton(button.GetComponent<ActivateCardAction>());
     }
     public PrefabInstantiator getPrefabInstantiator()
     {

@@ -56,7 +56,7 @@ public class BiddingPhase : GamePhase
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<PassAction>().setPlayer(player);
             foreach(Card card in game.getTable().getHand().getCards())
             {
-                base.createButtonAroundCard(card, direction: player.buttonDirection);
+                base.createButtonAroundCard(card,ButtonTypes.BidAction, direction: player.buttonDirection);
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setParty(player.getParty());
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setPlayer(player);
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setCard(card);
