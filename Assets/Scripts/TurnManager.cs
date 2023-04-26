@@ -24,13 +24,13 @@ public class TurnManager : MonoBehaviour
         switch(gameInfo.getGamePhase())
         {
             case GamePhases.BiddingPhase:
-                refreshTurnButtons(GetComponent<BiddingPhase>().getButtons());
+                refreshTurnButtons(GetComponent<BiddingPhase>().getPhaseButtonsManager().getButtons());
                 break;
             case GamePhases.ActionPhase:
-                refreshTurnButtons(GetComponent<ActionPhase>().getButtons());
+                refreshTurnButtons(GetComponent<ActionPhase>().getPhaseButtonsManager().getButtons());
                 break;
             case GamePhases.PollPhase:
-                refreshTurnButtons(GetComponent<PollPhase>().getButtons());
+                refreshTurnButtons(GetComponent<PollPhase>().getPhaseButtonsManager().getButtons());
                 break;
         }
     }

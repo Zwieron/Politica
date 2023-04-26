@@ -28,8 +28,9 @@ public class Card : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        highlightActivated();
     }
+    
     public CardInteraction getCardInteraction()
     {
         return cardInteraction;
@@ -56,6 +57,13 @@ public class Card : MonoBehaviour
     public CardState GetCardState()
     {
         return cardState;
+    }
+    void highlightActivated()
+    {
+        if(cardState==CardState.Activated)
+        cardInteraction.getHighlighter().highlightYellow();
+        else
+        cardInteraction.getHighlighter().highlightWhite();
     }
 
 }

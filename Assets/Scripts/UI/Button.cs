@@ -9,6 +9,7 @@ public class Button : UIElement
         public Vector2 colliderSize;
         public ButtonAction buttonAction;
         public int actionValue;
+        Highlighter highlighter;
     void Awake()
         {
             create();
@@ -47,6 +48,10 @@ public class Button : UIElement
         if(boxCollider==null)
         boxCollider = gameObject.AddComponent<BoxCollider2D>();
         boxCollider.size = colliderSize;
+        if(highlighter==null)
+        highlighter=GetComponent<Highlighter>();
+        if(highlighter==null)
+        highlighter=gameObject.AddComponent<Highlighter>(); 
         }
 public override void checkState()
 {
@@ -88,6 +93,10 @@ public override void checkState()
         public override void onMouseExit()
         {
 
+        }
+        public Highlighter getHighlighter()
+        {
+            return highlighter;
         }
         
     }

@@ -7,7 +7,7 @@ public class ActionPhase : GamePhase
     // Start is called before the first frame update
     new void Start()
     {
-        game = GetComponent<Game>();
+        base.Start();
         createButtonsAroundPlayersHand();
         
     }
@@ -23,8 +23,12 @@ public class ActionPhase : GamePhase
         {
             foreach (Card card in player.getHand().getCards())
             {
-                createButtonAroundCard(card, ButtonTypes.ActivateCardAction,player.buttonDirection);
+                phaseButtonsManager.createButtonAroundCard(card, ButtonTypes.ActivateCardAction,Directions.UP);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().setPlayer(player);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().SetCard(card);
             }
+            phaseButtonsManager.createDefaultButtonsForPlayer(player);
+            player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
         }
     }
 }

@@ -15,7 +15,7 @@ public class BiddingPhase : GamePhase
     // Start is called before the first frame update
     new void Start()
     {
-        game = GetComponent<Game>();
+        base.Start();
         showCards();
     }
 
@@ -32,12 +32,13 @@ public class BiddingPhase : GamePhase
             {
                 player.getHandVisual().refresh();
             }
-            foreach(ButtonAction button in buttons)
+            foreach(ButtonAction button in phaseButtonsManager.getButtons())
             {
                 Destroy(button.gameObject);
             }
             econOvertonModifier.updateEconOvertonWindow();
             worldviewOvertonModifier.updateWorldviewOvertonWindow();
+            Destroy(phaseButtonsManager);
             game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
         }
     }
@@ -56,26 +57,20 @@ public class BiddingPhase : GamePhase
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<PassAction>().setPlayer(player);
             foreach(Card card in game.getTable().getHand().getCards())
             {
-                base.createButtonAroundCard(card,ButtonTypes.BidAction, direction: player.buttonDirection);
+                phaseButtonsManager.createButtonAroundCard(card,ButtonTypes.BidAction, direction: player.buttonDirection);
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setParty(player.getParty());
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setPlayer(player);
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setCard(card);
             }
-            //end turn button
-            Vector2  endButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 40);
-            game.getPrefabModifier().createEndTurnButton(endButtonPosition, this);
-            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<EndTurnAction>().setPlayer(player);
-            //undo turn button
-            Vector2  undoButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 80);
-            game.getPrefabModifier().createUndoTurnButton(undoButtonPosition, this);
-            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<UndoTurnAction>().setPlayer(player);
-            player.gatherPlayerButtonActions(buttons);
+            phaseButtonsManager.createDefaultButtonsForPlayer(player);
+            player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
         }
     }
+
     bool checkIfAllPlayersHavePassed()
     {
         int passedPlayers = 0;
-        foreach(PassAction pas in buttons.OfType<PassAction>())
+        foreach(PassAction pas in phaseButtonsManager.getButtons().OfType<PassAction>())
         {
             if(pas.isPassed())
             passedPlayers++;
@@ -139,7 +134,7 @@ public class BiddingPhase : GamePhase
     List<BidAction> createListOfButtonsOfCard(Card card)
     {
         List<BidAction> actions = new List<BidAction>();
-        foreach(BidAction action in buttons.OfType<BidAction>())
+        foreach(BidAction action in phaseButtonsManager.getButtons().OfType<BidAction>())
         {
             if(action.getCard()==null)
             Debug.Log("No card in action");
@@ -152,10 +147,10 @@ public class BiddingPhase : GamePhase
     }
     void blockBidButtonsAfterPassed()
     {
-        foreach(PassAction pas in buttons.OfType<PassAction>())
+        foreach(PassAction pas in phaseButtonsManager.getButtons().OfType<PassAction>())
         {
             if(pas.isPassed())
-            foreach(BidAction action in buttons.OfType<BidAction>())
+            foreach(BidAction action in phaseButtonsManager.getButtons().OfType<BidAction>())
             {
                 if(action.getPlayer().Equals(pas.getPlayer()))
                 action.GetComponent<Button>().setBlockade(true);

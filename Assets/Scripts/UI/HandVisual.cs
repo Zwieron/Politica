@@ -6,7 +6,7 @@ public class HandVisual : MonoBehaviour
 {
     Hand hand {get; set;}
     List<CardInteraction> cardInteractions = new List<CardInteraction>();
-    public Vector2 handPosition = new Vector2(0,50);
+    public Vector2 handPosition = new Vector2(0,100);
     public float Offset = 120f;
     public float rotationOffset = 0;
     bool blockade = false;

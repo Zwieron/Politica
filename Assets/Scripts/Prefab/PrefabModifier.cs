@@ -85,35 +85,35 @@ public class PrefabModifier : MonoBehaviour
         prefabInstantiator.instantiatePrefab(prefabCollection.bidButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
-        gamePhase.addButton(button.GetComponent<BidAction>());
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<BidAction>());
     }
         public void createPassButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.passButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
-        gamePhase.addButton(button.GetComponent<PassAction>());
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<PassAction>());
     }
         public void createEndTurnButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.endTurnButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
-        gamePhase.addButton(button.GetComponent<EndTurnAction>());
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<EndTurnAction>());
     }
             public void createUndoTurnButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.undoTurnButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
-        gamePhase.addButton(button.GetComponent<UndoTurnAction>());
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<UndoTurnAction>());
     }
             public void createActivateCardButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.activateCardButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
-        gamePhase.addButton(button.GetComponent<ActivateCardAction>());
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<ActivateCardAction>());
     }
     public PrefabInstantiator getPrefabInstantiator()
     {

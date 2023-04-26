@@ -20,6 +20,7 @@ public class ActivateCardAction : ButtonAction
     public override void action(int value)
     {
         newCardState = CardState.Activated;
+        Debug.Log("Card activated");
     }
     public override void tooltip()
     {
@@ -33,4 +34,10 @@ public class ActivateCardAction : ButtonAction
     {
         newCardState = card.GetCardState();
     }
+    public void SetCard(Card card)
+    {
+        this.card = card;
+    }
+    public Card getCard()
+    {return card;}
 }
