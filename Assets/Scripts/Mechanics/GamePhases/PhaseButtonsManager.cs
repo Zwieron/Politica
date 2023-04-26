@@ -73,11 +73,11 @@ public class PhaseButtonsManager : MonoBehaviour
     public void createDefaultButtonsForPlayer(Player player)
     {
             //end turn button
-            Vector2  endButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 40);
+            Vector2  endButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x-100, player.getHandVisual().getHandPosition().y);
             game.getPrefabModifier().createEndTurnButton(endButtonPosition, phase);
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<EndTurnAction>().setPlayer(player);
             //undo turn button
-            Vector2  undoButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 80);
+            Vector2  undoButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x-100, player.getHandVisual().getHandPosition().y - 40);
             game.getPrefabModifier().createUndoTurnButton(undoButtonPosition, phase);
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<UndoTurnAction>().setPlayer(player);
             player.gatherPlayerButtonActions(buttons);
