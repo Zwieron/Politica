@@ -37,6 +37,10 @@ public class Party : MonoBehaviour
     {
         return funds;
     }
+    public void setFunds(int amount)
+    {
+        funds=amount;
+    }
     public void setOwner(Player player)
     {
         this.owner = player;

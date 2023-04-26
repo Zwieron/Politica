@@ -1,89 +1,178 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BiddingPhase : GamePhase
 {
+    public bool blockIfPassed = false;
     public int cardsDrawn;
-    List<Card> cards = new List<Card>();
-    List<Party> parties = new List<Party>();
-    List<Party> winners = new List<Party>();
-    List<Bidding> biddings = new List<Bidding>();
+    List<Player> winners = new List<Player>();
+    Dictionary<Card, Player> winnersByCard = new Dictionary<Card, Player>();
+    public AfterBiddingOvertonModifier econOvertonModifier;
+    public AfterBiddingOvertonModifier worldviewOvertonModifier;
+    
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        getGame();
+        game = GetComponent<Game>();
         showCards();
-        for(int i = 0; i< game.getGameInfo().getPlayers().Count ; i++)
-        {
-            biddings.Add(new Bidding(game.getGameInfo().getParties()[i], cards));
-            parties.Add(biddings[i].GetParty());
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    Party CheckWhichPartyWinsBiddingOnACard(Card card)
-    {
-        Bidding biggestBid = new Bidding(new Party(), cards);
-        for(int i = 0; i< parties.Count ; i++)
+        if(blockIfPassed)
+            blockBidButtonsAfterPassed();
+        if(checkIfAllPlayersHavePassed())
         {
-            if(biggestBid.GetCardsBid(card)<biddings[i].GetCardsBid(card))
+            findWinnerForEveryCard();
+            giveWonCardsToWinners();
+            foreach(Player player in game.getGameInfo().getPlayers())
             {
-                biggestBid = biddings[i];
+                player.getHandVisual().refresh();
             }
+            foreach(ButtonAction button in buttons)
+            {
+                Destroy(button.gameObject);
+            }
+            econOvertonModifier.updateEconOvertonWindow();
+            worldviewOvertonModifier.updateWorldviewOvertonWindow();
+            game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
         }
-        return biggestBid.GetParty();
     }
-    void CheckWinnerForEveryCard()
-    {
-        foreach(Card card in cards)
-        {
-            winners.Add(CheckWhichPartyWinsBiddingOnACard(card));
-        }
-    }
-        void showCards()
+    void showCards() //TODO: refactor this
     {
         if(game.getTable()==null)
         Debug.Log("No table");
-        game.getTable().drawCards(deck,cardsDrawn);
+        if(cardsDrawn<=deck.getDeckCount())
+            game.getTable().drawCards(deck,cardsDrawn);
+        else
+            game.getTable().drawCards(deck,deck.getDeckCount());
+        foreach(Player player in game.getGameInfo().getPlayers())
+        {
+            //pass button
+            game.getPrefabModifier().createPassButton(player.getHandVisual().getHandPosition(), this);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<PassAction>().setPlayer(player);
+            foreach(Card card in game.getTable().getHand().getCards())
+            {
+                base.createButtonAroundCard(card,ButtonTypes.BidAction, direction: player.buttonDirection);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setParty(player.getParty());
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setPlayer(player);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setCard(card);
+            }
+            //end turn button
+            Vector2  endButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 40);
+            game.getPrefabModifier().createEndTurnButton(endButtonPosition, this);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<EndTurnAction>().setPlayer(player);
+            //undo turn button
+            Vector2  undoButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x, player.getHandVisual().getHandPosition().y - 80);
+            game.getPrefabModifier().createUndoTurnButton(undoButtonPosition, this);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<UndoTurnAction>().setPlayer(player);
+            player.gatherPlayerButtonActions(buttons);
+        }
+    }
+    bool checkIfAllPlayersHavePassed()
+    {
+        int passedPlayers = 0;
+        foreach(PassAction pas in buttons.OfType<PassAction>())
+        {
+            if(pas.isPassed())
+            passedPlayers++;
+        }
+        
+        if(passedPlayers==game.getGameInfo().getPlayers().Count)
+        {
+            Debug.Log("All players passed");
+            return true;
+        }
+        else 
+            return false;
+    }
+    Player findWinner(Card card)
+    {
+        List<BidAction> actions = createListOfButtonsOfCard(card);
+        int highestBid = -1;
+        Player winner = null;
+        Debug.Log(":FWF: "+card);
+        if(actions.Count==0)
+        {
+            Debug.Log("No actions");
+            return null;
+        }
+        foreach(BidAction action in actions)
+        {
+            if(action.getNewBidValue()>highestBid)
+            {
+                highestBid = action.getNewBidValue();
+                winner = action.getPlayer();
+                Debug.Log("Winner: " + winner);
+            }
+        }
+        //zmiana sumy na overtonie
+        Debug.Log(":FWF: econOvertonModifier: "+checkBiddingModifierToEconViews(highestBid, card.GetComponent<Character>()));
+        econOvertonModifier.changeOfSum(checkBiddingModifierToEconViews(highestBid, card.GetComponent<Character>()));
+        Debug.Log(":FWF: worldviewModifier: "+checkBiddingModifierToWorldviews(highestBid, card.GetComponent<Character>()));
+        worldviewOvertonModifier.changeOfSum(checkBiddingModifierToWorldviews(highestBid, card.GetComponent<Character>()));
+        return winner;
+    }
+    void findWinnerForEveryCard()
+    {
         foreach(Card card in game.getTable().getHand().getCards())
         {
-            cards.Add(card);
+            Player winner = findWinner(card);
+            winnersByCard.Add(card, winner);
+            Debug.Log(":FWFEC:");
+            Debug.Log("Card: " + card + " Winner: " + winner);
         }
     }
-}
-
-public class Bidding
-{
-    Party party;
-    Dictionary<Card,int> cardBids = new Dictionary<Card,int>();
-
-    public Bidding(Party party, List<Card> cards)
+    void giveWonCardsToWinners()
     {
-        this.party = party;
-        foreach (Card card in cards)
+        foreach(KeyValuePair<Card, Player> pair in winnersByCard)
         {
-            cardBids.Add(card, 0);
+            Debug.Log(":GWCTW:");
+            Debug.Log("Card: " + pair.Key + " Winner: " + pair.Value);
+                croupier.changeCardsOwner(pair.Value, pair.Key);
         }
     }
-
-    public void PartyBidsFundsOnASelectedCard(Card card, int funds)
+    
+    List<BidAction> createListOfButtonsOfCard(Card card)
     {
-        party.changeFunds(-funds);
-        cardBids[card] += funds;
+        List<BidAction> actions = new List<BidAction>();
+        foreach(BidAction action in buttons.OfType<BidAction>())
+        {
+            if(action.getCard()==null)
+            Debug.Log("No card in action");
+            if(action.getCard().Equals(card))
+            {
+                actions.Add(action);
+            }
+        }
+        return actions;
     }
-
-    public Party GetParty()
-    {return party;
-    }
-    public int GetCardsBid(Card card)
+    void blockBidButtonsAfterPassed()
     {
-        return cardBids[card];
+        foreach(PassAction pas in buttons.OfType<PassAction>())
+        {
+            if(pas.isPassed())
+            foreach(BidAction action in buttons.OfType<BidAction>())
+            {
+                if(action.getPlayer().Equals(pas.getPlayer()))
+                action.GetComponent<Button>().setBlockade(true);
+            }
+        }
     }
-
-
+    int checkBiddingModifierToEconViews(int bid, Character character)
+    {
+        
+        int temp = (int)character.getEconomicView();
+        return temp*bid;
+    }
+    int checkBiddingModifierToWorldviews(int bid, Character character)
+    {
+       int temp = (int)character.getWorldview()*bid;
+       return temp*bid;
+    }
 }
+
+

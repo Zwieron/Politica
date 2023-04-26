@@ -11,7 +11,7 @@ public class HandVisual : MonoBehaviour
     public float rotationOffset = 0;
     bool blockade = false;
     CardInteraction selectedCard;
-    InterfaceElements interfaceElements;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +21,7 @@ public class HandVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkAllCardsActivity();
         blockHand(blockade);
     }
     public void refresh()
@@ -28,10 +29,10 @@ public class HandVisual : MonoBehaviour
         cardInteractions.Clear();
         foreach(Card c in hand.getCards())
         {
-            cardInteractions.Add(c.GetCardInteraction());
-            c.GetCardInteraction().setHandVisual(this);
+            cardInteractions.Add(c.getCardInteraction());
         }
         calculatePositionInCenter();
+        setDefaultPositionOfCards(false);
         foreach(CardInteraction card in cardInteractions)
         {
             card.toDefaultLocRotScale();
@@ -57,7 +58,7 @@ public class HandVisual : MonoBehaviour
     {
         return hand;
     }
-    public void renderHand(bool y)
+    public void setDefaultPositionOfCards(bool y)
     {int i = 0;
         foreach(CardInteraction c in cardInteractions)
         {
@@ -72,7 +73,11 @@ public class HandVisual : MonoBehaviour
     {
         this.handPosition = handPosition;
     }
-     public void blockHand(bool block)
+    public Vector2 getHandPosition()
+    {
+        return handPosition;
+    }
+    public void blockHand(bool block)
     {
         if(cardInteractions.Count==0)
         return;
@@ -88,6 +93,10 @@ public class HandVisual : MonoBehaviour
             {
                 card.setBlockade(block);
             }
+            else if(card==selectedCard)
+            {
+                card.setBlockade(false);
+            }
         }
         }
     }
@@ -95,17 +104,12 @@ public class HandVisual : MonoBehaviour
     {
         this.blockade = blockade;
         this.selectedCard = selectedCard;
-        this.interfaceElements.setBlockade(blockade, this);
+        // this.interfaceElements.setBlockade(blockade, this);
     }
         public void setBlockade(bool blockade)
     {
         this.blockade = blockade;
         this.selectedCard = null;
-    }
-    public void setInterfaceElements(InterfaceElements interfaceElements)
-    {
-        this.interfaceElements = interfaceElements;
-        interfaceElements.addHand(this);
     }
     void calculatePositionInCenter()
     {
@@ -122,5 +126,23 @@ public class HandVisual : MonoBehaviour
         Debug.Log("Ustawianie Y na "+y.ToString());
         handPosition = new Vector2(handPosition.x,y);
         Debug.Log("Nowa pozycja: "+handPosition.ToString());
+    }
+    void checkAllCardsActivity()
+    {
+        bool activeCard = false;
+        foreach(CardInteraction card in cardInteractions)
+        {
+                if(card.getActive())
+                {
+                    activeCard = true;
+                    setSelectedCard(card);
+                }
+        }
+        setBlockade(activeCard, selectedCard);
+    }
+    
+    void setSelectedCard(CardInteraction selectedCard)
+    {
+        this.selectedCard = selectedCard;
     }
 }

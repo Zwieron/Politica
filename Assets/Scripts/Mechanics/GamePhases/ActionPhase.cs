@@ -5,9 +5,10 @@ using UnityEngine;
 public class ActionPhase : GamePhase
 {
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        getGame();
+        game = GetComponent<Game>();
+        createButtonsAroundPlayersHand();
         
     }
 
@@ -15,5 +16,15 @@ public class ActionPhase : GamePhase
     void Update()
     {
         
+    }
+    void createButtonsAroundPlayersHand()
+    {
+        foreach (Player player in game.getGameInfo().getPlayers())
+        {
+            foreach (Card card in player.getHand().getCards())
+            {
+                createButtonAroundCard(card, ButtonTypes.ActivateCardAction,player.buttonDirection);
+            }
+        }
     }
 }

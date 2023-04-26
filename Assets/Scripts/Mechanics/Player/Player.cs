@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    int playerNumber;
-    Party party;
+    public int playerNumber;
+    public Party party;
     protected GameObject ggameObject;
     protected Hand hand;
     protected HandVisual handVisual;
-    public bool user;
+    public bool playerTurn = false;
     public Game game;
+    public Directions buttonDirection;
+    public List<ButtonAction> playerActions;
 
     // Start is called before the first frame update
     void Start()
-    {   game = FindObjectOfType<Game>();
+    {   
+        playerActions = new List<ButtonAction>();
+        game = FindObjectOfType<Game>();
         setStartingPlayer();
     }
 
@@ -22,7 +26,18 @@ public class Player : MonoBehaviour
     void Update()
     {
     }
-
+    public void startTurn()
+    {
+        playerTurn = true;
+    }
+    public void endTurn()
+    {
+        playerTurn = false;
+    }
+    public bool isPlayerTurn()
+    {
+        return playerTurn;
+    }
     public void setParty(Party party)
     {
         this.party = party;
@@ -47,14 +62,6 @@ public class Player : MonoBehaviour
     {
         return this.handVisual;
     }
-    public void setGameObject(GameObject partyObj)
-    {
-        this.ggameObject = partyObj;
-    }
-    public GameObject getGameObject()
-    {
-        return this.ggameObject;
-    }
     public void setPlayerNumber(int playerNumber)
     {
         this.playerNumber=playerNumber;
@@ -63,14 +70,47 @@ public class Player : MonoBehaviour
     {
         this.game = game;
     }
+        void setDirection(int playerNumber)
+    {
+        switch(playerNumber)
+        {
+            case 1: buttonDirection = Directions.DOWN;
+            break;
+            case 2: buttonDirection = Directions.UP;
+            break;
+            case 3: buttonDirection = Directions.LEFT;
+            break;
+            case 4: buttonDirection = Directions.RIGHT;
+            break;
+        }
+    }
     public virtual void setStartingPlayer()
     {
         setHand(GetComponent<Hand>());
         GetComponent<HandVisual>().setHand(GetComponent<Hand>());
         GetComponent<Hand>().setHandVisual(GetComponent<HandVisual>());
-        GetComponent<HandVisual>().setInterfaceElements(game.getInterfaceManager());
         setHandVisual(GetComponent<HandVisual>());
+        game.getInterfaceManager().addHandVisual(GetComponent<HandVisual>());
         GetComponent<Party>().setOwner(this);
+        setParty(GetComponent<Party>());
         GetComponent<Hand>().setOwner(this);
+        setHand(GetComponent<Hand>());
+        setDirection(playerNumber);
+        Debug.Log("Player " + playerNumber + " is starting");
+    }
+    public void gatherPlayerButtonActions(List<ButtonAction> actions)
+    {
+        playerActions.Clear();
+        foreach(ButtonAction action in actions)
+        {
+            if(action.getPlayer().Equals(this))
+            {
+                playerActions.Add(action);
+            }
+        }
+    }
+    public List<ButtonAction> getPlayerButtonActions()
+    {
+        return playerActions;
     }
 }

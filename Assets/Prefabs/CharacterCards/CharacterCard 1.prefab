@@ -151,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aeeb00a036ea447a0f760d1142bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
-  worldview: 0
-  economicView: 0
+  characterName: cUJ
+  worldview: 2
+  economicView: 2
   characterBuff: {fileID: 0}
 --- !u!114 &3573667276291387352
 MonoBehaviour:
@@ -168,8 +168,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  blocked: 0
   UIGraphics: {fileID: 8768077601576565206}
   colliderSize: {x: 0, y: 0}
+  buttonAction: {fileID: 0}
+  actionValue: 0
   defaultScale: 30
   hoverScale: 50
   clickScale: 80

@@ -9,8 +9,9 @@ public class GameInfo : MonoBehaviour
     List<GameObject> playersObjs = new List<GameObject>();
     List<Player> players = new List<Player>();
     List<Party>  parties = new List<Party>();
-    public Sprite cardSprite;
+    GamePhases currentGamePhase=GamePhases.BiddingPhase;
     List<Hand> hands = new List<Hand>();
+    bool gamePhaseChanged = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +56,23 @@ public class GameInfo : MonoBehaviour
     public int getPlayerNumber()
     {
         return playerNumber;
+    }
+    public void setGamePhase(GamePhases phase)
+    {
+        currentGamePhase = phase;
+        gamePhaseChanged = true;
+    }
+    public GamePhases getGamePhase()
+    {
+        return currentGamePhase;
+    }
+    public bool getGamePhaseChanged()
+    {
+        return gamePhaseChanged;
+    }
+    public void setGamePhaseChanged(bool changed)
+    {
+        this.gamePhaseChanged = changed;
     }
 
 }

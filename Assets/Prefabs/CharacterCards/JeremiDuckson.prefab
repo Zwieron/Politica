@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Jeremi Duckson
-  worldview: 1
-  economicView: 3
+  worldview: -1
+  economicView: 1
   characterBuff: {fileID: 0}
 --- !u!114 &3573667276291387352
 MonoBehaviour:
@@ -168,8 +168,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  blocked: 0
   UIGraphics: {fileID: 8768077601576565206}
   colliderSize: {x: 0, y: 0}
+  buttonAction: {fileID: 0}
+  actionValue: 0
   defaultScale: 30
   hoverScale: 50
   clickScale: 80

@@ -30,7 +30,7 @@ public class Card : MonoBehaviour
     {
         
     }
-    public CardInteraction GetCardInteraction()
+    public CardInteraction getCardInteraction()
     {
         return cardInteraction;
     }
@@ -53,20 +53,9 @@ public class Card : MonoBehaviour
         this.cardState = cardState;
     
     }
-
-}
-
-public class InstitutionCard : Card
-{
-    Institution institution;
-}
-
-public class CharacterCard : Card
-{
-    Character character;
-}
-
-public class SpecialCard : Card
-{
+    public CardState GetCardState()
+    {
+        return cardState;
+    }
 
 }

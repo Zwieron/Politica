@@ -43,7 +43,7 @@ public class InterfaceElements : MonoBehaviour
     {
         this.blockade = blockade;
     }
-    public void addHand(HandVisual hand)
+    public void addHandVisual(HandVisual hand)
     {
         hands.Add(hand);
     }

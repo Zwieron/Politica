@@ -23,6 +23,7 @@ public class Table : Player
             Transform card = deck.drawTransform();
             if(card != null)
             game.getPrefabModifier().createCard(card, this.hand);
+            deck.removeLastDrawnCard();
         }
         handVisual.refresh();
     }
@@ -31,8 +32,8 @@ public class Table : Player
         setHand(GetComponent<Hand>());
         GetComponent<HandVisual>().setHand(GetComponent<Hand>());
         GetComponent<Hand>().setHandVisual(GetComponent<HandVisual>());
-        GetComponent<HandVisual>().setInterfaceElements(game.getInterfaceManager());
         setHandVisual(GetComponent<HandVisual>());
+        game.getInterfaceManager().addHandVisual(GetComponent<HandVisual>());
         GetComponent<Hand>().setOwner(this);
     }
 

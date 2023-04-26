@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum CardState
 {
-InHand, OnTable, InDeck
+Activated, Unactive
 }

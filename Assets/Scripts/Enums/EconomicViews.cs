@@ -4,6 +4,9 @@ using UnityEngine;
 
 public enum EconomicViews
 {
-    // Start is called before the first frame update
-    Lasseizfaire, Liberalism, Centrism, SocialDemocracy, Socialism
+    Lasseizfaire=-2, 
+    Liberalism=-1, 
+    Centrism=0, 
+    SocialDemocracy=1, 
+    Socialism=2
 }

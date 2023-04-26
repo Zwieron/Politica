@@ -7,7 +7,7 @@ public abstract class UIElement : MonoBehaviour
 {
     public bool active = false;
     protected bool isMouseOver = false;
-    protected bool blocked = false;
+    public bool blocked = false;
     int defaultOrder = 0;
     protected SpriteRenderer spriteRenderer;
     public UIGraphics UIGraphics;
@@ -24,6 +24,14 @@ public abstract class UIElement : MonoBehaviour
         public void setBlockade(bool blockade)
     {
         blocked=blockade;
+    }
+    public bool getBlockade()
+    {
+        return this.blocked;
+    }
+    public bool getActive()
+    {
+        return active;
     }
         public void SetSprite(Sprite sprite)
     {
@@ -58,6 +66,10 @@ public abstract class UIElement : MonoBehaviour
     public int getDefaultOrder()
     {
     return defaultOrder;
+    }
+    public Vector2 getPosition()
+    {
+        return spriteRenderer.transform.position;
     }
     public void Sort()
     {
