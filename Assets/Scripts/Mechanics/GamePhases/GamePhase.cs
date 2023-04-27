@@ -13,9 +13,8 @@ public abstract class GamePhase : MonoBehaviour
     protected void Start()
     {
         game = GetComponent<Game>();
-        phaseButtonsManager = gameObject.AddComponent<PhaseButtonsManager>();
+        phaseButtonsManager = GetComponent<PhaseButtonsManager>();
         phaseButtonsManager.setGamePhase(this);
-        phaseButtonsManager.setGame(game);
     }
 
     // Update is called once per frame

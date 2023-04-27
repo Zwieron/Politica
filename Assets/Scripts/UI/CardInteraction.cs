@@ -82,7 +82,7 @@ public class CardInteraction : Button
         if(!active)
         {
         UIGraphics.resizeInTime(hoverScale,0.01f);
-        Debug.Log("Card Hover");
+        Debug.Log(gameObject.name);
         }
     }
     public override void onMouseUp()

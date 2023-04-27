@@ -10,7 +10,7 @@ public class PhaseButtonsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        game = GetComponent<Game>();
     }
 
     // Update is called once per frame
@@ -89,5 +89,13 @@ public class PhaseButtonsManager : MonoBehaviour
     public void setGame(Game game)
     {
         this.game = game;
+    }
+    public void clearButtons()
+    {
+        buttons.Clear();
+    }
+    public void removeButton(ButtonAction buttonAction)
+    {
+        buttons.Remove(buttonAction);
     }
 }

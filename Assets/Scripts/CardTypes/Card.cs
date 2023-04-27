@@ -8,6 +8,7 @@ public class Card : MonoBehaviour
     GameObject cardObject;
     Hand hand;
     CardState cardState;
+    CardTypes cardType;
 
     // Start is called before the first frame update
     void Awake()

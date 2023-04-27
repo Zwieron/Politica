@@ -5,6 +5,8 @@ using System.Linq;
 
 public class BiddingPhase : GamePhase
 {
+    public int totalIterations;
+    int iteration = 0;
     public bool blockIfPassed = false;
     public int cardsDrawn;
     List<Player> winners = new List<Player>();
@@ -22,7 +24,7 @@ public class BiddingPhase : GamePhase
     // Update is called once per frame
     void Update()
     {
-        if(blockIfPassed)
+        if(blockIfPassed) //TODO sprawdzić potem
             blockBidButtonsAfterPassed();
         if(checkIfAllPlayersHavePassed())
         {
@@ -36,10 +38,16 @@ public class BiddingPhase : GamePhase
             {
                 Destroy(button.gameObject);
             }
+            phaseButtonsManager.getButtons().Clear();
             econOvertonModifier.updateEconOvertonWindow();
             worldviewOvertonModifier.updateWorldviewOvertonWindow();
-            Destroy(phaseButtonsManager);
-            game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
+            iteration++;
+            if(iteration==totalIterations)
+            {
+                game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
+            }
+            else
+            showCards();
         }
     }
     void showCards() //TODO: refactor this
@@ -168,6 +176,7 @@ public class BiddingPhase : GamePhase
        int temp = (int)character.getWorldview()*bid;
        return temp*bid;
     }
+
 }
 
 
