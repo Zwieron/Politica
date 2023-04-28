@@ -44,6 +44,13 @@ public class BiddingPhase : GamePhase
             iteration++;
             if(iteration==totalIterations)
             {
+                foreach(HandVisual hand in  game.getInterfaceManager().getHands())
+                {
+                    foreach(CardInteraction card in hand.getCards())
+                    {
+                        card.setActive(false);
+                    }
+                }
                 game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
             }
             else
@@ -60,9 +67,7 @@ public class BiddingPhase : GamePhase
             game.getTable().drawCards(deck,deck.getDeckCount());
         foreach(Player player in game.getGameInfo().getPlayers())
         {
-            //pass button
-            game.getPrefabModifier().createPassButton(player.getHandVisual().getHandPosition(), this);
-            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<PassAction>().setPlayer(player);
+
             foreach(Card card in game.getTable().getHand().getCards())
             {
                 phaseButtonsManager.createButtonAroundCard(card,ButtonTypes.BidAction, direction: player.buttonDirection);

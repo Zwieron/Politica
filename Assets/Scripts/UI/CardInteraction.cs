@@ -61,8 +61,6 @@ public class CardInteraction : Button
         
         Debug.Log("Card Clicked");
         isHold=true;
-
-
         }
     }
     public override void onUnclick()
@@ -96,7 +94,6 @@ public class CardInteraction : Button
         }
         else
         {
-        active=true;
         isHold=false;
         Debug.Log("Card Odklikd");
         GetSprite().sortingOrder=30;
@@ -105,6 +102,7 @@ public class CardInteraction : Button
         UIGraphics.rotateInTime(0,.1f);
         UIGraphics.resizeInTime(clickScale,.3f);
         deltaTime=0;
+        active=true;
         }
     }
     public override void onMouseExit()

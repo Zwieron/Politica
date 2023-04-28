@@ -29,7 +29,11 @@ public abstract class UIElement : MonoBehaviour
     {
         return this.blocked;
     }
-    public bool getActive()
+    public void setActive(bool active)
+    {
+        this.active = active;
+    }
+    public bool isActive()
     {
         return active;
     }

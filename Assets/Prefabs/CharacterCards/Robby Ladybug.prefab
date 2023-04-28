@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 3573667276291387352}
   - component: {fileID: 7174518209579506529}
   m_Layer: 0
-  m_Name: Adrano Zanbieta
+  m_Name: Robby Ladybug
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aeeb00a036ea447a0f760d1142bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Adriano Zanbieta
+  characterName: Robby Ladybug
   worldview: 1
   economicView: 2
   characterBuff: {fileID: 0}

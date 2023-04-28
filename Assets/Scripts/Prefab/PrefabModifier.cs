@@ -9,6 +9,7 @@ public class PrefabModifier : MonoBehaviour
     GameInfo gameInfo;
     public GameObject canvas;
     Game game;
+    public float player2Y = 400;
     // Start is called before the first frame update
     void Awake()
     {
@@ -62,13 +63,11 @@ public class PrefabModifier : MonoBehaviour
         player = GetComponent<PrefabInstantiator>().getLastPrefab();
         player.name = name;
         player.GetComponent<Player>().setPlayerNumber(playerNumber);
-        gameInfo.addParty(player.GetComponent<Party>());
         gameInfo.addPlayer(player.GetComponent<Player>());
-        gameInfo.addHand(player.GetComponent<Hand>());
         gameInfo.addPlayerObj(player);
         if(playerNumber==2)
         {
-            player.GetComponent<HandVisual>().setYDimension(380);
+            player.GetComponent<HandVisual>().setYDimension(player2Y);
         }
     }
     public void createTable()
@@ -80,41 +79,79 @@ public class PrefabModifier : MonoBehaviour
         table.GetComponent<Table>().setGame(game);
         game.setTable(table.GetComponent<Table>());
     }
-        public void createBidButton(Vector2 position, GamePhase gamePhase)
+    //BUTTONS/////////BUTTONS/////////BUTTONS/////////BUTTONS/////////BUTTONS/////////BUTTONS/////////BUTTONS/////////BUTTONS/////////BUTTONS/////////
+    public void createBidButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.bidButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
         gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<BidAction>());
     }
-        public void createPassButton(Vector2 position, GamePhase gamePhase)
+    public void createPassButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.passButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
         gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<PassAction>());
     }
-        public void createEndTurnButton(Vector2 position, GamePhase gamePhase)
+    public void createEndTurnButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.endTurnButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
         gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<EndTurnAction>());
     }
-            public void createUndoTurnButton(Vector2 position, GamePhase gamePhase)
+    public void createUndoTurnButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.undoTurnButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
         gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<UndoTurnAction>());
     }
-            public void createActivateCardButton(Vector2 position, GamePhase gamePhase)
+    public void createActivateCardButton(Vector2 position, GamePhase gamePhase)
     {
         prefabInstantiator.instantiatePrefab(prefabCollection.activateCardButton,position);
         GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
         button.transform.SetParent(canvas.transform,true);
         gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<ActivateCardAction>());
     }
+    //CHARACTER//ACTIONS/////////CHARACTER//ACTIONS/////////CHARACTER//ACTIONS/////////CHARACTER//ACTIONS/////////CHARACTER//ACTIONS/////////CHARACTER//ACTIONS/////////
+    public void createExposeCharacterButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.exposeCharacterButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<ExposeCharacterButton>());
+    }
+        public void createBlockActionButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.blockActionButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<BlockActionButton>());
+    }
+        public void createInstitutionActionButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.institutionActionButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<InstitutionActionButton>());
+    }
+        public void createOvertakeInstitutionButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.overtakeInstitutionButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<OvertakeInstitutionButton>());
+    }
+        public void createStrengthenNotorietyButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.strengthenNotorietyButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<StrengthenNotorietyButton>());
+    }
+    //GETS///////////////////////GETS///////////////////////GETS///////////////////////GETS///////////////////////GETS///////////////////////GETS///////////////////////
     public PrefabInstantiator getPrefabInstantiator()
     {
         return prefabInstantiator;
