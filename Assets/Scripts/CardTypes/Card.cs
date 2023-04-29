@@ -10,6 +10,7 @@ public class Card : MonoBehaviour
     CardState cardState;
     CardTypes cardType;
 
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,6 +24,7 @@ public class Card : MonoBehaviour
         if(cardInteraction==null)
         cardInteraction = cardObject.AddComponent<CardInteraction>();
         Debug.Log(cardObject.GetInstanceID());
+        
     }
     
 

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public abstract class UIElement : MonoBehaviour
 {
-    public bool active = false;
+    public bool activated = false;
     protected bool isMouseOver = false;
     public bool blocked = false;
     int defaultOrder = 0;
@@ -31,11 +31,11 @@ public abstract class UIElement : MonoBehaviour
     }
     public void setActive(bool active)
     {
-        this.active = active;
+        this.activated = active;
     }
-    public bool isActive()
+    public bool isActivated()
     {
-        return active;
+        return activated;
     }
         public void SetSprite(Sprite sprite)
     {

@@ -39,13 +39,20 @@ public class PhaseButtonsManager : MonoBehaviour
     {
         return buttons;
     }
-    public void clearActiveCardButtons()
+    public void clearActiveCardButtons() //czysci i niszczy
     {
         Debug.Log("clearing active card buttons");
         foreach(CharacterCardAction characterCardAction in activeCharacterCardActions)
         {
-            buttons.Remove(characterCardAction);
+            if(characterCardAction.getCharacter().GetCharacterActionsManager().getActiveCardAction()!=characterCardAction)
+            {
+            buttons.Remove(characterCardAction); //nie usuwac przycisku z listy bo jest juz wykorzystywany?
             Destroy(characterCardAction.gameObject);
+            }
+            else 
+            {
+                characterCardAction.gameObject.transform.position = new Vector3(0,-10000,0);
+            }
         }
         activeCharacterCardActions.Clear();
     }
@@ -148,6 +155,7 @@ public class PhaseButtonsManager : MonoBehaviour
             switchCreateButtonType(buttonType, switchPositionByDirection(card, switchDirectionByButtonType(buttonType)));
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setPlayer(player);
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setCard(card);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().transform.SetParent(card.getCardInteraction().GetCanvas().gameObject.transform);
             activeCharacterCardActions.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>());
         }
     }

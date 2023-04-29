@@ -12,10 +12,12 @@ public class Character : MonoBehaviour
     public EconomicViews economicView;
     public CharacterBuff characterBuff;
     List<ButtonTypes> availibleActions = new List<ButtonTypes>();
+   CharacterActionsManager characterActionsManager;
 
     // Start is called before the first frame update
     void Start()
     {
+      characterActionsManager = GetComponent<CharacterActionsManager>();
     }
 
     // Update is called once per frame
@@ -49,13 +51,17 @@ public class Character : MonoBehaviour
      {
         characterInstitution = institution;
      }
-     public void setLevel(int level)
+     public void setNotoriety(int notoriety)
      {
-        characterNotoriety = level;
+        characterNotoriety = notoriety;
      }
-     public void changeLevel(int change)
+     public void changeNotoriety(int change)
      {
         characterNotoriety += change;
+     }
+     public int getNotoriety()
+     {
+      return characterNotoriety;
      }
      public EconomicViews getEconomicView()
      {
@@ -69,5 +75,13 @@ public class Character : MonoBehaviour
      {
       return characterInstitution;
      }
+    public CharacterActionsManager GetCharacterActionsManager()
+    {
+        return characterActionsManager;
+    }
+    public string getCharacterName()
+    {
+      return name;
+    }
 
 }

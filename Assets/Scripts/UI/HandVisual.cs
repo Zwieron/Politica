@@ -132,7 +132,7 @@ public class HandVisual : MonoBehaviour
         bool activeCard = false;
         foreach(CardInteraction card in cardInteractions)
         {
-                if(card.isActive())
+                if(card.isActivated())
                 {
                     activeCard = true;
                     setSelectedCard(card);

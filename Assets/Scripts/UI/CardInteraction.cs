@@ -10,8 +10,11 @@ public class CardInteraction : Button
     public float defaultRotation = 0;
     // HandVisual handVisual;
     public Vector3 defaultPosition;
+    bool active = false;
     float deltaTime;
+    public Canvas cardCanvas;
     ButtonPositioner buttonPositioner;
+    AnimationWaiter animationWaiter;
 
 
     // Start is called before the first frame update
@@ -20,11 +23,25 @@ public class CardInteraction : Button
         colliderSize = new Vector2(3.6f,5);
         create();
         buttonPositioner = GetComponent<ButtonPositioner>();
+        animationWaiter = GetComponent<AnimationWaiter>();
+        animationWaiter.SetAnimationTime(.1f);
     }
 
     // Update is called once per frame
     void Update()
-{   if(!blocked)
+{   
+    if(isActivated())
+    {
+        animationWaiter.AnimationWait();
+        if(animationWaiter.isFinished())
+        active=true;
+    }
+    else
+    {
+        animationWaiter.Reset();
+        active=false;
+    }
+    if(!blocked)
     {
     checkState();
 
@@ -58,7 +75,7 @@ public class CardInteraction : Button
 
     public override void onClick()
     {
-        if(!active)
+        if(!activated)
         {
         
         Debug.Log("Card Clicked");
@@ -67,8 +84,9 @@ public class CardInteraction : Button
     }
     public override void onUnclick()
     {
-        if(active)
+        if(activated)
         {
+            activated=false;
             active=false;
             Debug.Log("Card UnClicked");
             UIGraphics.resizeInTime(defaultScale, 0.2f);
@@ -79,7 +97,7 @@ public class CardInteraction : Button
     }
     public override void onHover()
     {
-        if(!active)
+        if(!activated)
         {
         UIGraphics.resizeInTime(hoverScale,0.01f);
         Debug.Log(gameObject.name);
@@ -101,15 +119,14 @@ public class CardInteraction : Button
         GetSprite().sortingOrder=30;
         setBlockade(true);
        UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/3,0),0.1f);
-        UIGraphics.rotateInTime(0,.1f);
-        UIGraphics.resizeInTime(clickScale,.3f);
+        UIGraphics.resizeInTime(clickScale,.1f);
         deltaTime=0;
-        active=true;
+        activated=true;
         }
     }
     public override void onMouseExit()
     {
-        if(!active)
+        if(!activated)
         {
         UIGraphics.resizeInTime(defaultScale,.1f);
         }
@@ -156,6 +173,14 @@ public class CardInteraction : Button
     public ButtonPositioner getButtonPositioner()
     {
         return buttonPositioner;
+    }
+    public bool isActive()
+    {
+        return active;
+    }
+    public Canvas GetCanvas()
+    {
+        return cardCanvas;
     }
 
 }
