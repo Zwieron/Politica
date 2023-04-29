@@ -22,7 +22,7 @@ public class PhaseButtonsManager : MonoBehaviour
     }
     public void createButtonAroundCard(Card card, ButtonTypes buttonTypes, Directions direction)
     {
-    Vector2 newPosition = switchPositionByDirection(card.getCardInteraction().getPosition(),direction);   
+    Vector2 newPosition = switchPositionByDirection(card,direction);   
     switchCreateButtonType(buttonTypes, newPosition);
     }
     public void addButton(ButtonAction buttonAction)
@@ -45,24 +45,30 @@ public class PhaseButtonsManager : MonoBehaviour
         foreach(CharacterCardAction characterCardAction in activeCharacterCardActions)
         {
             buttons.Remove(characterCardAction);
-            activeCharacterCardActions.Remove(characterCardAction);
             Destroy(characterCardAction.gameObject);
         }
+        activeCharacterCardActions.Clear();
     }
-    Vector2 switchPositionByDirection(Vector2 oldPosition, Directions direction)
+    Vector2 switchPositionByDirection(Card card, Directions direction)
     {
-        switch (direction)
+        return card.getCardInteraction().getButtonPositioner().getButtonPosition(direction);
+    }
+    Directions switchDirectionByButtonType(ButtonTypes buttonType)
+    {
+        switch(buttonType)
         {
-            case Directions.DOWN:
-            return new Vector2(oldPosition.x, oldPosition.y - 100);
-            case Directions.UP:
-            return new Vector2(oldPosition.x, oldPosition.y + 100);
-            case Directions.LEFT:
-            return new Vector2(oldPosition.x - 20, oldPosition.y);
-            case Directions.RIGHT:
-            return new Vector2(oldPosition.x + 20, oldPosition.y);
+            case ButtonTypes.BlockAction:
+            return Directions.LEFTUP;
+            case ButtonTypes.ExposeCharacter:
+            return Directions.UP;
+            case ButtonTypes.StrengthenNotoriety:
+            return Directions.RIGHTUP;
+            case ButtonTypes.OvertakeInstitution:
+            return Directions.RIGHTDOWN;
+            case ButtonTypes.InstitutionAction:
+            return Directions.LEFTDOWN;
             default:
-            return oldPosition;
+            return Directions.DOWN;
         }
     }
     void switchCreateButtonType(ButtonTypes buttonTypes, Vector2 position)
@@ -133,5 +139,16 @@ public class PhaseButtonsManager : MonoBehaviour
     public void removeButton(ButtonAction buttonAction)
     {
         buttons.Remove(buttonAction);
+    }
+    public void createButtonsForActivatedCharacterCard(Card card, Player player)
+    {
+        card.GetComponent<Character>().checkAvailibleActions();
+        foreach(ButtonTypes buttonType in card.GetComponent<Character>().getAvailibleActions())
+        {
+            switchCreateButtonType(buttonType, switchPositionByDirection(card, switchDirectionByButtonType(buttonType)));
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setPlayer(player);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setCard(card);
+            activeCharacterCardActions.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>());
+        }
     }
 }

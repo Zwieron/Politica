@@ -5,13 +5,13 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public string characterName;
-    Party characterParty;
     Institution characterInstitution;
     int characterNotoriety;
     int supportModifier;
     public Worldviews worldview;
     public EconomicViews economicView;
     public CharacterBuff characterBuff;
+    List<ButtonTypes> availibleActions = new List<ButtonTypes>();
 
     // Start is called before the first frame update
     void Start()
@@ -23,15 +23,28 @@ public class Character : MonoBehaviour
     {
         
     }
+   public void checkAvailibleActions()
+   {
+      availibleActions.Clear();
+      availibleActions.Add(ButtonTypes.ExposeCharacter);
+      availibleActions.Add(ButtonTypes.StrengthenNotoriety);
+      if(characterInstitution!=null)
+      {
+      availibleActions.Add(ButtonTypes.InstitutionAction);
+      availibleActions.Add(ButtonTypes.BlockAction);
+      }
+      if(characterInstitution==null)
+      availibleActions.Add(ButtonTypes.OvertakeInstitution);   
+   }
+   public List<ButtonTypes> getAvailibleActions()
+   {
+      return availibleActions;
+   }
 
     public int getSupportModifier()
     {
         return supportModifier;
     }
-     public void setParty(Party party)
-     {
-        characterParty = party;
-     }
      public void setInstitution(Institution institution)
      {
         characterInstitution = institution;
@@ -52,4 +65,9 @@ public class Character : MonoBehaviour
      {
       return worldview;
      }
+     public Institution getInstitution()
+     {
+      return characterInstitution;
+     }
+
 }

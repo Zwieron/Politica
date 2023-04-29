@@ -11,6 +11,7 @@ public class CardInteraction : Button
     // HandVisual handVisual;
     public Vector3 defaultPosition;
     float deltaTime;
+    ButtonPositioner buttonPositioner;
 
 
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class CardInteraction : Button
     {
         colliderSize = new Vector2(3.6f,5);
         create();
+        buttonPositioner = GetComponent<ButtonPositioner>();
     }
 
     // Update is called once per frame
@@ -151,6 +153,9 @@ public class CardInteraction : Button
     {
         isHold = boole;
     }
-
+    public ButtonPositioner getButtonPositioner()
+    {
+        return buttonPositioner;
+    }
 
 }

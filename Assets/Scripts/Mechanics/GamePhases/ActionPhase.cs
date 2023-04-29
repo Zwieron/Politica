@@ -43,9 +43,7 @@ public class ActionPhase : GamePhase
                 if(card.getCardInteraction().isActive()&&!activeCards.Contains(card))
                 {
                     activeCards.Add(card);
-                    phaseButtonsManager.createButtonAroundCard(card, ButtonTypes.StrengthenNotoriety,player.buttonDirection);
-                    game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<StrengthenNotorietyButton>().setPlayer(player);
-                    game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<StrengthenNotorietyButton>().setCard(card);
+                    phaseButtonsManager.createButtonsForActivatedCharacterCard(card, player);            
                 }
                 else if(!card.getCardInteraction().isActive()&&activeCards.Contains(card))
                 {

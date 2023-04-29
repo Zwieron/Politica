@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1737848155759707007}
   - component: {fileID: 1737848155759707004}
   - component: {fileID: 2857129051198850032}
-  - component: {fileID: 2601974396254419314}
+  - component: {fileID: 4860076859819975611}
   m_Layer: 5
-  m_Name: StrengthenNotorietyButton
+  m_Name: InstitutionActionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1737848155759707004}
---- !u!114 &2601974396254419314
+--- !u!114 &4860076859819975611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1737848155759707002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e0633f36866d54faca10b1041ced89, type: 3}
+  m_Script: {fileID: 11500000, guid: 652797f774053c347a8501a26b07eb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1737848156372499671}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Strengthen notoriety
+  m_text: Institution action
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 27952e6e4f62a394184ccf066e733a51, type: 2}
   m_sharedMaterial: {fileID: 4193688249659684053, guid: 27952e6e4f62a394184ccf066e733a51, type: 2}
