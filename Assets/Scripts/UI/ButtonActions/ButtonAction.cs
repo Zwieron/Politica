@@ -21,6 +21,7 @@ public abstract class ButtonAction : MonoBehaviour
     public abstract void tooltip();
     public abstract void update();
     public abstract void reset();
+    public abstract void setCard(Card card);
     public Player getPlayer()
     {
         return player;

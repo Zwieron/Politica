@@ -36,4 +36,6 @@ public class UndoTurnAction : ButtonAction
     {}
     public override void reset()
     {}
+    public override void setCard(Card card)
+    {}
 }

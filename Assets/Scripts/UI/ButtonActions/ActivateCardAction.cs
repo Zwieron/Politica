@@ -34,7 +34,7 @@ public class ActivateCardAction : ButtonAction
     {
         newCardState = card.GetCardState();
     }
-    public void SetCard(Card card)
+    public override void setCard(Card card)
     {
         this.card = card;
     }

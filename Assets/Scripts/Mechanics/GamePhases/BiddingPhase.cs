@@ -65,19 +65,7 @@ public class BiddingPhase : GamePhase
             game.getTable().drawCards(deck,cardsDrawn);
         else
             game.getTable().drawCards(deck,deck.getDeckCount());
-        foreach(Player player in game.getGameInfo().getPlayers())
-        {
-
-            foreach(Card card in game.getTable().getHand().getCards())
-            {
-                phaseButtonsManager.createButtonAroundCard(card,ButtonTypes.BidAction, direction: player.buttonDirection);
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setParty(player.getParty());
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setPlayer(player);
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<BidAction>().setCard(card);
-            }
-            phaseButtonsManager.createDefaultButtonsForPlayer(player);
-            player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
-        }
+        createButtonsAroundCardsOnTable(ButtonTypes.BidAction);
     }
 
     bool checkIfAllPlayersHavePassed()

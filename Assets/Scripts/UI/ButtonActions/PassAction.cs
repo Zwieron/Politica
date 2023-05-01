@@ -40,5 +40,7 @@ public class PassAction : ButtonAction
     {
         newPass = false;
     }
+        public override void setCard(Card card)
+    {}
 }
 

@@ -26,5 +26,20 @@ public abstract class GamePhase : MonoBehaviour
     {
         return phaseButtonsManager;
     }
+    protected void createButtonsAroundCardsOnTable(ButtonTypes buttonTypes)
+    {
+        foreach(Player player in game.getGameInfo().getPlayers())
+        {
+
+            foreach(Card card in game.getTable().getHand().getCards())
+            {
+                phaseButtonsManager.createButtonAroundCard(card,buttonTypes, direction: player.buttonDirection);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ButtonAction>().setPlayer(player);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ButtonAction>().setCard(card);
+            }
+            phaseButtonsManager.createDefaultButtonsForPlayer(player);
+            player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
+        }
+    }
 }
 

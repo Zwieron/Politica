@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 200055931915335852}
   - component: {fileID: 5431032527557511972}
   m_Layer: 0
-  m_Name: Ministry
+  m_Name: Medium
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aeeb00a036ea447a0f760d1142bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: MEN
+  characterName: TVN
   characterNotoriety: 0
   worldview: 1
   economicView: 2

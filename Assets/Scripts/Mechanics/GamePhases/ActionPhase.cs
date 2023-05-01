@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionPhase : GamePhase
-{
+{   
+    public int cardsDrawn;
+    public Deck MinistryDeck;
+    public Deck MediaDeck;
+    public Deck JudiciaryDeck;
+    public Deck NGODeck;
+    List<Deck> instituitonDecks  = new List<Deck>();
     List<Card> activeCards = new List<Card>();
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
         createPlayButtonsAroundPlayersHand();
-        
+        instituitonDecks.Add(MinistryDeck);
+        instituitonDecks.Add(MediaDeck);
+        instituitonDecks.Add(JudiciaryDeck);
+        instituitonDecks.Add(NGODeck);
+        showCards();
     }
 
     // Update is called once per frame
@@ -22,7 +32,16 @@ public class ActionPhase : GamePhase
             player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
         }
     }
-    
+    void showCards()
+    {
+        foreach(Deck decker in instituitonDecks)
+        {
+            if(cardsDrawn<=decker.getDeckCount())
+            game.getTable().drawCards(decker,cardsDrawn);
+        else
+            game.getTable().drawCards(decker,decker.getDeckCount());
+        }
+    }
     void createPlayButtonsAroundPlayersHand()
     {
         foreach (Player player in game.getGameInfo().getPlayers())
@@ -32,7 +51,7 @@ public class ActionPhase : GamePhase
                 Directions direction = (Directions)((int)player.buttonDirection*-1);
                 phaseButtonsManager.createButtonAroundCard(card, ButtonTypes.ActivateCardAction,direction);
                 game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().setPlayer(player);
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().SetCard(card);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().setCard(card);
             }
             phaseButtonsManager.createDefaultButtonsForPlayer(player);
             player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());

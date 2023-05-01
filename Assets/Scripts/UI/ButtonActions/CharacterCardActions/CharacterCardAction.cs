@@ -20,7 +20,7 @@ using UnityEngine;
             execute();
         }
     }
-    public void setCard(Card card)
+    public override void setCard(Card card)
     {
         this.card=card;
         character = card.GetComponent<Character>();
