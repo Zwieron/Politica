@@ -70,8 +70,9 @@ public override void checkState()
     else if(hit.collider != null && hit.collider.gameObject.GetComponent<UIElement>() != null &&hit.collider.gameObject.transform.IsChildOf(this.gameObject.transform))
     {
         if(!hit.collider.gameObject.GetComponent<UIElement>().isMouseOver)
-        {
-                hit.collider.gameObject.GetComponent<UIElement>().onHover();
+        {       
+                // onHover();
+                isMouseOver = true;
                 hit.collider.gameObject.GetComponent<UIElement>().isMouseOver = true;
         }
     }

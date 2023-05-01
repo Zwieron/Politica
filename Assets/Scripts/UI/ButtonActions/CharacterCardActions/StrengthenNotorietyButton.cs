@@ -27,7 +27,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
     }
     public override void action(int value)
     {
-        if(character.GetCharacterActionsManager().getActiveCardAction()!=null)
+        if(character.GetCharacterActionsManager().getActiveCardAction()==null)
         {
         newNotoriety = oldNotoriety++;
         newFunds = party.getFunds() - price;
@@ -56,6 +56,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
         newFunds=party.getFunds();
         newNotoriety=oldNotoriety;
         character.GetCharacterActionsManager().setActiveCardAction(null);
+        Destroy(this.gameObject);
         }
         else
         return;

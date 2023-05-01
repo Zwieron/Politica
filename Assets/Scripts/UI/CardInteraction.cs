@@ -8,7 +8,6 @@ public class CardInteraction : Button
     public float hoverScale = 50;
     public float clickScale = 80;
     public float defaultRotation = 0;
-    public Vector2 colliderSizeWhenActive;
     public Vector3 defaultPosition;
     bool active = false;
     float deltaTime;
@@ -120,7 +119,6 @@ public class CardInteraction : Button
         setBlockade(true);
         UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/3,0),0.1f);
         UIGraphics.resizeInTime(clickScale,.1f);
-        boxCollider.size = colliderSizeWhenActive; //ZMIANA KOLIDERA
         deltaTime=0;
         activated=true;
         }

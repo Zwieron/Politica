@@ -17,7 +17,12 @@ public class ActionPhase : GamePhase
     void Update()
     {
         displayActionButtonsWhenCardIsActive();
+        foreach(Player player in game.getGameInfo().getPlayers())
+        {
+            player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
+        }
     }
+    
     void createPlayButtonsAroundPlayersHand()
     {
         foreach (Player player in game.getGameInfo().getPlayers())
