@@ -8,6 +8,8 @@ public class Card : MonoBehaviour
     GameObject cardObject;
     Hand hand;
     CardState cardState;
+    CardTypes cardType;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -22,14 +24,16 @@ public class Card : MonoBehaviour
         if(cardInteraction==null)
         cardInteraction = cardObject.AddComponent<CardInteraction>();
         Debug.Log(cardObject.GetInstanceID());
+        
     }
     
 
     // Update is called once per frame
     void Update()
     {
-        
+        highlightActivated();
     }
+    
     public CardInteraction getCardInteraction()
     {
         return cardInteraction;
@@ -56,6 +60,13 @@ public class Card : MonoBehaviour
     public CardState GetCardState()
     {
         return cardState;
+    }
+    void highlightActivated()
+    {
+        if(cardState==CardState.Activated)
+        cardInteraction.getHighlighter().highlightYellow();
+        else
+        cardInteraction.getHighlighter().highlightWhite();
     }
 
 }

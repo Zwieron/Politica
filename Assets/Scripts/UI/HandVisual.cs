@@ -6,7 +6,7 @@ public class HandVisual : MonoBehaviour
 {
     Hand hand {get; set;}
     List<CardInteraction> cardInteractions = new List<CardInteraction>();
-    public Vector2 handPosition = new Vector2(0,50);
+    public Vector2 handPosition = new Vector2(0,100);
     public float Offset = 120f;
     public float rotationOffset = 0;
     bool blockade = false;
@@ -132,7 +132,7 @@ public class HandVisual : MonoBehaviour
         bool activeCard = false;
         foreach(CardInteraction card in cardInteractions)
         {
-                if(card.getActive())
+                if(card.isActivated())
                 {
                     activeCard = true;
                     setSelectedCard(card);
@@ -144,5 +144,13 @@ public class HandVisual : MonoBehaviour
     void setSelectedCard(CardInteraction selectedCard)
     {
         this.selectedCard = selectedCard;
+    }
+    public CardInteraction getSelectedCard()
+    {
+        return selectedCard;
+    }
+    public List<CardInteraction> getCards()
+    {
+        return cardInteractions;
     }
 }

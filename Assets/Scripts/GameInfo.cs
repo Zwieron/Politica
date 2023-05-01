@@ -8,9 +8,7 @@ public class GameInfo : MonoBehaviour
     public Vector2 player2Pos;
     List<GameObject> playersObjs = new List<GameObject>();
     List<Player> players = new List<Player>();
-    List<Party>  parties = new List<Party>();
     GamePhases currentGamePhase=GamePhases.BiddingPhase;
-    List<Hand> hands = new List<Hand>();
     bool gamePhaseChanged = false;
     // Start is called before the first frame update
     void Start()
@@ -23,18 +21,10 @@ public class GameInfo : MonoBehaviour
     {
         
     }
-    public void addParty(Party party)
-    {
-        parties.Add(party);
-    }
     public void addPlayer(Player player)
     {
             players.Add(player);
             Debug.Log("player " + players.Count + " added");
-    }
-    public void addHand(Hand hand) 
-    {
-        hands.Add(hand);
     }
     public void addPlayerObj(GameObject playerObj)
     {
@@ -44,10 +34,6 @@ public class GameInfo : MonoBehaviour
     public List<GameObject> getPlayersObjs()
     {
         return playersObjs;
-    }
-    public List<Party> getParties()
-    {
-        return parties;
     }
     public List<Player> getPlayers()
     {

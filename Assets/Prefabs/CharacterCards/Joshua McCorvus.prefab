@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8057263654830335681}
   - component: {fileID: 3573667276291387352}
   m_Layer: 0
-  m_Name: CharacterCard 1
+  m_Name: Joshua McCorvus
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 7c911e11267fba849885524df2d48faf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84b08d7819e89b0489113e92941c2fd0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aeeb00a036ea447a0f760d1142bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: cUJ
-  worldview: 2
-  economicView: 2
+  characterName: Gregory Brown
+  worldview: -1
+  economicView: -2
   characterBuff: {fileID: 0}
 --- !u!114 &3573667276291387352
 MonoBehaviour:

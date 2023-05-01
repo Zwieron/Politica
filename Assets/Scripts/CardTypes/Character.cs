@@ -5,18 +5,19 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public string characterName;
-    Party characterParty;
     Institution characterInstitution;
-    int characterLevel;
+    public int characterNotoriety;
     int supportModifier;
     public Worldviews worldview;
     public EconomicViews economicView;
     public CharacterBuff characterBuff;
+    List<ButtonTypes> availibleActions = new List<ButtonTypes>();
+   CharacterActionsManager characterActionsManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(characterName + " - pogląd świata: " + (int)worldview);
+      characterActionsManager = GetComponent<CharacterActionsManager>();
     }
 
     // Update is called once per frame
@@ -24,35 +25,63 @@ public class Character : MonoBehaviour
     {
         
     }
+   public void checkAvailibleActions()
+   {
+      availibleActions.Clear();
+      availibleActions.Add(ButtonTypes.ExposeCharacter);
+      availibleActions.Add(ButtonTypes.StrengthenNotoriety);
+      if(characterInstitution!=null)
+      {
+      availibleActions.Add(ButtonTypes.InstitutionAction);
+      availibleActions.Add(ButtonTypes.BlockAction);
+      }
+      if(characterInstitution==null)
+      availibleActions.Add(ButtonTypes.OvertakeInstitution);   
+   }
+   public List<ButtonTypes> getAvailibleActions()
+   {
+      return availibleActions;
+   }
 
     public int getSupportModifier()
     {
         return supportModifier;
     }
-     public void setParty(Party party)
-     {
-        characterParty = party;
-     }
      public void setInstitution(Institution institution)
      {
         characterInstitution = institution;
      }
-     public void setLevel(int level)
+     public void setNotoriety(int notoriety)
      {
-        characterLevel = level;
+        characterNotoriety = notoriety;
      }
-     public void changeLevel(int change)
+     public void changeNotoriety(int change)
      {
-        characterLevel += change;
+        characterNotoriety += change;
+     }
+     public int getNotoriety()
+     {
+      return characterNotoriety;
      }
      public EconomicViews getEconomicView()
      {
-      Debug.Log(characterName + " - pogląd ekonomiczny: " + (int)economicView);
       return economicView;
      }
      public Worldviews getWorldview()
      {
-      Debug.Log(characterName + " - pogląd świata: " + (int)worldview);
       return worldview;
      }
+     public Institution getInstitution()
+     {
+      return characterInstitution;
+     }
+    public CharacterActionsManager GetCharacterActionsManager()
+    {
+        return characterActionsManager;
+    }
+    public string getCharacterName()
+    {
+      return name;
+    }
+
 }

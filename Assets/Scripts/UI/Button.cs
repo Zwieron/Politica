@@ -9,6 +9,7 @@ public class Button : UIElement
         public Vector2 colliderSize;
         public ButtonAction buttonAction;
         public int actionValue;
+        Highlighter highlighter;
     void Awake()
         {
             create();
@@ -47,6 +48,10 @@ public class Button : UIElement
         if(boxCollider==null)
         boxCollider = gameObject.AddComponent<BoxCollider2D>();
         boxCollider.size = colliderSize;
+        if(highlighter==null)
+        highlighter=GetComponent<Highlighter>();
+        if(highlighter==null)
+        highlighter=gameObject.AddComponent<Highlighter>(); 
         }
 public override void checkState()
 {
@@ -54,12 +59,21 @@ public override void checkState()
     mousePos.z = 0;
     RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-    if (hit.collider != null && hit.collider.gameObject.GetComponent<UIElement>() != null && hit.collider.gameObject.GetComponent<UIElement>().Equals(this))
+    if (hit.collider != null && hit.collider.gameObject.GetComponent<UIElement>() != null && (hit.collider.gameObject.GetComponent<UIElement>().Equals(this)))
     {
         if (!isMouseOver)
         {
             onHover();
             isMouseOver = true;
+        }
+    }
+    else if(hit.collider != null && hit.collider.gameObject.GetComponent<UIElement>() != null &&hit.collider.gameObject.transform.IsChildOf(this.gameObject.transform))
+    {
+        if(!hit.collider.gameObject.GetComponent<UIElement>().isMouseOver)
+        {       
+                // onHover();
+                isMouseOver = true;
+                hit.collider.gameObject.GetComponent<UIElement>().isMouseOver = true;
         }
     }
     else
@@ -89,7 +103,10 @@ public override void checkState()
         {
 
         }
+        public Highlighter getHighlighter()
+        {
+            return highlighter;
+        }
         
     }
-    
 

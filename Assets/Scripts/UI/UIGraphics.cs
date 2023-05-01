@@ -6,6 +6,7 @@ using UnityEngine;
 public class UIGraphics : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
+    bool animationFinished=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +53,7 @@ public class UIGraphics : MonoBehaviour
     IEnumerator TransformInTimeCoroutine(Vector3 position, float seconds)
     {
         //What does this code do? 
-        //It lerps the scale of the sprite to the ratio in time in seconds
+        //It lerps the position of the sprite to the new position in time in seconds
         float time = 0;
         Vector3 start = spriteRenderer.transform.position;
         Vector3 end = position;

@@ -138,6 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1737848156372499671}
+  newPass: 0
+  oldPass: 0
 --- !u!114 &1737848155759707004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58bb7b737785f644dac77210315c481c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBlocked: 0
+  button: {fileID: 0}
 --- !u!1 &1737848156372499665
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,8 +239,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pass
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27952e6e4f62a394184ccf066e733a51, type: 2}
+  m_sharedMaterial: {fileID: 4193688249659684053, guid: 27952e6e4f62a394184ccf066e733a51, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

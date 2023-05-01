@@ -10,4 +10,10 @@ public enum  ButtonTypes
     PassAction,
     ActivateCardAction,
     UndoTurnAction,
+    //character actions
+    StrengthenNotoriety,
+    OvertakeInstitution,
+    InstitutionAction,
+    BlockAction,
+    ExposeCharacter,
 }

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1737848155759707007}
   - component: {fileID: 1737848155759707004}
   - component: {fileID: 2857129051198850032}
-  - component: {fileID: 6478944476095056605}
+  - component: {fileID: 2232618415904029779}
   m_Layer: 5
-  m_Name: ActivateCardButton
+  m_Name: BlockActionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58bb7b737785f644dac77210315c481c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
---- !u!114 &6478944476095056605
+  button: {fileID: 1737848155759707004}
+--- !u!114 &2232618415904029779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1737848155759707002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d131be5e2784c642bcb505f8c642b77, type: 3}
+  m_Script: {fileID: 11500000, guid: 6504d76ac78cd5b4c8e9686d34063cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1737848156372499671}
@@ -235,10 +235,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play
+  m_text: Block action
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27952e6e4f62a394184ccf066e733a51, type: 2}
+  m_sharedMaterial: {fileID: 4193688249659684053, guid: 27952e6e4f62a394184ccf066e733a51, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

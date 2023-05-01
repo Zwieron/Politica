@@ -47,4 +47,8 @@ public class InterfaceElements : MonoBehaviour
     {
         hands.Add(hand);
     }
+    public List<HandVisual> getHands()
+    {
+        return  hands;
+    }
 }

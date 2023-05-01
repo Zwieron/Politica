@@ -13,6 +13,13 @@ public class PrefabCollection : MonoBehaviour
     public Transform endTurnButton;
     public Transform undoTurnButton;
     public Transform activateCardButton;
+    //CHARACTER/ACTIONS/BUTTONS/////CHARACTER/ACTIONS/BUTTONS/////CHARACTER/ACTIONS/BUTTONS/////CHARACTER/ACTIONS/BUTTONS/////CHARACTER/ACTIONS/BUTTONS/////CHARACTER/ACTIONS/BUTTONS/////CHARACTER/ACTIONS/BUTTONS
+    public Transform blockActionButton;
+    public Transform exposeCharacterButton;
+    public Transform institutionActionButton;
+    public Transform overtakeInstitutionButton;
+    public Transform strengthenNotorietyButton;
+    
     // Start is called before the first frame update
     void Start()
     {
