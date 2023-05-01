@@ -8,7 +8,7 @@ public class CardInteraction : Button
     public float hoverScale = 50;
     public float clickScale = 80;
     public float defaultRotation = 0;
-    // HandVisual handVisual;
+    public Vector2 colliderSizeWhenActive;
     public Vector3 defaultPosition;
     bool active = false;
     float deltaTime;
@@ -20,7 +20,6 @@ public class CardInteraction : Button
     // Start is called before the first frame update
     void Awake()
     {
-        colliderSize = new Vector2(3.6f,5);
         create();
         buttonPositioner = GetComponent<ButtonPositioner>();
         animationWaiter = GetComponent<AnimationWaiter>();
@@ -55,7 +54,7 @@ public class CardInteraction : Button
         onUnclick();
     }
 
-    if (isHold)
+    if (isHold&&!activated)
     {
         dragWhileCardIsClicked();
         deltaTime += Time.deltaTime;
@@ -91,6 +90,7 @@ public class CardInteraction : Button
             Debug.Log("Card UnClicked");
             UIGraphics.resizeInTime(defaultScale, 0.2f);
             Sort();
+            boxCollider.size = colliderSize;
             toDefaultLocRotInTime();
             setBlockade(false);
         }
@@ -118,8 +118,9 @@ public class CardInteraction : Button
         Debug.Log("Card Odklikd");
         GetSprite().sortingOrder=30;
         setBlockade(true);
-       UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/3,0),0.1f);
+        UIGraphics.transformInTime(new Vector3(Screen.width/2,Screen.height/3,0),0.1f);
         UIGraphics.resizeInTime(clickScale,.1f);
+        boxCollider.size = colliderSizeWhenActive; //ZMIANA KOLIDERA
         deltaTime=0;
         activated=true;
         }

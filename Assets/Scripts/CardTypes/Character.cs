@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
 {
     public string characterName;
     Institution characterInstitution;
-    int characterNotoriety;
+    public int characterNotoriety;
     int supportModifier;
     public Worldviews worldview;
     public EconomicViews economicView;

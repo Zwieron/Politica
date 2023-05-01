@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public abstract class UIElement : MonoBehaviour
 {
     public bool activated = false;
-    protected bool isMouseOver = false;
+    public bool isMouseOver = false;
     public bool blocked = false;
     int defaultOrder = 0;
     protected SpriteRenderer spriteRenderer;

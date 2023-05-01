@@ -59,12 +59,20 @@ public override void checkState()
     mousePos.z = 0;
     RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-    if (hit.collider != null && hit.collider.gameObject.GetComponent<UIElement>() != null && hit.collider.gameObject.GetComponent<UIElement>().Equals(this))
+    if (hit.collider != null && hit.collider.gameObject.GetComponent<UIElement>() != null && (hit.collider.gameObject.GetComponent<UIElement>().Equals(this)))
     {
         if (!isMouseOver)
         {
             onHover();
             isMouseOver = true;
+        }
+    }
+    else if(hit.collider != null && hit.collider.gameObject.GetComponent<UIElement>() != null &&hit.collider.gameObject.transform.IsChildOf(this.gameObject.transform))
+    {
+        if(!hit.collider.gameObject.GetComponent<UIElement>().isMouseOver)
+        {
+                hit.collider.gameObject.GetComponent<UIElement>().onHover();
+                hit.collider.gameObject.GetComponent<UIElement>().isMouseOver = true;
         }
     }
     else
@@ -100,5 +108,4 @@ public override void checkState()
         }
         
     }
-    
 

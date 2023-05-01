@@ -9,6 +9,7 @@ public class PhaseButtonsManager : MonoBehaviour
     GamePhase phase;
     List<ButtonAction> buttons = new List<ButtonAction>();
     List<CharacterCardAction> activeCharacterCardActions = new List<CharacterCardAction>();
+    public float defaultButtonsOffset;
     // Start is called before the first frame update
     void Start()
     {
@@ -118,15 +119,15 @@ public class PhaseButtonsManager : MonoBehaviour
     public void createDefaultButtonsForPlayer(Player player)
     {
             //pass 
-            Vector2  passButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x-175, player.getHandVisual().getHandPosition().y+40);
+            Vector2  passButtonPosition = new Vector2(game.getPrefabModifier().getPlayerPosition(player.playerNumber).x, game.getPrefabModifier().getPlayerPosition(player.playerNumber).y);
             game.getPrefabModifier().createPassButton(passButtonPosition, phase);
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<PassAction>().setPlayer(player);
             //end turn button
-            Vector2  endButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x-175, player.getHandVisual().getHandPosition().y);
+            Vector2  endButtonPosition = new Vector2(game.getPrefabModifier().getPlayerPosition(player.playerNumber).x, game.getPrefabModifier().getPlayerPosition(player.playerNumber).y-defaultButtonsOffset);
             game.getPrefabModifier().createEndTurnButton(endButtonPosition, phase);
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<EndTurnAction>().setPlayer(player);
             //undo turn button
-            Vector2  undoButtonPosition = new Vector2(player.getHandVisual().getHandPosition().x-175, player.getHandVisual().getHandPosition().y - 40);
+            Vector2  undoButtonPosition = new Vector2(game.getPrefabModifier().getPlayerPosition(player.playerNumber).x, game.getPrefabModifier().getPlayerPosition(player.playerNumber).y-defaultButtonsOffset*2);
             game.getPrefabModifier().createUndoTurnButton(undoButtonPosition, phase);
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<UndoTurnAction>().setPlayer(player);
             player.gatherPlayerButtonActions(buttons);

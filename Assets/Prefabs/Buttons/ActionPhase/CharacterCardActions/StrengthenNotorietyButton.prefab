@@ -137,11 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ff3747f58e24143a38500e632c3a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 0
+  activated: 0
   blocked: 0
   UIGraphics: {fileID: 0}
   colliderSize: {x: 60, y: 30}
-  buttonAction: {fileID: 0}
+  buttonAction: {fileID: 2601974396254419314}
   actionValue: 2
 --- !u!114 &2857129051198850032
 MonoBehaviour:
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1737848156372499671}
+  priceModifier: 1
 --- !u!1 &1737848156372499665
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,8 +9,12 @@ public class PrefabModifier : MonoBehaviour
     GameInfo gameInfo;
     public GameObject canvas;
     Game game;
-    public float player2Y = 400;
+    public List<GameObject> playerPositions;
     // Start is called before the first frame update
+    public Vector2 getPlayerPosition(int playerNumber)
+    {
+        return playerPositions[playerNumber-1].transform.position;
+    }
     void Awake()
     {
         prefabCollection = GetComponent<PrefabCollection>();
@@ -67,7 +71,7 @@ public class PrefabModifier : MonoBehaviour
         gameInfo.addPlayerObj(player);
         if(playerNumber==2)
         {
-            player.GetComponent<HandVisual>().setYDimension(player2Y);
+            player.GetComponent<HandVisual>().setYDimension(playerPositions[playerNumber-1].transform.position.y);
         }
     }
     public void createTable()
