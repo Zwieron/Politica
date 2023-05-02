@@ -11,6 +11,7 @@ public class ActionPhase : GamePhase
     public Deck NGODeck;
     List<Deck> instituitonDecks  = new List<Deck>();
     List<Card> activeCards = new List<Card>();
+    SelectingCharacterButton registeredSelectAction;
     // Start is called before the first frame update
     new void Start()
     {
@@ -25,8 +26,13 @@ public class ActionPhase : GamePhase
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         displayActionButtonsWhenCardIsActive();
+        displaySelectButtonsWhenSelectingActionIsActive();
+        if(phaseButtonsManager.checkIfAnySelectButtonIsSelected())
+        {
+            phaseButtonsManager.clearSelectCardButtons();
+        }
         foreach(Player player in game.getGameInfo().getPlayers())
         {
             player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
@@ -64,7 +70,7 @@ public class ActionPhase : GamePhase
         {
             foreach(Card card in player.getHand().getCards())
             {
-                if(card.getCardInteraction().isActive()&&!activeCards.Contains(card))
+                if(card.getCardInteraction().isActive()&&!activeCards.Contains(card)&&player.getSelectedAction()==null)
                 {
                     activeCards.Add(card);
                     phaseButtonsManager.createButtonsForActivatedCharacterCard(card, player);            
@@ -79,6 +85,27 @@ public class ActionPhase : GamePhase
         if(clear)
         {
             phaseButtonsManager.clearActiveCardButtons();
+        }
+    }
+    void displaySelectButtonsWhenSelectingActionIsActive()
+    {
+        Player player = game.getGameInfo().getPlayers()[game.getTurnManager().getCurrentPlayerIndex()];
+        foreach(Card card in player.getHand().getCards())
+        {
+            if(card.GetComponent<Character>()!=null&&
+                    card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=null && 
+                        card.GetComponent<Character>().GetCharacterActionsManager().isSelectable()&&
+                            card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=registeredSelectAction&&
+                                card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute()==null)
+            {
+                foreach(Card institutionCard in game.getTable().getHand().getCards())
+                {
+                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                    phaseButtonsManager.createSelectButtonForActivatedInstitutionCard(institutionCard, player, button);
+                }
+                registeredSelectAction = (SelectingCharacterButton)card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+            }
+            else return;
         }
     }
     

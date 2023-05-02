@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public string characterName;
-    Institution characterInstitution;
+    public Institution characterInstitution;
     public int characterNotoriety;
     int supportModifier;
     public Worldviews worldview;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterActionsManager : MonoBehaviour
 {
-    CharacterCardAction activeCardAction;
+    public CharacterCardAction activeCardAction;
     CharacterCardAction cardActionToExecute;
     // Start is called before the first frame update
     void Start()
@@ -25,6 +25,18 @@ public class CharacterActionsManager : MonoBehaviour
     {
         return activeCardAction;
     }
+    public bool isSelectable()
+    {
+        if(activeCardAction == null)
+            return false;
+        else if(activeCardAction is SelectingCharacterButton)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    
     public CharacterCardAction getCardActionToExecute()
     {
         return cardActionToExecute;

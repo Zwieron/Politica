@@ -16,4 +16,6 @@ public enum  ButtonTypes
     InstitutionAction,
     BlockAction,
     ExposeCharacter,
+    ///other
+    SelectCardAction
 }

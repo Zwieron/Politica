@@ -6,7 +6,6 @@ public abstract class Institution : MonoBehaviour
 {
     public string institutionName;
     public string institutionDescription;
-    public Character institutionOwner;
     public int insitutionLevel;
     public int institutionPrice;
     Institution blockedInstitution;

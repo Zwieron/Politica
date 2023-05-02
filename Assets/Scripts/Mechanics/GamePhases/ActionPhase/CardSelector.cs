@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CardSelector : MonoBehaviour
 {
-    Card activatedCard;
+    ButtonAction selectingButtonAction;
     Card selectedCard;
     // Start is called before the first frame update
     void Start()
@@ -17,12 +17,24 @@ public class CardSelector : MonoBehaviour
     {
         
     }
-    public void SelectCard(Card card)
+    public void selectCard(Card card)
     {
-        selectedCard = card;
+        this.selectedCard = card;
     }
-    public void setActivatedCard(Card card)
+    public Card getSelectedCard()
     {
-        activatedCard=card;
+        return selectedCard;
+    }
+    public void setSelectingButtonAction(ButtonAction buttonAction)
+    {
+        this.selectingButtonAction=buttonAction;
+    }
+    public ButtonAction getSelectingButtonAction()
+    {
+        return selectingButtonAction;
+    }
+    public void reset()
+    {
+        selectedCard=null;
     }
 }

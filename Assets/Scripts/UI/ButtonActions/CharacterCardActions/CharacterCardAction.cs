@@ -5,7 +5,7 @@ using UnityEngine;
  public abstract class CharacterCardAction : ButtonAction
 {
     protected Card card;
-    protected Character character;
+    public  Character character;
     protected bool activatedAction;
     // Start is called before the first frame update
     public abstract void execute();

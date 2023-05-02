@@ -9,7 +9,7 @@ public class Game : MonoBehaviour
     PrefabModifier prefabModifier;
     Table table;
     Converter converter;
-    
+    TurnManager turnManager;
     
     // Start is called before the first frame update
     void Start()
@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
         prefabModifier = GetComponent<PrefabModifier>();
         gameInfo = GetComponent<GameInfo>();
         interfaceManager = GetComponent<InterfaceElements>();
+        turnManager = GetComponent<TurnManager>();
         prefabModifier.createTable();
         startGame();
         startGamePhase(gameInfo.getGamePhase());
@@ -58,6 +59,10 @@ public class Game : MonoBehaviour
     {
         this.table = table;
     
+    }
+    public TurnManager getTurnManager()
+    {
+        return turnManager;
     }
     void startGamePhase(GamePhases phase)
     {

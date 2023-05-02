@@ -29,6 +29,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
     {
         if(character.GetCharacterActionsManager().getActiveCardAction()==null)
         {
+        player.selectAction(this);
         newNotoriety = oldNotoriety++;
         newFunds = party.getFunds() - price;
         character.GetCharacterActionsManager().setActiveCardAction(this);

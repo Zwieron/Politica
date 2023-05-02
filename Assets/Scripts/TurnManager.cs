@@ -74,4 +74,8 @@ public class TurnManager : MonoBehaviour
     {
         return  currentPlayerIndex;
     }
+    public Player getCurrentPlayer()
+    {
+        return gameInfo.getPlayers()[currentPlayerIndex].GetComponent<Player>();
+    }
 }
