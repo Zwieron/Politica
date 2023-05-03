@@ -6,6 +6,7 @@ using System.Linq;
 public class TurnManager : MonoBehaviour
 {   GameInfo gameInfo;
     int currentPlayerIndex;
+    int currentTurn;
     List<EndTurnAction> turnButtons = new List<EndTurnAction>();
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class TurnManager : MonoBehaviour
     {
         gameInfo.getPlayers()[currentPlayerIndex].GetComponent<Player>().endTurn();
         currentPlayerIndex ++;
+        currentTurn ++;
         Debug.Log("Current player index 1: "+currentPlayerIndex);
         if (currentPlayerIndex >= gameInfo.getPlayers().Count)
         {
@@ -77,5 +79,9 @@ public class TurnManager : MonoBehaviour
     public Player getCurrentPlayer()
     {
         return gameInfo.getPlayers()[currentPlayerIndex].GetComponent<Player>();
+    }
+    public int getCurrentTurn()
+    {
+        return currentTurn;
     }
 }

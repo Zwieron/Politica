@@ -6,7 +6,7 @@ public class SelectCardAction : ButtonAction
 {
     Card card;
     CardSelector cardSelector;
-    bool selected = false;
+    public bool selected = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +22,7 @@ public class SelectCardAction : ButtonAction
     {
         cardSelector.selectCard(card);
         selected = true;
+        turnOfActivity = player.getCurrentPlayerTurn();
     }
     public override void tooltip()
     {
@@ -30,7 +31,9 @@ public class SelectCardAction : ButtonAction
     public override void update()
     {}
     public override void reset()
-    {}
+    {
+        Destroy(gameObject);
+    }
     public override void setCard(Card card)
     {
         this.card = card;

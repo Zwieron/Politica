@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public Directions buttonDirection;
     public List<ButtonAction> playerActions;
     ButtonAction selectedAction;
+    public int currentPlayerTurn = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
     public void startTurn()
     {
         playerTurn = true;
+        currentPlayerTurn ++;
     }
     public void endTurn()
     {
@@ -62,6 +64,10 @@ public class Player : MonoBehaviour
     public HandVisual getHandVisual()
     {
         return this.handVisual;
+    }
+    public int getCurrentPlayerTurn()
+    {
+        return currentPlayerTurn;
     }
     public void setPlayerNumber(int playerNumber)
     {

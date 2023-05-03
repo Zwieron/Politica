@@ -25,7 +25,7 @@ public class CharacterActionsManager : MonoBehaviour
     {
         return activeCardAction;
     }
-    public bool isSelectable()
+    public bool isActiveCardSelectable()
     {
         if(activeCardAction == null)
             return false;

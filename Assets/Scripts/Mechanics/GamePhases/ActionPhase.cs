@@ -11,7 +11,7 @@ public class ActionPhase : GamePhase
     public Deck NGODeck;
     List<Deck> instituitonDecks  = new List<Deck>();
     List<Card> activeCards = new List<Card>();
-    SelectingCharacterButton registeredSelectAction;
+    public SelectingCharacterButton registeredSelectAction;
     // Start is called before the first frame update
     new void Start()
     {
@@ -89,12 +89,12 @@ public class ActionPhase : GamePhase
     }
     void displaySelectButtonsWhenSelectingActionIsActive()
     {
-        Player player = game.getGameInfo().getPlayers()[game.getTurnManager().getCurrentPlayerIndex()];
+        Player player = game.getTurnManager().getCurrentPlayer();
         foreach(Card card in player.getHand().getCards())
         {
             if(card.GetComponent<Character>()!=null&&
                     card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=null && 
-                        card.GetComponent<Character>().GetCharacterActionsManager().isSelectable()&&
+                        card.GetComponent<Character>().GetCharacterActionsManager().isActiveCardSelectable()&&
                             card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=registeredSelectAction&&
                                 card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute()==null)
             {
@@ -105,7 +105,6 @@ public class ActionPhase : GamePhase
                 }
                 registeredSelectAction = (SelectingCharacterButton)card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
             }
-            else return;
         }
     }
     

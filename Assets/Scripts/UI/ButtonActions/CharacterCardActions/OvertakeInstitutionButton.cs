@@ -21,6 +21,7 @@ public class OvertakeInstitutionButton : SelectingCharacterButton
     {
         if(character.GetCharacterActionsManager().getActiveCardAction()==null)
         {
+        turnOfActivity = player.getCurrentPlayerTurn();
         player.selectAction(this);
         gameObject.AddComponent<CardSelector>().setSelectingButtonAction(this);
         cardSelector = GetComponent<CardSelector>();
@@ -36,10 +37,16 @@ public class OvertakeInstitutionButton : SelectingCharacterButton
     {
         if(character.GetCharacterActionsManager().getActiveCardAction()==this)
         {
-            if(cardSelector.getSelectedCard().GetComponent<Institution>()!=null)
+            if(cardSelector.getSelectedCard()==null)
             {
-            institutionToOvertake = cardSelector.getSelectedCard().GetComponent<Institution>();
-            character.GetCharacterActionsManager().setCardActionToExecute(this);
+                Debug.Log("No card selected");
+                return;
+            }
+            else if(cardSelector.getSelectedCard().GetComponent<Institution>()!=null)
+            {
+                institutionToOvertake = cardSelector.getSelectedCard().GetComponent<Institution>();
+                character.GetCharacterActionsManager().setCardActionToExecute(this);
+                activatedAction = true;
             }
             else Debug.Log("No institution selected");
         }
@@ -49,8 +56,10 @@ public class OvertakeInstitutionButton : SelectingCharacterButton
     {
         if(character.GetCharacterActionsManager().getActiveCardAction()==this)
         {
-        Destroy(this.gameObject);
         character.GetCharacterActionsManager().setActiveCardAction(null);
+        if(this.gameObject!=null)
+        Destroy(this.gameObject);
+        else return;
         }
         else return;
     }

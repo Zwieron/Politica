@@ -48,6 +48,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
         character.GetCharacterActionsManager().setCardActionToExecute(this);
         oldNotoriety = newNotoriety;
         oldFunds = newFunds;
+        activatedAction = true;
         }
     }
     public override void reset()

@@ -62,7 +62,7 @@ public class PhaseButtonsManager : MonoBehaviour
     {
         foreach(SelectCardAction select in selectCardActions)
         {
-            if(select.isSelected()&&select.getPlayer().Equals(game.getTurnManager().getCurrentPlayer()))
+            if(select.isSelected()&&select.getPlayer().Equals(game.getTurnManager().getCurrentPlayer())&&select.isTurnOfActivityNow())
             {
                 return true;
             }
@@ -75,28 +75,25 @@ public class PhaseButtonsManager : MonoBehaviour
         Player player = game.getTurnManager().getCurrentPlayer();
         foreach(Card card in player.getHand().getCards())
         {
-            if(card.GetComponent<Character>()!=null && card.GetComponent<Character>().GetCharacterActionsManager().isSelectable())
-            {
-                Debug.Log("selecting character");
-                SelectingCharacterButton action = (SelectingCharacterButton) card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
-                foreach(SelectCardAction select in selectCardActions)
+            if(card.GetComponent<Character>()!=null && card.GetComponent<Character>().GetCharacterActionsManager().isActiveCardSelectable())
                 {
-                    if (!select.isSelected()&&select.getSelector().getSelectingButtonAction().Equals(action)&&player.getSelectedAction().Equals(action))
+                    SelectingCharacterButton action = (SelectingCharacterButton) card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                    foreach(SelectCardAction select in selectCardActions)
                     {
-                        //jesli przycisk nie jest wybrany a gracz jest aktualny
-                        buttons.Remove(select);
-                        selects.Remove(select);
-                        Destroy(select.gameObject);
-                    }
-                    else if(select.isSelected())
-                    {
-                        //jesli przycisk jest wybrany i jest aktualny
-                        select.transform.SetParent(select.getCard().gameObject.GetComponentInChildren<Canvas>().transform);
-                        select.transform.localPosition = new Vector3(0,0,0);
+                        if(select.isTurnOfActivityNow()&&select.getSelector().getSelectingButtonAction().Equals(action)||select.isSelected())
+                        {
+                            continue;
+                        }
+                        else
+                        // (select.isTurnOfActivityNow()&&select.getSelector().getSelectingButtonAction().Equals(action)&&!select.isSelected())
+                        {
+                            buttons.Remove(select);
+                            selects.Remove(select);
+                            Destroy(select.gameObject);
+                        }
                     }
                 }
             }
-        }
         selectCardActions = new List<SelectCardAction>(selects);
     }
     Vector2 switchPositionByDirection(Card card, Directions direction)
