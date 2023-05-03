@@ -25,6 +25,7 @@ public class Executioner : MonoBehaviour
     {
         foreach(CharacterCardAction action in actionsToExecute)
         {
+            if(action!=null)
             action.checkAndExecute();
         }
     }

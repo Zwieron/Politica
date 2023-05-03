@@ -7,7 +7,7 @@ public class PollPhase : GamePhase
     // Start is called before the first frame update
     new void Start()
     {
-        game = GetComponent<Game>();
+        base.Start();
 
     }
 
