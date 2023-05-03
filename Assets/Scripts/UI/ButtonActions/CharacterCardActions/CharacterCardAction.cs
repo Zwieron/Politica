@@ -5,17 +5,19 @@ using UnityEngine;
  public abstract class CharacterCardAction : ButtonAction
 {
     protected Card card;
-    public  Character character;
-    protected bool activatedAction;
+    public  CharacterActionsManager characterActionsManager;
     // Start is called before the first frame update
     public abstract void execute();
     public bool getActivatedAction()
     {
-        return activatedAction;
+        if(characterActionsManager.getCardActionToExecute()==this)
+        return true;
+        else
+        return false;
     }
     public void checkAndExecute()
     {
-        if(activatedAction)
+        if(characterActionsManager.getCardActionToExecute()==this)
         {
             execute();
         }
@@ -23,14 +25,14 @@ using UnityEngine;
     public override void setCard(Card card)
     {
         this.card=card;
-        character = card.GetComponent<Character>();
+        characterActionsManager = card.GetComponent<Character>().GetCharacterActionsManager();
     }
     public Card getCard()
     {
         return card;
     }
-    public Character getCharacter()
+    public CharacterActionsManager getCharacter()
     {
-        return character;
+        return characterActionsManager;
     }
 }

@@ -46,7 +46,7 @@ public class PhaseButtonsManager : MonoBehaviour
         Debug.Log("clearing active card buttons");
         foreach(CharacterCardAction characterCardAction in activeCharacterCardActions)
         {
-            if(characterCardAction.getCharacter().GetCharacterActionsManager().getActiveCardAction()!=characterCardAction)
+            if(characterCardAction.getCharacter().getActiveCardAction()!=characterCardAction)
             {
             buttons.Remove(characterCardAction); //nie usuwac przycisku z listy bo jest juz wykorzystywany?
             Destroy(characterCardAction.gameObject);

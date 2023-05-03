@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Executioner : MonoBehaviour
-{ List<CharacterCardAction> actionsToExecute = new List<CharacterCardAction>();
+{ 
+    Croupier croupier;
+    List<CharacterCardAction> actionsToExecute = new List<CharacterCardAction>();
     // Start is called before the first frame update
     void Start()
     {
