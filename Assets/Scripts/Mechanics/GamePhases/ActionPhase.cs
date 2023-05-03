@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ActionPhase : GamePhase
 {   
+    Executioner executioner;
     public int cardsDrawn;
     public Deck MinistryDeck;
     public Deck MediaDeck;
@@ -27,6 +28,10 @@ public class ActionPhase : GamePhase
     // Update is called once per frame
     void Update()
     {   
+        if(checkIfAllPlayersHavePassed())
+        {
+            finishActionPhase();
+        }
         displayActionButtonsWhenCardIsActive();
         displaySelectButtonsWhenSelectingActionIsActive();
         if(phaseButtonsManager.checkIfAnySelectButtonIsSelected())
@@ -70,7 +75,9 @@ public class ActionPhase : GamePhase
         {
             foreach(Card card in player.getHand().getCards())
             {
-                if(card.getCardInteraction().isActive()&&!activeCards.Contains(card)&&player.getSelectedAction()==null)
+                if(card.getCardInteraction().isActive()&&
+                    !activeCards.Contains(card)&&player.getSelectedAction()==null&&
+                        card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute()==null)
                 {
                     activeCards.Add(card);
                     phaseButtonsManager.createButtonsForActivatedCharacterCard(card, player);            
@@ -106,6 +113,23 @@ public class ActionPhase : GamePhase
                 registeredSelectAction = (SelectingCharacterButton)card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
             }
         }
+    }
+    void finishActionPhase()
+    {
+            executioner = gameObject.AddComponent<Executioner>();
+            foreach(Player player in game.getGameInfo().getPlayers())
+            {
+                foreach(Card card in player.getHand().getCards())
+                {
+                    if(card.isCharacterCard())
+                    {
+                        executioner.addAction(card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute());
+                    }
+                }
+            }
+            executioner.executeActions();
+            Destroy(executioner);
+            game.getGameInfo().setGamePhase(GamePhases.PollPhase);
     }
     
 }

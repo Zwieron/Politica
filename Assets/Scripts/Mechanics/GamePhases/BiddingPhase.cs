@@ -28,33 +28,7 @@ public class BiddingPhase : GamePhase
             blockBidButtonsAfterPassed();
         if(checkIfAllPlayersHavePassed())
         {
-            findWinnerForEveryCard();
-            giveWonCardsToWinners();
-            foreach(Player player in game.getGameInfo().getPlayers())
-            {
-                player.getHandVisual().refresh();
-            }
-            foreach(ButtonAction button in phaseButtonsManager.getButtons())
-            {
-                Destroy(button.gameObject);
-            }
-            phaseButtonsManager.getButtons().Clear();
-            econOvertonModifier.updateEconOvertonWindow();
-            worldviewOvertonModifier.updateWorldviewOvertonWindow();
-            iteration++;
-            if(iteration==totalIterations)
-            {
-                foreach(HandVisual hand in  game.getInterfaceManager().getHands())
-                {
-                    foreach(CardInteraction card in hand.getCards())
-                    {
-                        card.setActive(false);
-                    }
-                }
-                game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
-            }
-            else
-            showCards();
+            finishBiddingPhaseIteration();
         }
     }
     void showCards() //TODO: refactor this
@@ -68,23 +42,7 @@ public class BiddingPhase : GamePhase
         createButtonsAroundCardsOnTable(ButtonTypes.BidAction);
     }
 
-    bool checkIfAllPlayersHavePassed()
-    {
-        int passedPlayers = 0;
-        foreach(PassAction pas in phaseButtonsManager.getButtons().OfType<PassAction>())
-        {
-            if(pas.isPassed())
-            passedPlayers++;
-        }
-        
-        if(passedPlayers==game.getGameInfo().getPlayers().Count)
-        {
-            Debug.Log("All players passed");
-            return true;
-        }
-        else 
-            return false;
-    }
+
     Player findWinner(Card card)
     {
         List<BidAction> actions = createListOfButtonsOfCard(card);
@@ -168,6 +126,36 @@ public class BiddingPhase : GamePhase
     {
        int temp = (int)character.getWorldview()*bid;
        return temp*bid;
+    }
+    void finishBiddingPhaseIteration()
+    {
+            findWinnerForEveryCard();
+            giveWonCardsToWinners();
+            foreach(Player player in game.getGameInfo().getPlayers())
+            {
+                player.getHandVisual().refresh();
+            }
+            foreach(ButtonAction button in phaseButtonsManager.getButtons())
+            {
+                Destroy(button.gameObject);
+            }
+            phaseButtonsManager.getButtons().Clear();
+            econOvertonModifier.updateEconOvertonWindow();
+            worldviewOvertonModifier.updateWorldviewOvertonWindow();
+            iteration++;
+            if(iteration==totalIterations)
+            {
+                foreach(HandVisual hand in  game.getInterfaceManager().getHands())
+                {
+                    foreach(CardInteraction card in hand.getCards())
+                    {
+                        card.setActive(false);
+                    }
+                }
+                game.getGameInfo().setGamePhase(GamePhases.ActionPhase);
+            }
+            else
+            showCards();
     }
 
 }

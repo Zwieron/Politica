@@ -23,6 +23,7 @@ public class Card : MonoBehaviour
         cardInteraction = cardObject.GetComponent<CardInteraction>();
         if(cardInteraction==null)
         cardInteraction = cardObject.AddComponent<CardInteraction>();
+        switchToCheckCardType();
         Debug.Log(cardObject.GetInstanceID());
         
     }
@@ -61,12 +62,34 @@ public class Card : MonoBehaviour
     {
         return cardState;
     }
+    void switchToCheckCardType()
+    {
+        if(GetComponent<Character>()!=null)
+        {
+            cardType = CardTypes.CharacterCard;
+        }
+        else if(GetComponent<Institution>()!=null)
+        {
+            cardType = CardTypes.InstitutionCard;
+        }
+        // else if (GetComponent<ActionCard>()!=null)
+        // {
+        //     cardType = CardTypes.ActionCard;
+        // }
+    }
     void highlightActivated()
     {
         if(cardState==CardState.Activated)
         cardInteraction.getHighlighter().highlightYellow();
         else
         cardInteraction.getHighlighter().highlightWhite();
+    }
+    public bool isCharacterCard()
+    {
+        if(cardType==CardTypes.CharacterCard)
+        return true;
+        else
+        return false;
     }
 
 }

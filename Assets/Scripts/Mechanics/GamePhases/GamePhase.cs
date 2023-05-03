@@ -41,5 +41,22 @@ public abstract class GamePhase : MonoBehaviour
             player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
         }
     }
+    protected bool checkIfAllPlayersHavePassed()
+    {
+        int passedPlayers = 0;
+        foreach(PassAction pas in phaseButtonsManager.getButtons().OfType<PassAction>())
+        {
+            if(pas.isPassed())
+            passedPlayers++;
+        }
+        
+        if(passedPlayers==game.getGameInfo().getPlayers().Count)
+        {
+            Debug.Log("All players passed");
+            return true;
+        }
+        else 
+            return false;
+    }
 }
 
