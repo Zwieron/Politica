@@ -48,5 +48,7 @@ public class EndTurnAction : ButtonAction
             GetComponent<SpriteRenderer>().color = Color.grey;
         }
     }
+    public override void setCard(Card card)
+    {}
         
 }

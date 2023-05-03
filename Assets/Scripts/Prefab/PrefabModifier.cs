@@ -155,6 +155,13 @@ public class PrefabModifier : MonoBehaviour
         button.transform.SetParent(canvas.transform,true);
         gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<StrengthenNotorietyButton>());
     }
+    public void createSelectCardActionButton(Vector2 position, GamePhase gamePhase)
+    {
+        prefabInstantiator.instantiatePrefab(prefabCollection.selectCardActionButton,position);
+        GameObject button = GetComponent<PrefabInstantiator>().getLastPrefab();
+        button.transform.SetParent(canvas.transform,true);
+        gamePhase.getPhaseButtonsManager().addButton(button.GetComponent<SelectCardAction>());
+    }
     //GETS///////////////////////GETS///////////////////////GETS///////////////////////GETS///////////////////////GETS///////////////////////GETS///////////////////////
     public PrefabInstantiator getPrefabInstantiator()
     {

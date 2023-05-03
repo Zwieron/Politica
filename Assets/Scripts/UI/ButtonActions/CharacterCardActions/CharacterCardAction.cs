@@ -5,7 +5,7 @@ using UnityEngine;
  public abstract class CharacterCardAction : ButtonAction
 {
     protected Card card;
-    protected Character character;
+    public  Character character;
     protected bool activatedAction;
     // Start is called before the first frame update
     public abstract void execute();
@@ -20,7 +20,7 @@ using UnityEngine;
             execute();
         }
     }
-    public void setCard(Card card)
+    public override void setCard(Card card)
     {
         this.card=card;
         character = card.GetComponent<Character>();

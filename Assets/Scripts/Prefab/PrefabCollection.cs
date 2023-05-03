@@ -19,6 +19,8 @@ public class PrefabCollection : MonoBehaviour
     public Transform institutionActionButton;
     public Transform overtakeInstitutionButton;
     public Transform strengthenNotorietyButton;
+    /////OTHER/BUTTONS//////OTHER/BUTTONS//////OTHER/BUTTONS//////OTHER/BUTTONS//////OTHER/BUTTONS//////OTHER/BUTTONS//////OTHER/BUTTONS//////OTHER/BUTTONS//////
+    public Transform selectCardActionButton;
     
     // Start is called before the first frame update
     void Start()

@@ -17,7 +17,9 @@ public class InstitutionActionButton : CharacterCardAction
         
     }
     public override void action(int value)
-    {}
+    {
+        player.selectAction(this);
+    }
     public override void tooltip()
     {}
     public override void update()

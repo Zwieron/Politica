@@ -29,6 +29,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
     {
         if(character.GetCharacterActionsManager().getActiveCardAction()==null)
         {
+        player.selectAction(this);
         newNotoriety = oldNotoriety++;
         newFunds = party.getFunds() - price;
         character.GetCharacterActionsManager().setActiveCardAction(this);
@@ -47,6 +48,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
         character.GetCharacterActionsManager().setCardActionToExecute(this);
         oldNotoriety = newNotoriety;
         oldFunds = newFunds;
+        activatedAction = true;
         }
     }
     public override void reset()

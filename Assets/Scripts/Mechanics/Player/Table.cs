@@ -17,7 +17,6 @@ public class Table : Player
     }
     public void drawCards(Deck deck, int numCards)
     {
-        hand.cards.Clear();
         for (int i = 0; i < numCards; i++)
         {
             Transform card = deck.drawTransform();

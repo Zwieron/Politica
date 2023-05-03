@@ -9,6 +9,7 @@ public class PhaseButtonsManager : MonoBehaviour
     GamePhase phase;
     List<ButtonAction> buttons = new List<ButtonAction>();
     List<CharacterCardAction> activeCharacterCardActions = new List<CharacterCardAction>();
+    List<SelectCardAction> selectCardActions = new List<SelectCardAction>();
     public float defaultButtonsOffset;
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,44 @@ public class PhaseButtonsManager : MonoBehaviour
             }
         }
         activeCharacterCardActions.Clear();
+    }
+    public bool checkIfAnySelectButtonIsSelected()
+    {
+        foreach(SelectCardAction select in selectCardActions)
+        {
+            if(select.isSelected()&&select.getPlayer().Equals(game.getTurnManager().getCurrentPlayer())&&select.isTurnOfActivityNow())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void clearSelectCardButtons()
+    {
+        List<SelectCardAction> selects = new List<SelectCardAction>(selectCardActions);
+        Player player = game.getTurnManager().getCurrentPlayer();
+        foreach(Card card in player.getHand().getCards())
+        {
+            if(card.GetComponent<Character>()!=null && card.GetComponent<Character>().GetCharacterActionsManager().isActiveCardSelectable())
+                {
+                    SelectingCharacterButton action = (SelectingCharacterButton) card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                    foreach(SelectCardAction select in selectCardActions)
+                    {
+                        if(select.isTurnOfActivityNow()&&select.getSelector().getSelectingButtonAction().Equals(action)||select.isSelected())
+                        {
+                            continue;
+                        }
+                        else
+                        // (select.isTurnOfActivityNow()&&select.getSelector().getSelectingButtonAction().Equals(action)&&!select.isSelected())
+                        {
+                            buttons.Remove(select);
+                            selects.Remove(select);
+                            Destroy(select.gameObject);
+                        }
+                    }
+                }
+            }
+        selectCardActions = new List<SelectCardAction>(selects);
     }
     Vector2 switchPositionByDirection(Card card, Directions direction)
     {
@@ -114,6 +153,10 @@ public class PhaseButtonsManager : MonoBehaviour
             case ButtonTypes.InstitutionAction:
             game.getPrefabModifier().createInstitutionActionButton(position, phase);
             break;
+            ///////SELECT CARD ACTION//////
+            case ButtonTypes.SelectCardAction:
+            game.getPrefabModifier().createSelectCardActionButton(position, phase);
+            break;
         }
     }
     public void createDefaultButtonsForPlayer(Player player)
@@ -159,5 +202,14 @@ public class PhaseButtonsManager : MonoBehaviour
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().transform.SetParent(card.getCardInteraction().GetCanvas().gameObject.transform);
             activeCharacterCardActions.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>());
         }
+    }
+    public void createSelectButtonForActivatedInstitutionCard(Card card, Player player, SelectingCharacterButton selectingCharacterButton)
+    {
+        switchCreateButtonType(ButtonTypes.SelectCardAction, switchPositionByDirection(card, player.buttonDirection));
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<SelectCardAction>().setPlayer(player);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<SelectCardAction>().setCard(card);
+            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<SelectCardAction>().setSelector(selectingCharacterButton.getSelector());
+            buttons.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<SelectCardAction>());
+            selectCardActions.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<SelectCardAction>());
     }
 }

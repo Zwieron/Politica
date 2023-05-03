@@ -13,6 +13,7 @@ public class BidAction : ButtonAction
     // Start is called before the first frame update
     void Start()
     {
+        party = player.getParty();
         newPartyFunds = party.getFunds();
     }
 
@@ -40,7 +41,7 @@ public class BidAction : ButtonAction
     {
         return card;
     }
-    public void setCard(Card card)
+    public override void setCard(Card card)
     {
         this.card = card;
     }

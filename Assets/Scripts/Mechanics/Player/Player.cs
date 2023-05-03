@@ -6,13 +6,14 @@ public class Player : MonoBehaviour
 {
     public int playerNumber;
     public Party party;
-    protected GameObject ggameObject;
     protected Hand hand;
     protected HandVisual handVisual;
     public bool playerTurn = false;
     public Game game;
     public Directions buttonDirection;
     public List<ButtonAction> playerActions;
+    ButtonAction selectedAction;
+    public int currentPlayerTurn = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +30,12 @@ public class Player : MonoBehaviour
     public void startTurn()
     {
         playerTurn = true;
+        currentPlayerTurn ++;
     }
     public void endTurn()
     {
         playerTurn = false;
+        clearSelectedAction();
     }
     public bool isPlayerTurn()
     {
@@ -61,6 +64,10 @@ public class Player : MonoBehaviour
     public HandVisual getHandVisual()
     {
         return this.handVisual;
+    }
+    public int getCurrentPlayerTurn()
+    {
+        return currentPlayerTurn;
     }
     public void setPlayerNumber(int playerNumber)
     {
@@ -112,5 +119,17 @@ public class Player : MonoBehaviour
     public List<ButtonAction> getPlayerButtonActions()
     {
         return playerActions;
+    }
+    public void clearSelectedAction()
+    {
+        selectedAction = null;
+    }
+    public void selectAction(ButtonAction action)
+    {
+        selectedAction = action;
+    }
+    public ButtonAction getSelectedAction()
+    {
+        return selectedAction;
     }
 }
