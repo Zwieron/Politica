@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    CardInteraction cardInteraction;
-    GameObject cardObject;
-    Hand hand;
-    CardState cardState;
-    CardTypes cardType;
+    protected CardInteraction cardInteraction;
+    protected GameObject cardObject;
+    protected Hand hand;
+    protected CardState cardState;
+    protected CardActionsManager cardActionsManager;
 
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         if(gameObject==null)
         cardObject = new GameObject();
@@ -23,7 +23,6 @@ public class Card : MonoBehaviour
         cardInteraction = cardObject.GetComponent<CardInteraction>();
         if(cardInteraction==null)
         cardInteraction = cardObject.AddComponent<CardInteraction>();
-        switchToCheckCardType();
         Debug.Log(cardObject.GetInstanceID());
         
     }
@@ -62,21 +61,6 @@ public class Card : MonoBehaviour
     {
         return cardState;
     }
-    void switchToCheckCardType()
-    {
-        if(GetComponent<Character>()!=null)
-        {
-            cardType = CardTypes.CharacterCard;
-        }
-        else if(GetComponent<Institution>()!=null)
-        {
-            cardType = CardTypes.InstitutionCard;
-        }
-        // else if (GetComponent<ActionCard>()!=null)
-        // {
-        //     cardType = CardTypes.ActionCard;
-        // }
-    }
     void highlightActivated()
     {
         if(cardState==CardState.Activated)
@@ -84,12 +68,9 @@ public class Card : MonoBehaviour
         else
         cardInteraction.getHighlighter().highlightWhite();
     }
-    public bool isCharacterCard()
+    public CardActionsManager GetCardActionsManager()
     {
-        if(cardType==CardTypes.CharacterCard)
-        return true;
-        else
-        return false;
+        return cardActionsManager;
     }
 
 }

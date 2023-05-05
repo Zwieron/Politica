@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Institution : MonoBehaviour
+public abstract class Institution : Card
 {
     public string institutionName;
     public string institutionDescription;

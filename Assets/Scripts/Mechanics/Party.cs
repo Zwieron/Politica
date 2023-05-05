@@ -23,9 +23,9 @@ public class Party : MonoBehaviour
         int tempSupport = 0;
         foreach(Card card in owner.getHand().getCards())
         {
-            if(card.isCharacterCard())
+            if(card is Character)
             {
-                Character character = card.GetComponent<Character>();
+                Character character = (Character)card;
                 tempSupport += character.getSupportModifier();
             }
         }

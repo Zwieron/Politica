@@ -496,7 +496,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8526699128393775998}
-  - component: {fileID: 4919272674516939639}
   - component: {fileID: 6093439608478736569}
   - component: {fileID: 8768077601576565206}
   - component: {fileID: 4628200766942900933}
@@ -534,18 +533,6 @@ RectTransform:
   m_AnchoredPosition: {x: 420, y: 75}
   m_SizeDelta: {x: 3.6, y: 5.04}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4919272674516939639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837682787087441068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4282c1926410a4a8b985abf207c19f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &6093439608478736569
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -649,7 +636,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Adriano Zanbieta
-  characterNotoriety: 0
+  characterInstitution: {fileID: 0}
+  characterNotoriety: 1
   worldview: 1
   economicView: 2
   characterBuff: {fileID: 0}
@@ -666,6 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activated: 0
+  isMouseOver: 0
   blocked: 0
   UIGraphics: {fileID: 8768077601576565206}
   colliderSize: {x: 3.6, y: 5}
@@ -675,7 +664,6 @@ MonoBehaviour:
   hoverScale: 50
   clickScale: 80
   defaultRotation: -0
-  colliderSizeWhenActive: {x: 6, y: 5}
   defaultPosition: {x: 420, y: 75, z: 0}
   cardCanvas: {fileID: 4830174376171980271}
 --- !u!114 &7174518209579506529
@@ -736,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ab744b717eeea4385044959aa2d76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCardAction: {fileID: 0}
 --- !u!1 &7078767835828576625
 GameObject:
   m_ObjectHideFlags: 0

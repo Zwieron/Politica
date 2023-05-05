@@ -75,9 +75,9 @@ public class PhaseButtonsManager : MonoBehaviour
         Player player = game.getTurnManager().getCurrentPlayer();
         foreach(Card card in player.getHand().getCards())
         {
-            if(card.GetComponent<Character>()!=null && card.GetComponent<Character>().GetCharacterActionsManager().isActiveCardActionSelectable())
+            if(card is Character && card.GetCardActionsManager().isActiveCardActionSelectable())
                 {
-                    SelectingCharacterButton action = (SelectingCharacterButton) card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                    SelectingCharacterButton action = (SelectingCharacterButton) card.GetCardActionsManager().getActiveCardAction();
                     foreach(SelectCardAction select in selectCardActions)
                     {
                         if(select.isTurnOfActivityNow()&&select.getSelector().getSelectingButtonAction().Equals(action)||select.isSelected())

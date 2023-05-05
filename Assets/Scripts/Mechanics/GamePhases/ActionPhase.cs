@@ -77,7 +77,7 @@ public class ActionPhase : GamePhase
             {
                 if(card.getCardInteraction().isActive()&&
                     !activeCards.Contains(card)&&player.getSelectedAction()==null&&
-                        card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute()==null)
+                        card.GetCardActionsManager().getCardActionToExecute()==null)//TODO: ogarnąć kartę
                 {
                     activeCards.Add(card);
                     phaseButtonsManager.createButtonsForActivatedCharacterCard(card, player);            
@@ -94,23 +94,23 @@ public class ActionPhase : GamePhase
             phaseButtonsManager.clearActiveCardButtons();
         }
     }
-    void displaySelectButtonsWhenSelectingActionIsActive()
+    void displaySelectButtonsWhenSelectingActionIsActive() //TODO: polimorfizm tej funkcji
     {
         Player player = game.getTurnManager().getCurrentPlayer();
         foreach(Card card in player.getHand().getCards())
         {
-            if(card.GetComponent<Character>()!=null&&
-                    card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=null && 
-                        card.GetComponent<Character>().GetCharacterActionsManager().isActiveCardActionSelectable()&&
-                            card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=registeredSelectAction&&
-                                card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute()==null)
+            if(card is Character&&
+                    card.GetCardActionsManager().getActiveCardAction()!=null && 
+                        card.GetCardActionsManager().isActiveCardActionSelectable()&&
+                            card.GetCardActionsManager().getActiveCardAction()!=registeredSelectAction&&
+                                card.GetCardActionsManager().getCardActionToExecute()==null)
             {
                 foreach(Card institutionCard in game.getTable().getHand().getCards())
                 {
-                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
                     phaseButtonsManager.createSelectButtonForActivatedInstitutionCard(institutionCard, player, button);
                 }
-                registeredSelectAction = card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                registeredSelectAction = card.GetCardActionsManager().getActiveCardAction();
             }
         }
     }
@@ -121,9 +121,9 @@ public class ActionPhase : GamePhase
             {
                 foreach(Card card in player.getHand().getCards())
                 {
-                    if(card.isCharacterCard())
+                    if(card is Character)
                     {
-                        executioner.addAction(card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute());
+                        executioner.addAction(card.GetCardActionsManager().getCardActionToExecute());
                     }
                 }
             }

@@ -25,7 +25,7 @@ using UnityEngine;
     public override void setCard(Card card)
     {
         this.card=card;
-        characterActionsManager = card.GetComponent<Character>().GetCharacterActionsManager();
+        characterActionsManager = (CharacterActionsManager)card.GetCardActionsManager();
     }
     public Card getCard()
     {
