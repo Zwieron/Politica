@@ -5,7 +5,7 @@ using UnityEngine;
 public class Executioner : MonoBehaviour
 { 
     Croupier croupier;
-    List<CharacterCardAction> actionsToExecute = new List<CharacterCardAction>();
+    List<ButtonAction> actionsToExecute = new List<ButtonAction>();
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,13 @@ public class Executioner : MonoBehaviour
     public void addAction(CharacterCardAction action)
     {
         actionsToExecute.Add(action);
+    }
+    public void addAction(ButtonAction action)
+    {
+        if(action is CharacterCardAction || action is InstitutionCardAction)
+        {
+            actionsToExecute.Add(action);
+        }
     }
     public void executeActions()
     {

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OvertakeInstitutionButton : SelectingCharacterButton
+public class OvertakeInstitutionButton : CharacterCardAction, SelectingCharacterButton
 {
     public Institution institutionToOvertake;
+    CardSelector cardSelector;
     
     // Start is called before the first frame update
     void Start()
@@ -69,5 +70,9 @@ public class OvertakeInstitutionButton : SelectingCharacterButton
     public void setInstitution(Institution institution)
     {
         institutionToOvertake = institution;
+    }
+    public CardSelector getSelector()
+    {
+        return cardSelector;
     }
 }

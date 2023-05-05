@@ -2,26 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterActionsManager : MonoBehaviour , CardActionsManager
+public class InstitutionActionManager : MonoBehaviour , CardActionsManager
 {
-    public CharacterCardAction activeCardAction;
-    CharacterCardAction cardActionToExecute;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public InstitutionCardAction activeCardAction;
+    InstitutionCardAction cardActionToExecute;
     public void setActiveCardAction(ButtonAction cardAction)
     {
-        if(cardAction is CharacterCardAction)
+        if(cardAction is InstitutionCardAction)
         {
-            this.activeCardAction = (CharacterCardAction)cardAction;
+            this.activeCardAction = (InstitutionCardAction)cardAction;
         }
     }
     public ButtonAction getActiveCardAction()
@@ -46,9 +35,9 @@ public class CharacterActionsManager : MonoBehaviour , CardActionsManager
     }
     public void setCardActionToExecute(ButtonAction cardAction)
     {
-        if(cardAction is CharacterCardAction)
+        if(cardAction is InstitutionCardAction)
         {
-            this.cardActionToExecute = (CharacterCardAction)cardAction;
+            this.cardActionToExecute = (InstitutionCardAction)cardAction;
         }
     }
     public void reset()
