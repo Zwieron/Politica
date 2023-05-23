@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class InstitutionActionButton : CharacterCardAction
 {
-    Institution institution;
-    // Start is called before the first frame update
+    Institution institution;    // Start is called before the first frame update
     void Start()
     {
-        
+            institution = card.GetComponent<Character>().getInstitution();
     }
 
     // Update is called once per frame
@@ -21,7 +20,9 @@ public class InstitutionActionButton : CharacterCardAction
         player.selectAction(this);
     }
     public override void tooltip()
-    {}
+    {
+        Debug.Log("institution action");
+    }
     public override void update()
     {}
     public override void reset()

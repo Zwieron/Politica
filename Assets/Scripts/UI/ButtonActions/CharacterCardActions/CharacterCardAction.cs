@@ -31,7 +31,7 @@ using UnityEngine;
     {
         return card;
     }
-    public CharacterActionsManager getCharacter()
+    public CharacterActionsManager getCharacterActionsManager()
     {
         return characterActionsManager;
     }

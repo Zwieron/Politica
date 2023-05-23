@@ -72,5 +72,15 @@ public class Card : MonoBehaviour
     {
         return cardActionsManager;
     }
+    public bool isCardActionSelecting(ButtonAction registeredSelectAction)
+    {
+        if(GetCardActionsManager().getActiveCardAction()!=null && 
+        GetCardActionsManager().isActiveCardActionSelectable()&&
+        GetCardActionsManager().getActiveCardAction()!=registeredSelectAction&&
+        GetCardActionsManager().getCardActionToExecute()==null)
+        return true;
+        else
+        return false;
+    }
 
 }

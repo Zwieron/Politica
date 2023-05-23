@@ -64,7 +64,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
     }
     public override void execute()
     {
-        card.GetComponent<Character>().setNotoriety(newNotoriety);
+        card.GetComponent<Character>().setNotoriety(newNotoriety);//TODO: change to character
         party.setFunds(newFunds);
     }
 }

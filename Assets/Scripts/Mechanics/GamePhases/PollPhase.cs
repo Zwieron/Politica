@@ -8,7 +8,7 @@ public class PollPhase : GamePhase
     new void Start()
     {
         base.Start();
-
+        createDefaultPlayerButtons();
     }
 
     // Update is called once per frame

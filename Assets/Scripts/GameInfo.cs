@@ -8,7 +8,7 @@ public class GameInfo : MonoBehaviour
     public Vector2 player2Pos;
     List<GameObject> playersObjs = new List<GameObject>();
     List<Player> players = new List<Player>();
-    GamePhases currentGamePhase=GamePhases.BiddingPhase;
+    public GamePhases currentGamePhase=GamePhases.BiddingPhase;
     bool gamePhaseChanged = false;
     // Start is called before the first frame update
     void Start()

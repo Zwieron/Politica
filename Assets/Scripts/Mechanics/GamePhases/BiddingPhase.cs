@@ -31,7 +31,7 @@ public class BiddingPhase : GamePhase
             finishBiddingPhaseIteration();
         }
     }
-    void showCards() //TODO: refactor this
+    void showCards()
     {
         if(game.getTable()==null)
         Debug.Log("No table");
@@ -131,15 +131,8 @@ public class BiddingPhase : GamePhase
     {
             findWinnerForEveryCard();
             giveWonCardsToWinners();
-            foreach(Player player in game.getGameInfo().getPlayers())
-            {
-                player.getHandVisual().refresh();
-            }
-            foreach(ButtonAction button in phaseButtonsManager.getButtons())
-            {
-                Destroy(button.gameObject);
-            }
-            phaseButtonsManager.getButtons().Clear();
+            refreshPlayerHands();
+            destroyButtons();
             econOvertonModifier.updateEconOvertonWindow();
             worldviewOvertonModifier.updateWorldviewOvertonWindow();
             iteration++;

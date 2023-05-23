@@ -17,7 +17,7 @@ public class ActionPhase : GamePhase
     new void Start()
     {
         base.Start();
-        createPlayButtonsAroundPlayersHand();
+        createDefaultPlayerButtons();
         instituitonDecks.Add(MinistryDeck);
         instituitonDecks.Add(MediaDeck);
         instituitonDecks.Add(JudiciaryDeck);
@@ -53,21 +53,6 @@ public class ActionPhase : GamePhase
             game.getTable().drawCards(decker,decker.getDeckCount());
         }
     }
-    void createPlayButtonsAroundPlayersHand()
-    {
-        foreach (Player player in game.getGameInfo().getPlayers())
-        {
-            foreach (Card card in player.getHand().getCards())
-            {
-                Directions direction = (Directions)((int)player.buttonDirection*-1);
-                phaseButtonsManager.createButtonAroundCard(card, ButtonTypes.ActivateCardAction,direction);
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().setPlayer(player);
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().setCard(card);
-            }
-            phaseButtonsManager.createDefaultButtonsForPlayer(player);
-            player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
-        }
-    }
     void displayActionButtonsWhenCardIsActive()
     {
         bool clear = false;
@@ -77,7 +62,7 @@ public class ActionPhase : GamePhase
             {
                 if(card.getCardInteraction().isActive()&&
                     !activeCards.Contains(card)&&player.getSelectedAction()==null&&
-                        card.GetCardActionsManager().getCardActionToExecute()==null)//TODO: ogarnąć kartę
+                        card.GetCardActionsManager().getCardActionToExecute()==null)
                 {
                     activeCards.Add(card);
                     phaseButtonsManager.createButtonsForActivatedCharacterCard(card, player);            
@@ -99,21 +84,33 @@ public class ActionPhase : GamePhase
         Player player = game.getTurnManager().getCurrentPlayer();
         foreach(Card card in player.getHand().getCards())
         {
-            if(card is Character&&
-                    card.GetCardActionsManager().getActiveCardAction()!=null && 
-                        card.GetCardActionsManager().isActiveCardActionSelectable()&&
-                            card.GetCardActionsManager().getActiveCardAction()!=registeredSelectAction&&
-                                card.GetCardActionsManager().getCardActionToExecute()==null)
+            if(card.isCardActionSelecting(registeredSelectAction))
             {
-                foreach(Card institutionCard in game.getTable().getHand().getCards())
-                {
-                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
-                    phaseButtonsManager.createSelectButtonForActivatedInstitutionCard(institutionCard, player, button);
-                }
+                displaySelectButtons(card, player);
                 registeredSelectAction = card.GetCardActionsManager().getActiveCardAction();
             }
         }
     }
+    void displaySelectButtons(Card card, Player player)
+    {
+        if(card is Character)
+        {
+            foreach(Card institutionCard in game.getTable().getHand().getCards())
+                {
+                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
+                    phaseButtonsManager.createSelectButtonForActivatedInstitutionCard(institutionCard, player, button);
+                }
+        }
+        if(card is Institution)
+        {
+            foreach(Card characterCard in game.getTable().getHand().getCards())
+                {
+                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
+                    // phaseButtonsManager.createSelectButtonForActivatedCharacterCard(characterCard, player, button);
+                }
+        }
+    }
+    
     void finishActionPhase()
     {
             executioner = gameObject.AddComponent<Executioner>();
@@ -129,7 +126,9 @@ public class ActionPhase : GamePhase
             }
             executioner.executeActions();
             Destroy(executioner);
+            refreshPlayerHands();
+            destroyButtons();
+            Debug.Log("Action Phase finished");
             game.getGameInfo().setGamePhase(GamePhases.PollPhase);
     }
-    
 }
