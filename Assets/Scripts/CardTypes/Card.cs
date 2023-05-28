@@ -6,7 +6,7 @@ public class Card : MonoBehaviour
 {
     protected CardInteraction cardInteraction;
     protected GameObject cardObject;
-    protected Hand hand;
+    public Hand hand;
     protected CardState cardState;
     protected CardActionsManager cardActionsManager;
 

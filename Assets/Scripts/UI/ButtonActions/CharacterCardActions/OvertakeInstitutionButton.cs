@@ -66,6 +66,8 @@ public class OvertakeInstitutionButton : CharacterCardAction, SelectingCharacter
     public override void execute()
     {
         card.GetComponent<Character>().setInstitution(institutionToOvertake);
+        Croupier croupier = new Croupier();
+        croupier.changeCardsOwner(this.player,  institutionToOvertake);
     }
     public void setInstitution(Institution institution)
     {

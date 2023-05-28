@@ -109,8 +109,7 @@ public class ActionPhase : GamePhase
                     // phaseButtonsManager.createSelectButtonForActivatedCharacterCard(characterCard, player, button);
                 }
         }
-    }
-    
+    } 
     void finishActionPhase()
     {
             executioner = gameObject.AddComponent<Executioner>();
@@ -125,8 +124,8 @@ public class ActionPhase : GamePhase
                 }
             }
             executioner.executeActions();
-            Destroy(executioner);
             refreshPlayerHands();
+            Destroy(executioner);
             destroyButtons();
             Debug.Log("Action Phase finished");
             game.getGameInfo().setGamePhase(GamePhases.PollPhase);

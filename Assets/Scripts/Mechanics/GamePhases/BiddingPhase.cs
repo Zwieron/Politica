@@ -84,7 +84,6 @@ public class BiddingPhase : GamePhase
     {
         foreach(KeyValuePair<Card, Player> pair in winnersByCard)
         {
-            Debug.Log(":GWCTW:");
             Debug.Log("Card: " + pair.Key + " Winner: " + pair.Value);
                 croupier.changeCardsOwner(pair.Value, pair.Key);
         }
