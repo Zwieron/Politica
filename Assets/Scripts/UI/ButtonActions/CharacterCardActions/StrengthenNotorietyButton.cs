@@ -14,8 +14,8 @@ public class StrengthenNotorietyButton : CharacterCardAction
     void Start()
     {
         party = player.getParty();
-        oldNotoriety = character.getNotoriety();
-        price=character.getNotoriety()*priceModifier;
+        oldNotoriety = card.GetComponent<Character>().getNotoriety();
+        price=characterActionsManager.GetComponent<Character>().getNotoriety()*priceModifier;
         newFunds = party.getFunds();
         oldFunds = newFunds;
     }
@@ -27,13 +27,13 @@ public class StrengthenNotorietyButton : CharacterCardAction
     }
     public override void action(int value)
     {
-        if(character.GetCharacterActionsManager().getActiveCardAction()==null)
+        if(characterActionsManager.getActiveCardAction()==null)
         {
         player.selectAction(this);
         newNotoriety = oldNotoriety++;
         newFunds = party.getFunds() - price;
-        character.GetCharacterActionsManager().setActiveCardAction(this);
-        Debug.Log("notoriety of " + character.getCharacterName() + " changed");
+        characterActionsManager.setActiveCardAction(this);
+        Debug.Log("notoriety of " + card.GetComponent<Character>().getCharacterName() + " changed");
         }
         else return; 
     }
@@ -43,21 +43,20 @@ public class StrengthenNotorietyButton : CharacterCardAction
     }
     public override void update()
     {
-        if(character.GetCharacterActionsManager().getActiveCardAction()==this)
+        if(characterActionsManager.getActiveCardAction()==this)
         {
-        character.GetCharacterActionsManager().setCardActionToExecute(this);
+        characterActionsManager.setCardActionToExecute(this);
         oldNotoriety = newNotoriety;
         oldFunds = newFunds;
-        activatedAction = true;
         }
     }
     public override void reset()
     {
-        if(character.GetCharacterActionsManager().getActiveCardAction()==this)
+        if(characterActionsManager.getActiveCardAction()==this)
         {
         newFunds=party.getFunds();
         newNotoriety=oldNotoriety;
-        character.GetCharacterActionsManager().setActiveCardAction(null);
+        characterActionsManager.setActiveCardAction(null);
         Destroy(this.gameObject);
         }
         else
@@ -65,7 +64,7 @@ public class StrengthenNotorietyButton : CharacterCardAction
     }
     public override void execute()
     {
-        character.setNotoriety(newNotoriety);
+        card.GetComponent<Character>().setNotoriety(newNotoriety);//TODO: change to character
         party.setFunds(newFunds);
     }
 }

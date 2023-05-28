@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    CardInteraction cardInteraction;
-    GameObject cardObject;
-    Hand hand;
-    CardState cardState;
-    CardTypes cardType;
+    protected CardInteraction cardInteraction;
+    protected GameObject cardObject;
+    public Hand hand;
+    protected CardState cardState;
+    protected CardActionsManager cardActionsManager;
 
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         if(gameObject==null)
         cardObject = new GameObject();
@@ -67,6 +67,20 @@ public class Card : MonoBehaviour
         cardInteraction.getHighlighter().highlightYellow();
         else
         cardInteraction.getHighlighter().highlightWhite();
+    }
+    public CardActionsManager GetCardActionsManager()
+    {
+        return cardActionsManager;
+    }
+    public bool isCardActionSelecting(ButtonAction registeredSelectAction)
+    {
+        if(GetCardActionsManager().getActiveCardAction()!=null && 
+        GetCardActionsManager().isActiveCardActionSelectable()&&
+        GetCardActionsManager().getActiveCardAction()!=registeredSelectAction&&
+        GetCardActionsManager().getCardActionToExecute()==null)
+        return true;
+        else
+        return false;
     }
 
 }

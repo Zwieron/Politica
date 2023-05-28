@@ -46,7 +46,7 @@ public class PhaseButtonsManager : MonoBehaviour
         Debug.Log("clearing active card buttons");
         foreach(CharacterCardAction characterCardAction in activeCharacterCardActions)
         {
-            if(characterCardAction.getCharacter().GetCharacterActionsManager().getActiveCardAction()!=characterCardAction)
+            if(characterCardAction.getCharacterActionsManager().getActiveCardAction()!=characterCardAction)
             {
             buttons.Remove(characterCardAction); //nie usuwac przycisku z listy bo jest juz wykorzystywany?
             Destroy(characterCardAction.gameObject);
@@ -75,9 +75,9 @@ public class PhaseButtonsManager : MonoBehaviour
         Player player = game.getTurnManager().getCurrentPlayer();
         foreach(Card card in player.getHand().getCards())
         {
-            if(card.GetComponent<Character>()!=null && card.GetComponent<Character>().GetCharacterActionsManager().isActiveCardSelectable())
+            if(card is Character && card.GetCardActionsManager().isActiveCardActionSelectable())
                 {
-                    SelectingCharacterButton action = (SelectingCharacterButton) card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                    SelectingCharacterButton action = (SelectingCharacterButton) card.GetCardActionsManager().getActiveCardAction();
                     foreach(SelectCardAction select in selectCardActions)
                     {
                         if(select.isTurnOfActivityNow()&&select.getSelector().getSelectingButtonAction().Equals(action)||select.isSelected())

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Party : MonoBehaviour
 {
-    public List<Character> partyMembers = new List<Character>();
     public int supportPercentage;
     Player owner;
     int funds;
@@ -22,9 +21,13 @@ public class Party : MonoBehaviour
     void sumSupportPercentage()
     {
         int tempSupport = 0;
-        foreach(Character character in partyMembers)
+        foreach(Card card in owner.getHand().getCards())
         {
-            tempSupport += character.getSupportModifier();
+            if(card is Character)
+            {
+                Character character = (Character)card;
+                tempSupport += character.getSupportModifier();
+            }
         }
         supportPercentage = tempSupport;
     }

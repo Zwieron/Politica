@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : Card
 {
     public string characterName;
     public Institution characterInstitution;
@@ -12,12 +12,12 @@ public class Character : MonoBehaviour
     public EconomicViews economicView;
     public CharacterBuff characterBuff;
     List<ButtonTypes> availibleActions = new List<ButtonTypes>();
-   CharacterActionsManager characterActionsManager;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
-      characterActionsManager = GetComponent<CharacterActionsManager>();
+      base.Awake();
+      cardActionsManager = GetComponent<CharacterActionsManager>();
     }
 
     // Update is called once per frame
@@ -75,10 +75,6 @@ public class Character : MonoBehaviour
      {
       return characterInstitution;
      }
-    public CharacterActionsManager GetCharacterActionsManager()
-    {
-        return characterActionsManager;
-    }
     public string getCharacterName()
     {
       return name;

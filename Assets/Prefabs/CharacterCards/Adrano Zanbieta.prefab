@@ -36,6 +36,78 @@ RectTransform:
   m_AnchoredPosition: {x: -75.66896, y: 17.7}
   m_SizeDelta: {x: 45.7379, y: 32.8864}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1363567390722872062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2477478156226565120}
+  m_Layer: 0
+  m_Name: InstitutionCardPosActive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2477478156226565120
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363567390722872062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3317570740425651859}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -152.25, y: 37.821}
+  m_SizeDelta: {x: 107.4145, y: 149.9508}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1423633279687686976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4945643312355739478}
+  m_Layer: 0
+  m_Name: InstitutionCardPosIdle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4945643312355739478
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423633279687686976}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3317570740425651859}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -22.253098, y: 25.0246}
+  m_SizeDelta: {x: 107.4145, y: 149.9508}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2109201817322072668
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +454,8 @@ RectTransform:
   - {fileID: 2577161729300549679}
   - {fileID: 331845409612180213}
   - {fileID: 241865585412994772}
+  - {fileID: 4945643312355739478}
+  - {fileID: 2477478156226565120}
   m_Father: {fileID: 8526699128393775998}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -496,7 +570,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8526699128393775998}
-  - component: {fileID: 4919272674516939639}
   - component: {fileID: 6093439608478736569}
   - component: {fileID: 8768077601576565206}
   - component: {fileID: 4628200766942900933}
@@ -506,6 +579,7 @@ GameObject:
   - component: {fileID: 5447780312145571350}
   - component: {fileID: 200055931915335852}
   - component: {fileID: 5431032527557511972}
+  - component: {fileID: 3143182071769342600}
   m_Layer: 0
   m_Name: Adrano Zanbieta
   m_TagString: Card
@@ -534,18 +608,6 @@ RectTransform:
   m_AnchoredPosition: {x: 420, y: 75}
   m_SizeDelta: {x: 3.6, y: 5.04}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4919272674516939639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837682787087441068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4282c1926410a4a8b985abf207c19f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &6093439608478736569
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -648,8 +710,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aeeb00a036ea447a0f760d1142bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: {fileID: 0}
   characterName: Adriano Zanbieta
-  characterNotoriety: 0
+  characterInstitution: {fileID: 0}
+  characterNotoriety: 1
   worldview: 1
   economicView: 2
   characterBuff: {fileID: 0}
@@ -666,6 +730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activated: 0
+  isMouseOver: 0
   blocked: 0
   UIGraphics: {fileID: 8768077601576565206}
   colliderSize: {x: 3.6, y: 5}
@@ -675,7 +740,6 @@ MonoBehaviour:
   hoverScale: 50
   clickScale: 80
   defaultRotation: -0
-  colliderSizeWhenActive: {x: 6, y: 5}
   defaultPosition: {x: 420, y: 75, z: 0}
   cardCanvas: {fileID: 4830174376171980271}
 --- !u!114 &7174518209579506529
@@ -736,6 +800,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ab744b717eeea4385044959aa2d76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCardAction: {fileID: 0}
+--- !u!114 &3143182071769342600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837682787087441068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a537aa0a46b701542869a81243349245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idlePosition: {fileID: 1423633279687686976}
+  activePosition: {fileID: 1363567390722872062}
 --- !u!1 &7078767835828576625
 GameObject:
   m_ObjectHideFlags: 0

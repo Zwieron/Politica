@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ActionPhase : GamePhase
 {   
+    Executioner executioner;
     public int cardsDrawn;
     public Deck MinistryDeck;
     public Deck MediaDeck;
@@ -11,12 +12,12 @@ public class ActionPhase : GamePhase
     public Deck NGODeck;
     List<Deck> instituitonDecks  = new List<Deck>();
     List<Card> activeCards = new List<Card>();
-    public SelectingCharacterButton registeredSelectAction;
+    public ButtonAction registeredSelectAction;
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
-        createPlayButtonsAroundPlayersHand();
+        createDefaultPlayerButtons();
         instituitonDecks.Add(MinistryDeck);
         instituitonDecks.Add(MediaDeck);
         instituitonDecks.Add(JudiciaryDeck);
@@ -27,6 +28,10 @@ public class ActionPhase : GamePhase
     // Update is called once per frame
     void Update()
     {   
+        if(checkIfAllPlayersHavePassed())
+        {
+            finishActionPhase();
+        }
         displayActionButtonsWhenCardIsActive();
         displaySelectButtonsWhenSelectingActionIsActive();
         if(phaseButtonsManager.checkIfAnySelectButtonIsSelected())
@@ -48,21 +53,6 @@ public class ActionPhase : GamePhase
             game.getTable().drawCards(decker,decker.getDeckCount());
         }
     }
-    void createPlayButtonsAroundPlayersHand()
-    {
-        foreach (Player player in game.getGameInfo().getPlayers())
-        {
-            foreach (Card card in player.getHand().getCards())
-            {
-                Directions direction = (Directions)((int)player.buttonDirection*-1);
-                phaseButtonsManager.createButtonAroundCard(card, ButtonTypes.ActivateCardAction,direction);
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().setPlayer(player);
-                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<ActivateCardAction>().setCard(card);
-            }
-            phaseButtonsManager.createDefaultButtonsForPlayer(player);
-            player.gatherPlayerButtonActions(phaseButtonsManager.getButtons());
-        }
-    }
     void displayActionButtonsWhenCardIsActive()
     {
         bool clear = false;
@@ -70,7 +60,9 @@ public class ActionPhase : GamePhase
         {
             foreach(Card card in player.getHand().getCards())
             {
-                if(card.getCardInteraction().isActive()&&!activeCards.Contains(card)&&player.getSelectedAction()==null)
+                if(card.getCardInteraction().isActive()&&
+                    !activeCards.Contains(card)&&player.getSelectedAction()==null&&
+                        card.GetCardActionsManager().getCardActionToExecute()==null)
                 {
                     activeCards.Add(card);
                     phaseButtonsManager.createButtonsForActivatedCharacterCard(card, player);            
@@ -87,25 +79,55 @@ public class ActionPhase : GamePhase
             phaseButtonsManager.clearActiveCardButtons();
         }
     }
-    void displaySelectButtonsWhenSelectingActionIsActive()
+    void displaySelectButtonsWhenSelectingActionIsActive() //TODO: polimorfizm tej funkcji
     {
         Player player = game.getTurnManager().getCurrentPlayer();
         foreach(Card card in player.getHand().getCards())
         {
-            if(card.GetComponent<Character>()!=null&&
-                    card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=null && 
-                        card.GetComponent<Character>().GetCharacterActionsManager().isActiveCardSelectable()&&
-                            card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction()!=registeredSelectAction&&
-                                card.GetComponent<Character>().GetCharacterActionsManager().getCardActionToExecute()==null)
+            if(card.isCardActionSelecting(registeredSelectAction))
             {
-                foreach(Card institutionCard in game.getTable().getHand().getCards())
-                {
-                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
-                    phaseButtonsManager.createSelectButtonForActivatedInstitutionCard(institutionCard, player, button);
-                }
-                registeredSelectAction = (SelectingCharacterButton)card.GetComponent<Character>().GetCharacterActionsManager().getActiveCardAction();
+                displaySelectButtons(card, player);
+                registeredSelectAction = card.GetCardActionsManager().getActiveCardAction();
             }
         }
     }
-    
+    void displaySelectButtons(Card card, Player player)
+    {
+        if(card is Character)
+        {
+            foreach(Card institutionCard in game.getTable().getHand().getCards())
+                {
+                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
+                    phaseButtonsManager.createSelectButtonForActivatedInstitutionCard(institutionCard, player, button);
+                }
+        }
+        if(card is Institution)
+        {
+            foreach(Card characterCard in game.getTable().getHand().getCards())
+                {
+                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
+                    // phaseButtonsManager.createSelectButtonForActivatedCharacterCard(characterCard, player, button);
+                }
+        }
+    } 
+    void finishActionPhase()
+    {
+            executioner = gameObject.AddComponent<Executioner>();
+            foreach(Player player in game.getGameInfo().getPlayers())
+            {
+                foreach(Card card in player.getHand().getCards())
+                {
+                    if(card is Character)
+                    {
+                        executioner.addAction(card.GetCardActionsManager().getCardActionToExecute());
+                    }
+                }
+            }
+            executioner.executeActions();
+            refreshPlayerHands();
+            Destroy(executioner);
+            destroyButtons();
+            Debug.Log("Action Phase finished");
+            game.getGameInfo().setGamePhase(GamePhases.PollPhase);
+    }
 }
