@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InstitutionCardAction : ButtonAction, SelectingCharacterButton
+public class InstitutionCardAction : CharacterCardAction, SelectingCharacterButton
 {
-    protected Card card;
     protected CardSelector cardSelector;
     protected InstitutionActionManager institutionActionManager;
     public override void action(int value)
@@ -30,5 +29,9 @@ public class InstitutionCardAction : ButtonAction, SelectingCharacterButton
     public CardSelector getSelector()
     {
         return cardSelector;
+    }
+    public override void execute()
+    {
+        throw new System.NotImplementedException();
     }
 }

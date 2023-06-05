@@ -65,7 +65,7 @@ public class ActionPhase : GamePhase
                         card.GetCardActionsManager().getCardActionToExecute()==null)
                 {
                     activeCards.Add(card);
-                    phaseButtonsManager.createButtonsForActivatedCharacterCard(card, player);            
+                    phaseButtonsManager.createButtonsForActivatedCard(card, player);            
                 }
                 else if(!card.getCardInteraction().isActive()&&activeCards.Contains(card))
                 {
@@ -98,16 +98,22 @@ public class ActionPhase : GamePhase
             foreach(Card institutionCard in game.getTable().getHand().getCards())
                 {
                     SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
-                    phaseButtonsManager.createSelectButtonForActivatedInstitutionCard(institutionCard, player, button);
+                    phaseButtonsManager.createSelectButtonForActivatedCard(institutionCard, player, button);
                 }
         }
         if(card is Institution)
         {
-            foreach(Card characterCard in game.getTable().getHand().getCards())
+            foreach(Player otherPlayer in game.getGameInfo().getPlayers())
+            {
+                if(otherPlayer != player)
                 {
-                    SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
-                    // phaseButtonsManager.createSelectButtonForActivatedCharacterCard(characterCard, player, button);
+                    foreach(Card characterCard in player.getHand().getCards())
+                        {
+                            SelectingCharacterButton button = (SelectingCharacterButton)card.GetCardActionsManager().getActiveCardAction();
+                            phaseButtonsManager.createSelectButtonForActivatedCard(characterCard, player, button);
+                        }
                 }
+            }
         }
     } 
     void finishActionPhase()

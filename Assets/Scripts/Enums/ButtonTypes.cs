@@ -13,7 +13,8 @@ public enum  ButtonTypes
     //character actions
     StrengthenNotoriety,
     OvertakeInstitution,
-    InstitutionAction,
+    InstitutionAct1,
+    InstitutionAct2,
     BlockAction,
     ExposeCharacter,
     ///other

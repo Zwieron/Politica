@@ -5,12 +5,10 @@ using UnityEngine;
 public class MediaPositiveAction : InstitutionCardAction
 {
     //Wzmacnia rozpoznawalność wybranej postaci
-    Media medium;
     Character characterToStrengthen;
     public int notorietyFactor;
     void Start()
     {
-        medium = GetComponent<Media>();
     }
     public override void action(int value)
     {
@@ -55,5 +53,9 @@ public class MediaPositiveAction : InstitutionCardAction
         else return;
         }
         else return;
+    }
+    public override void execute()
+    {
+        base.execute();
     }
 }

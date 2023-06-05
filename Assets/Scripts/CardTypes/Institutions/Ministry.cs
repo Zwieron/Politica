@@ -19,9 +19,10 @@ public class Ministry : Institution
     {
 
     }
-    override public void AttackAction()
+    override public void AttackAction(SelectingCharacterButton buttonAction)
     {
-
+        CardSelector selector = buttonAction.getSelector();
+        selector.getSelectedCard();
     }
     override public void BuffAction()
     {

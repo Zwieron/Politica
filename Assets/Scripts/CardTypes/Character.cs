@@ -11,13 +11,12 @@ public class Character : Card
     public Worldviews worldview;
     public EconomicViews economicView;
     public CharacterBuff characterBuff;
-    List<ButtonTypes> availibleActions = new List<ButtonTypes>();
+    
 
     // Start is called before the first frame update
     protected override void Awake()
     {
       base.Awake();
-      cardActionsManager = GetComponent<CharacterActionsManager>();
     }
 
     // Update is called once per frame
@@ -25,22 +24,18 @@ public class Character : Card
     {
         
     }
-   public void checkAvailibleActions()
+   public override void checkAvailibleActions()
    {
       availibleActions.Clear();
       availibleActions.Add(ButtonTypes.ExposeCharacter);
       availibleActions.Add(ButtonTypes.StrengthenNotoriety);
       if(characterInstitution!=null)
       {
-      availibleActions.Add(ButtonTypes.InstitutionAction);
+      availibleActions.Add(ButtonTypes.InstitutionAct1);
       availibleActions.Add(ButtonTypes.BlockAction);
       }
       if(characterInstitution==null)
       availibleActions.Add(ButtonTypes.OvertakeInstitution);   
-   }
-   public List<ButtonTypes> getAvailibleActions()
-   {
-      return availibleActions;
    }
 
     public int getSupportModifier()

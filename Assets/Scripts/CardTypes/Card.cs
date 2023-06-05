@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public abstract class Card : MonoBehaviour
 {
     protected CardInteraction cardInteraction;
     protected GameObject cardObject;
     public Hand hand;
     protected CardState cardState;
     protected CardActionsManager cardActionsManager;
-
-
+    protected List<ButtonTypes> availibleActions = new List<ButtonTypes>();
     // Start is called before the first frame update
     protected virtual void Awake()
     {
@@ -23,6 +22,7 @@ public class Card : MonoBehaviour
         cardInteraction = cardObject.GetComponent<CardInteraction>();
         if(cardInteraction==null)
         cardInteraction = cardObject.AddComponent<CardInteraction>();
+        cardActionsManager = GetComponent<CharacterActionsManager>();
         Debug.Log(cardObject.GetInstanceID());
         
     }
@@ -61,6 +61,10 @@ public class Card : MonoBehaviour
     {
         return cardState;
     }
+    public List<ButtonTypes> getAvailibleActions()
+   {
+      return availibleActions;
+   }
     void highlightActivated()
     {
         if(cardState==CardState.Activated)
@@ -82,5 +86,7 @@ public class Card : MonoBehaviour
         else
         return false;
     }
+    public abstract void checkAvailibleActions();
+
 
 }

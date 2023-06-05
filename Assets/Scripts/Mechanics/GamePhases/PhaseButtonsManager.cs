@@ -105,15 +105,15 @@ public class PhaseButtonsManager : MonoBehaviour
         switch(buttonType)
         {
             case ButtonTypes.BlockAction:
-            return Directions.LEFTUP;
+            return Directions.RIGHTUP;
             case ButtonTypes.ExposeCharacter:
             return Directions.UP;
             case ButtonTypes.StrengthenNotoriety:
             return Directions.RIGHTUP;
             case ButtonTypes.OvertakeInstitution:
             return Directions.RIGHTDOWN;
-            case ButtonTypes.InstitutionAction:
-            return Directions.LEFTDOWN;
+            case ButtonTypes.InstitutionAct1:
+            return Directions.RIGHTDOWN;
             default:
             return Directions.DOWN;
         }
@@ -150,7 +150,7 @@ public class PhaseButtonsManager : MonoBehaviour
             case ButtonTypes.OvertakeInstitution:
             game.getPrefabModifier().createOvertakeInstitutionButton(position, phase);
             break;
-            case ButtonTypes.InstitutionAction:
+            case ButtonTypes.InstitutionAct1:
             game.getPrefabModifier().createInstitutionActionButton(position, phase);
             break;
             ///////SELECT CARD ACTION//////
@@ -191,19 +191,35 @@ public class PhaseButtonsManager : MonoBehaviour
     {
         buttons.Remove(buttonAction);
     }
-    public void createButtonsForActivatedCharacterCard(Card card, Player player)
+    public void createButtonsForActivatedCard(Card card, Player player)
     {
-        card.GetComponent<Character>().checkAvailibleActions();
-        foreach(ButtonTypes buttonType in card.GetComponent<Character>().getAvailibleActions())
+        if(card.GetComponent<Character>()!=null)
         {
-            switchCreateButtonType(buttonType, switchPositionByDirection(card, switchDirectionByButtonType(buttonType)));
-            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setPlayer(player);
-            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setCard(card);
-            game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().transform.SetParent(card.getCardInteraction().GetCanvas().gameObject.transform);
-            activeCharacterCardActions.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>());
+            card.GetComponent<Character>().checkAvailibleActions();
+            foreach(ButtonTypes buttonType in card.GetComponent<Character>().getAvailibleActions())
+            {
+                switchCreateButtonType(buttonType, switchPositionByDirection(card, switchDirectionByButtonType(buttonType)));
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setPlayer(player);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setCard(card);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().transform.SetParent(card.getCardInteraction().GetCanvas().gameObject.transform);
+                activeCharacterCardActions.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>());
+            }
+        }
+        if(card.GetComponent<Institution>()!=null)
+        {
+            card.GetComponent<Institution>().checkAvailibleActions();
+            foreach(ButtonTypes buttonType in card.GetComponent<Institution>().getAvailibleActions())
+            {
+                switchCreateButtonType(buttonType, switchPositionByDirection(card, switchDirectionByButtonType(buttonType)));
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setPlayer(player);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>().setCard(card);
+                game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().transform.SetParent(card.getCardInteraction().GetCanvas().gameObject.transform);
+                activeCharacterCardActions.Add(game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<CharacterCardAction>());
+            }
         }
     }
-    public void createSelectButtonForActivatedInstitutionCard(Card card, Player player, SelectingCharacterButton selectingCharacterButton)
+    
+    public void createSelectButtonForActivatedCard(Card card, Player player, SelectingCharacterButton selectingCharacterButton)
     {
         switchCreateButtonType(ButtonTypes.SelectCardAction, switchPositionByDirection(card, player.buttonDirection));
             game.getPrefabModifier().getPrefabInstantiator().getLastPrefab().GetComponent<SelectCardAction>().setPlayer(player);
